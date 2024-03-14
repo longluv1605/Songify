@@ -1,4 +1,4 @@
-# Bài tập lớn - Web nhạc - Songify
+# EcomMarket - Nền tảng thương mại điện tử.
 
 ## Thông tin nhóm: Nhóm 99.
 | Họ và tên | Mã sinh viên | Khóa |
