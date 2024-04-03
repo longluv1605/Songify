@@ -1,0 +1,45 @@
+body{
+    background-color: #DCD4D4;
+}
+#logo {
+    height: 60px;
+    width: 60px;
+    vertical-align: middle;
+}
+
+#logo-search{
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+}
+
+#search-input {
+    width: 500px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 15px;
+    line-height: 25px;
+}
+
+.topnav{
+    color: black;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+#cate-picture{
+    height: 370px;
+    width: 370px;
+    padding: 12px;
+}
+
+#slide-pic{
+    height: 500px;
+    width: 500px;
+    align-items: center;
+}
+
+h1 {
+    color: black;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+}
