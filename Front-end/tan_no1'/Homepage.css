@@ -1,6 +1,7 @@
 body{
     background-color: #dcd4d46a;
 }
+
 #customer-support, #exit-icon, #research-icon{
     height: 20px;
     width: 20px;
@@ -31,24 +32,37 @@ body{
     font-family: Helvetica, Arial, sans-serif;
 }
 
+.topnav:hover {
+    text-decoration: none;
+    color: rgba(94, 90, 90, 0.5);
+}
+
 #cate-picture{
-    height: 370px;
-    width: 370px;
+    height: 70px;
+    width: 70px;
     padding: 12px;
 }
 
 #slide-pic{
-    height: 500px;
-    width: 500px;
+    height: 100%;
+    width: 100%;
     align-items: center;
 }
 
-#danhmuc {
+#danhmuc, #today-recommendation {
     text-align: center;
 }
 
+#table-danhmuc {
+    width: 100%;
+}
+
 .category {
-    margin:50px 10% 0px 10%;
+    margin:50px 13% 0px 13%;
+}
+
+.recommendation {
+    margin:50px 13% 0px 13%;
 }
 
 .toptop {
@@ -56,8 +70,10 @@ body{
 }
 
 .image {
-    width: 45px;
-    height: 50px;
+    width: 60%;
+    height: 60%;
+    opacity: 1;
+    transition: opacity .2s ease;
 }
 
 .image-setting {
@@ -66,17 +82,27 @@ body{
     align-items: center;
 }
 
+.category table {
+    display: grid;
+}
+
 .title {
-    display: flex;
-    justify-content: center;
     text-align: center;
 }
 
 .category td {
-    border: 2px solid rgba(0, 0, 0);
-    width: 25%;
+    border: 1px solid rgba(0, 0, 0);
     padding: 20px 0px 20px 0px;
     background-color: white;
+}
+
+.category td:hover {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
 }
 
 h1 {
