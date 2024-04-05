@@ -7,31 +7,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="color.css">
+    <link rel="stylesheet" href="Homepage.css">
 </head>
 <body>
-    <div class="toptop" style="background-color: #FFDAB9;">
-        <div class="container" ;">
+    <div class="toptop">
+        <div class="container">
             <div class="col-sm-12">
-                <div class="row" style="margin: 15px;"">
+                <div class="row" style="margin-bottom: 15px;">
                     <div class="col-sm-3">
                         <a class="topnav" href="https://www.youtube.com/">Trang chủ</a>  
                     </div>
                     <div class="col-sm-3">
-                        <a class="topnav" style="text-align: center;">Đơn hàng</a>
+                        <a class="topnav" style="text-align: center;">
+                            <img src="assets/research.png" id="research-icon" alt="Đơn hàng">
+                            Đơn hàng
+                        </a>
                     </div>
                     <div class="col-sm-3">
-                        <a class="topnav">Hỗ trợ khách hàng</a>
+                        <a class="topnav">
+                            <img src="assets/customer-support.png" id="customer-support" alt="Hỗ trợ khách hàng">
+                            Hỗ trợ khách hàng
+                        </a>
                     </div>
                     <div class="col-sm-3">
-                        <a class="topnav">Quản lý khách hàng</a>
+                        <a class="topnav">
+                            <img src="assets/exit.png" id="exit-icon" alt="Đăng xuất">
+                            Đăng xuất
+                        </a>
                     </div>
                     
                 </div>
                 <div class="row" style="margin: 15px;">
                         <div class="col-sm-2">
                             <a href="https://www.youtube.com/">
-                                <img src="assets/ebay.png" id="logo" > 
+                                <img src="assets/logo.png" id="logo" > 
                             </a>
                         </div>
                         <div class="col-sm-7">
@@ -44,7 +53,7 @@
                     </div>
                     <div class="col-sm-3">
                         <a>
-                            <img src="assets/shopping-basket.png" id="logo">
+                            <img src="assets/shopping-cart.png" id="logo">
                         </a>
                     </div>
         </div>
@@ -73,13 +82,13 @@
                         <img class="d-block w-100" src="assets/pexels-vlad-alexandru-popa-1402787.jpg" alt="Third slide" id="slide-pic"/>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="assets/pexels-vlad-alexandru-popa-1402787.jpg" alt="Fourth slide" id="slide-pic"/>
+                        <img class="d-block w-100" src="assets/pexels-pixabay-33045.jpg" alt="Fourth slide" id="slide-pic"/>
                     </div>
                     <div class="carousel-item">
                         <img class="d-block w-100" src="assets/pexels-vlad-alexandru-popa-1402787.jpg" alt="Fifth slide" id="slide-pic"/>
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="assets/pexels-vlad-alexandru-popa-1402787.jpg" alt="Sixth slide" id="slide-pic"/>
+                        <img class="d-block w-100" src="assets/pexels-pixabay-33045.jpg" alt="Sixth slide" id="slide-pic"/>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
@@ -96,43 +105,107 @@
             </div>
         </div>
 
-<div class="category" style="padding-top:50px">
-    <h1>Danh mục</h1>
-    <div class="col-sm-12">
-    <table style="width: 1000px">
+<div class="category">
+    <h1 id="danhmuc">Danh mục</h1>
+    <div class="col-sm-12" id="table-danhmuc">
+    <table style="width: 100%;">
         <tr> <!-- Hàng 1 -->
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 1" id="cate-picture"></td>                
+                <!-- <td><img src="assets/ebay.png" alt="Image 1" id="cate-picture"></td>                 -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/t-shirt.png" alt="Thời trang nam">
+                        </div>
+                        <div class="title">Thời Trang Nam</div>
+                    </div>
+                </td>
             </div>
             
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 2" id="cate-picture"></td>
+                <!-- <td><img src="assets/ebay.png" alt="Image 2" id="cate-picture"></td> -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/sneakers.png" alt="Giày dép nam">
+                        </div>
+                        <div class="title">Giày Dép Nam</div>
+                    </div>
+                </td>
             </div>
             
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 3" id="cate-picture"></td>
+                <!-- <td><img src="assets/ebay.png" alt="Image 3" id="cate-picture"></td> -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/diving-watch.png" alt="Đồng hồ">
+                        </div>
+                        <div class="title">Đồng Hồ</div>
+                    </div>
+                </td>
             </div>
             
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 4" id="cate-picture"></td>
+                <!-- <td><img src="assets/ebay.png" alt="Image 4" id="cate-picture"></td> -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/laptop.png" alt="Máy tính & Laptop">
+                        </div>
+                        <div class="title">Máy Tính & Laptop</div>
+                    </div>
+                </td>
             </div>
             
         </tr>
         <tr> <!-- Hàng 2 -->
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 5" id="cate-picture"></td>                
+                <!-- <td><img src="assets/ebay.png" alt="Image 5" id="cate-picture"></td>                 -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/skirt.png" alt="Thời trang nữ">
+                        </div>
+                        <div class="title">Thời Trang Nữ</div>
+                    </div>
+                </td>
             </div>
             
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 6" id="cate-picture"></td>
+                <!-- <td><img src="assets/ebay.png" alt="Image 6" id="cate-picture"></td> -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/shoes.png" alt="Giày dép nữ">
+                        </div>
+                        <div class="title">Giày Dép Nữ</div>
+                    </div>
+                </td>
             </div>
             
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 7" id="cate-picture"></td>
+                <!-- <td><img src="assets/ebay.png" alt="Image 7" id="cate-picture"></td> -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/necklace.png" alt="">
+                        </div>
+                        <div class="title">Phụ Kiện & Trang Sức Nữ</div>
+                    </div>
+                </td>
             </div>
             
             <div class="col-sm-3">
-                <td><img src="assets/ebay.png" alt="Image 8" id="cate-picture"></td>
+                <!-- <td><img src="assets/ebay.png" alt="Image 8" id="cate-picture"></td> -->
+                <td>
+                    <div>
+                        <div class="image-setting">
+                            <img class="image" src="./assets/online-learning.png" alt="Thiết bị điện tử">
+                        </div>
+                        <div class="title">Thiết Bị Điện Tử</div>
+                    </div>
+                </td>
             </div>
         </tr>
     </table>
@@ -141,9 +214,9 @@
 
 
 <div class="recommendation">
-    <h1>Gợi ý hôm nay</h1>
-    <div class="col-sm-12">
-        <table style="width:1000px";>
+    <h1 id="today-recommendation">Gợi ý hôm nay</h1>
+    <div class="col-sm-12" id="table-recommendation">
+        <table style = "width: 1000px;">
             <tr>
                 <div class="col-sm-3">
                     <td><img src="assets/ebay.png" alt="Image 1" id="cate-picture"></td>
