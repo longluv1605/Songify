@@ -44,8 +44,8 @@ body{
 }
 
 #slide-pic{
-    height: 100%;
-    width: 100%;
+    height: 500px;
+    width: 1200px;
     align-items: center;
 }
 
@@ -94,6 +94,14 @@ body{
     border: 1px solid rgba(0, 0, 0);
     padding: 20px 0px 20px 0px;
     background-color: white;
+}
+
+.category .link-product {
+    color: black;
+}
+
+.category .link-product:hover {
+    text-decoration: none;
 }
 
 .category td:hover {
