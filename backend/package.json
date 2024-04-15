@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend for ecommarket",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longluv1605/EcomMarket.git"
+  },
+  "keywords": [
+    "ecommarket",
+    "tech",
+    "phone"
+  ],
+  "author": "long, minh, nam, hieu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/longluv1605/EcomMarket.git"
+  },
+  "homepage": "https://github.com/longluv1605/EcomMarket#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
