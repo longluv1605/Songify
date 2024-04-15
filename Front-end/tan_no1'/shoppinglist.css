@@ -44,21 +44,39 @@ body{
     vertical-align: middle;
 }
 
-#category-cart{
-    font-size: 25px;
+.category-cart{
+    font-size: inherit;
+    color: #757575;
+    margin: 0;
+}
+
+.Shopping-list .container .title-container{
+    display: flex;
+    height: 50px;
+    align-items: center;
 }
 
 .cate-picture{
-    height: 370px;
-    width: 370px;
-    padding: 12px;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
 }
 
 .Shopping-list {
     margin: 20px 10% 0 10%;
     background-color: white;
+    border: 1px solid white;
+    border-radius: 3px;
 }
 
 .card:hover {
     text-shadow: 0 0 5px #ffffff;
+}
+
+.recommendation {
+    margin: 0 10% 0 10%;
+}
+
+#today-recommendation {
+    text-align: center;
 }
