@@ -1,0 +1,20 @@
+{
+    "category" : [
+        {
+            "cate1" : {
+                "pic1": "assets/book.png",
+                "pic2": "assets/book.png",
+                "pic3": "assets/book.png",
+                "pic4": "assets/book.png",
+                "pic5": "assets/book.png",
+                "pic6": "assets/book.png",
+                "pic7": "assets/book.png",
+                "pic8": "assets/book.png",
+                "pic9": "assets/book.png",
+                "pic10": "assets/book.png",
+                "pic11": "assets/book.png",
+                "pic12": "assets/book.png"
+            }
+        }
+    ]
+}

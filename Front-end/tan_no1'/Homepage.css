@@ -1,0 +1,120 @@
+body{
+    background-color: #dcd4d46a;
+}
+
+#customer-support, #exit-icon, #research-icon{
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+#logo {
+    height: 60px;
+    width: 60px;
+    vertical-align: middle;
+}
+
+#logo-search{
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+}
+
+#search-input {
+    width: 500px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 15px;
+    line-height: 25px;
+}
+
+.topnav{
+    color: black;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.topnav:hover {
+    text-decoration: none;
+    color: rgba(94, 90, 90, 0.5);
+}
+
+#cate-picture{
+    height: 70px;
+    width: 70px;
+    padding: 12px;
+}
+
+#slide-pic{
+    height: 500px;
+    width: 1200px;
+    align-items: center;
+}
+
+#danhmuc, #today-recommendation {
+    text-align: center;
+}
+
+#table-danhmuc {
+    width: 100%;
+}
+
+.category {
+    margin:50px 13% 0px 13%;
+}
+
+.recommendation {
+    margin:50px 13% 0px 13%;
+}
+
+.toptop {
+    background-color: #ff00d418;
+}
+
+.image {
+    width: 60%;
+    height: 60%;
+    opacity: 1;
+    transition: opacity .2s ease;
+}
+
+.image-setting {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category table {
+    display: grid;
+}
+
+.title {
+    text-align: center;
+}
+
+.category td {
+    border: 1px solid rgba(0, 0, 0);
+    padding: 20px 0px 20px 0px;
+    background-color: white;
+}
+
+.category .link-product {
+    color: black;
+}
+
+.category .link-product:hover {
+    text-decoration: none;
+}
+
+.category td:hover {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+h1 {
+    color: black;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: lighter;
+}

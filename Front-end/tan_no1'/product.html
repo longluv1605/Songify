@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcomMarket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./product.css">
+</head>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<body>
+    <div class="toptop">
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-sm-3">
+                        <a class="topnav" href="./Homepage.html">Trang chủ</a>  
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="topnav" style="text-align: center;">
+                            <img src="./assets/research.png" id="research-icon" alt="Đơn hàng">
+                            Đơn hàng
+                        </a>
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="topnav" href="./support.html">
+                            <img src="./assets/customer-support.png" id="customer-support" alt="Hỗ trợ khách hàng">
+                            Hỗ trợ khách hàng
+                        </a>
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="topnav">
+                            <img src="./assets/exit.png" id="exit-icon" alt="Đăng xuất">
+                            Đăng xuất
+                        </a>
+                    </div>
+                </div>
+                <div class="row" style="margin: 15px;">
+                    <div class="col-sm-2">
+                        <a href="./Homepage.html">
+                            <img src="./assets/logo.png" id="logo" > 
+                        </a>
+                    </div>
+                    <div class="col-sm-7">
+                        <form style="display: inline-block;">
+                            <input type="text" placeholder="Tìm kiếm" id="search-input">
+                            <a>
+                                <img src="./assets/search.png" id="logo-search" style="margin-left: 440px; margin-top: -80px">
+                            </a>
+                        </form>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="./shoppinglist.html">
+                            <img src="./assets/shopping-cart.png" id="logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-infomation">
+        <div class="col-sm-12">
+            <div class="row" id="product-infomation-and-image">
+                <div class="col-sm-4" style="padding-top: 15px; padding-bottom: 15px;">
+                    <img id="product-image-big" src="./product-image/quan_xam.jpg" alt="Ảnh">
+                </div>
+                <div class="col-sm-8" style="padding-top: 15px; padding-bottom: 15px;">
+                    <div class="product-name">
+                        <div class="love">Yêu thích</div>
+                        <span>Quần short nam, quần ngắn nam kaki [LOẠI ĐẸP] cạp khuy trẻ trung năng động</span>
+                    </div>
+                    <div class="price-of-product">
+                        <div class="cost-price">150.000 đ</div>
+                        <div class="discount-price">
+                            <div class="cost">78.000 đ</div>
+                            <div class="discount">
+                                48% GIẢM
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-column">
+                        <section class="flex items-center table-choice-color col-sm-12" style="margin-bottom: 24px;">
+                            <div class="row">
+                                <h3 class="col-sm-3 title">MÀU SẮC</h3>
+                                <div class="flex items-center col-sm-9">
+                                    <button class="your-choice change">
+                                        <img class="image-choice" src="./product-image/quan_be.jpg">
+                                        KK-Nâu
+                                    </button>
+                                    <button class="your-choice change">
+                                        <img class="image-choice" src="./product-image/quan_den.jpg">
+                                        KK-Đen
+                                    </button>
+                                    <button class="your-choice change">
+                                        <img class="image-choice" src="./product-image/quan_reu.jpg">
+                                        KK-Rêu
+                                    </button>
+                                    <button class="your-choice change">
+                                        <img class="image-choice" src="./product-image/quan_than.jpg">
+                                        KK-Than
+                                    </button>
+                                    <button class="your-choice change">
+                                        <img class="image-choice" src="./product-image/quan_xam.jpg">
+                                        KK-Xám
+                                    </button>
+                                    <button class="your-choice change">
+                                        <img class="image-choice" src="./product-image/quan_xanh.jpg">
+                                        KK-Xanh
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="flex items-center table-choice-size col-sm-12" style="margin-bottom: 24px;">
+                            <div class="row">
+                                <h3 class="col-sm-3 title">KÍCH CỠ</h3>
+                                <div class="flex items-center col-sm-9">
+                                    <button class="your-choice">XS</button>
+                                    <button class="your-choice">S</button>
+                                    <button class="your-choice">M</button>
+                                    <button class="your-choice">L</button>
+                                    <button class="your-choice">XL</button>
+                                    <button class="your-choice">XXL</button>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="flex items-center col-sm-12">
+                            <div class="row input-quantity">
+                                <h3 class="title col-sm-3">Số lượng</h3>
+                                <div class="col-sm-9">
+                                    <input class="change-quantity" type="text" aria-valuenow="1" value="1">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div style="display: flex; align-items:center; margin-top: 30px;">
+                        <button type="button" class="add-to-cart">
+                            <img src="./assets/add-to-cart.png" style="width: 30px; height: 30px; margin-right: 5px">
+                            <span>Thêm Vào Giỏ Hàng</span>
+                        </button>
+                        <button type="button" class="buy-now">Mua Ngay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div>
+
+</div>
+</body>
+</html>
