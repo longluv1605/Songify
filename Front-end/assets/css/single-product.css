@@ -14,6 +14,7 @@
     border-radius: 3px;
     text-align: center;
     font-size: 12px;
+    margin-right: 5px;
 }
 .product-name {
     display: inline-flex;
@@ -98,10 +99,14 @@
     border: 1px solid red;
     color: red;
     border-radius: 3px;
-    background-color: #d0bcbc;
+    background-color: #ece6e6;
     width: 200px;
     height: 50px;
     margin-right: 20px;
+}
+.add-now {
+    text-align: center;
+    justify-content: center;
 }
 .add-to-cart:hover {
     background-color: white;
