@@ -17,6 +17,8 @@ var data = [
 
 var container = document.getElementById("add-data");
 
+console.log(localStorage.getItem("searchPlaceholder"));
+
 data.forEach(function(item){
     var div = document.createElement("div");
     div.className = "col-sm-6 col-lg-6 col-xl-4 mb-6";
