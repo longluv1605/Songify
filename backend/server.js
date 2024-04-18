@@ -1,5 +1,5 @@
 require('dotenv').config()
-const apiRoutes = require('./apis/api');
+const apiRoutes = require('./routes/api');
 
 const express = require('express')
 const app = express()
@@ -9,8 +9,8 @@ const hostname = process.env.HOST_NAME || 'localhost'
 app.use(express.json()); // config for request.body
 app.use(express.urlencoded({ extended: true})); // config for HTML FORM data
 
-apiRoutes(app);
+app.use('/api', apiRoutes);
 
 app.listen(port, hostname, () => {
-  console.log(`Backend is on http://${hostname}:${port}/api`)
+  console.log(`Example app listening on http://${hostname}:${port}/api`)
 })

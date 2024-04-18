@@ -1,4 +1,4 @@
-const { database } = require("../configs/config.database");
+const { database } = require("../configs/configDatabase");
 
 
 const getCategories = async () => {
