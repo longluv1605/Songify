@@ -12,5 +12,5 @@ app.use(express.urlencoded({ extended: true})); // config for HTML FORM data
 api(app);
 
 app.listen(port, hostname, () => {
-  console.log(`Example app listening on http://${hostname}:${port}`)
+  console.log(`Backend is running on http://${hostname}:${port}`)
 })

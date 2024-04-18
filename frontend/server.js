@@ -20,5 +20,5 @@ app.get('/', (req, res) => {
 // Khởi động máy chủ
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Frontend is running on: http://localhost:${port}`);
 });
