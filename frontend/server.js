@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const port = 3000
 
+
 app.use(express.static('assets'))
 app.use('/css', express.static(__dirname + 'assets/css'))
 app.use('/js', express.static(path.join(__dirname + 'assets/js')));

@@ -9,7 +9,7 @@ document.getElementById("search-form").addEventListener("submit", function(event
     if (value) {
         window.location.href = "search.html";
     } else {
-        window.location.href = "shop.html"
+        window.location.href = "shop.html";
     }
 });
 
