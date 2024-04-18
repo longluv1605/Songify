@@ -84,16 +84,6 @@ window.addEventListener('DOMContentLoaded', function() {
     totalSpan.textContent = "$" + item["price"].toLocaleString();
     tdTotal.appendChild(totalSpan);
     tr.appendChild(tdTotal);
-    // Tạo cột cho nút xóa
-    var tdRemove = document.createElement("td");
-    tdRemove.className = "product-remove";
-    var removeLink = document.createElement("a");
-    removeLink.href = "#/";
-    var removeIcon = document.createElement("i");
-    removeIcon.className = "fa fa-trash-o";
-    removeLink.appendChild(removeIcon);
-    tdRemove.appendChild(removeLink);
-    tr.appendChild(tdRemove);
 
     var tbody = document.querySelector("tbody");
     tbody.appendChild(tr);
@@ -103,14 +93,6 @@ window.addEventListener('DOMContentLoaded', function() {
     var total = document.getElementById("totalAmount")
     total.textContent = "$" + current_total.toLocaleString();
     // xử lý xóa đơn hàng
-    var TrashIcons =  document.querySelectorAll(".product-remove i");
-
-    TrashIcons.forEach(function(icon){
-    icon.addEventListener("click", function(){
-        var tr = icon.closest("tr");
-        tr.remove();
-      });
-    });
 });
   
 
