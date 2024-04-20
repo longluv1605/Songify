@@ -6,9 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "backend": "nodemon backend/server.js",
-        "user": "nodemon frontend/user/server.js",
-        "admin": "nodemon frontend/admin/server.js",
-        "frontend": "concurrently \"npm run user\" \"npm run admin\"",
+        "frontend": "nodemon frontend/server.js",
         "dev": "concurrently \"npm run backend\" \"npm run frontend\""
     },
     "repository": {
