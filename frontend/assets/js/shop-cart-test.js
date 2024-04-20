@@ -1,6 +1,6 @@
 const cart_list = {
     "1": {
-      "price": 120.00,
+      "price": 340.45,
       "image_src": "images/shop/w1.png",
       "link_content": "D-Phone Android",
       "link_href": "shop-single-product.html"
@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
     tdPrice.className = "product-price";
     var priceSpan = document.createElement("span");
     priceSpan.className = "amount";
-    priceSpan.textContent = "$" + item["price"].toLocaleString();
+    priceSpan.textContent = "$" + item["price"];
     tdPrice.appendChild(priceSpan);
     tr.appendChild(tdPrice);
 
@@ -81,7 +81,7 @@ window.addEventListener('DOMContentLoaded', function() {
     var tdTotal = document.createElement("td");
     tdTotal.className = "product-total";
     var totalSpan = document.createElement("span");
-    totalSpan.textContent = "$" + item["price"].toLocaleString();
+    totalSpan.textContent = "$" + item["price"];
     tdTotal.appendChild(totalSpan);
     tr.appendChild(tdTotal);
     // Tạo cột cho nút xóa
@@ -101,7 +101,7 @@ window.addEventListener('DOMContentLoaded', function() {
 }
     //tính tổng tiền
     var total = document.getElementById("totalAmount")
-    total.textContent = "$" + current_total.toLocaleString();
+    total.textContent = "$" + current_total;
     // xử lý xóa đơn hàng
     var TrashIcons =  document.querySelectorAll(".product-remove i");
 
@@ -111,6 +111,44 @@ window.addEventListener('DOMContentLoaded', function() {
         tr.remove();
       });
     });
+
+    var quantityInputs = document.querySelectorAll('.pro-qty input');
+
+    // Thêm sự kiện lắng nghe cho tất cả các trường input số lượng
+    quantityInputs.forEach(function(input) {
+        input.addEventListener('input', function() {
+            // Lấy hàng chứa trường input số lượng
+            var tr = input.closest('tr');
+
+            // Lấy thông tin sản phẩm từ hàng
+            var priceString = tr.querySelector('.product-price .amount').textContent.replace("$", "");
+            var price = parseFloat(priceString);
+
+            // Lấy giá trị số lượng từ trường input
+            var quantity = parseInt(input.value);
+
+            // Tính toán tổng giá của hàng
+            var total = quantity * price;
+            total = total.toFixed(2);
+            // Cập nhật tổng giá của hàng
+            tr.querySelector('.product-total span').textContent = "$" + total;
+
+            // Cập nhật tổng tiền của toàn bộ giỏ hàng
+            updateTotal();
+        });
+    });
+
+    function updateTotal() {
+      var totalAmount = 0;
+      var allTotalSpans = document.querySelectorAll(".product-total span");
+      allTotalSpans.forEach(function(span) {
+          var total = parseFloat(span.textContent.replace("$", ""));
+          totalAmount += total;
+      });
+      totalAmount = totalAmount.toFixed(2);
+      var total = document.getElementById("totalAmount");
+      total.textContent = "$" + totalAmount;
+  }
 });
   
 

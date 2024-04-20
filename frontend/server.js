@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/view'))
 
 // Route chính
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/view/bought_orders.html'));
+  res.sendFile(path.join(__dirname + '/view/shop.html'));
 });
 
 // Khởi động máy chủ
