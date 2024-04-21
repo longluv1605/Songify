@@ -2653,3 +2653,20 @@ body::-webkit-scrollbar-thumb {
   border-radius: 4px !important;
   cursor: pointer;
 }
+
+.user-info {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-items: left;
+  background-color: #2b2b31;
+  border: 1px solid transparent;
+  height: 50px;
+  position: relative;
+  color: #ffffffc5;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-family: 'Open Sans', sans-serif;
+}
