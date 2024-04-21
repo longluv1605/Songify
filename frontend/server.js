@@ -26,8 +26,8 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname + '/admin/views/catalog.html'));
 });
 
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname + '/user/views/catalog.html'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/user/views/index.html'));
   });
 
 // Khởi động máy chủ
