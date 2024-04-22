@@ -1,4 +1,4 @@
-# EcomMarket - Nền tảng thương mại điện tử.
+# Moflix - Nền tảng xem phim online.
 
 ## Thông tin nhóm: Nhóm 99.
 | Họ và tên | Mã sinh viên | Khóa |
