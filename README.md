@@ -1,6 +1,6 @@
 # Moflix - Nền tảng xem phim online.
 
-## Thông tin nhóm: Nhóm 99.
+## Thông tin nhóm:
 | Họ và tên | Mã sinh viên | Khóa |
 |-----------|--------------|------|
 | Phạm Thành Long | 22022604 | QH-2022-I/CQ-AI2 |
