@@ -5155,3 +5155,24 @@ body::-webkit-scrollbar-thumb {
   border-radius: 4px !important;
   cursor: pointer;
 }
+.playVideo, .downloadVideo {
+  border: 1px solid #ff55a5;
+  background-color: #ff55a5;
+  border-radius: 10px;
+  padding: 10px 30px 10px 30px;
+  margin-top: 20px;
+  color: white;
+}
+.downloadVideo {
+  border: 1px solid #55ff77;
+  background-color: #55ff77;
+  margin-left: 10px;
+}
+.playVideo:hover {
+  background-image: linear-gradient(90deg, #ff55a5 0%, #ff5860 100%);
+  box-shadow: 0 0 20px 0 rgba(255,88,96,0.5);
+}
+.downloadVideo:hover {
+  background-image: linear-gradient(90deg, #55ff77 0%, #55ff9c 100%);
+  box-shadow: 0 0 20px 0 rgba(88, 255, 171, 0.5);
+}
