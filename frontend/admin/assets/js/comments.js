@@ -72,7 +72,7 @@ const comments = [
 ]
 
 
-function generateCatalogItems(items) {
+function generateComments(items) {
     const catalogList = document.querySelector("tbody");
 
     items.forEach(item => {
@@ -154,5 +154,5 @@ function generateCatalogItems(items) {
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-    generateCatalogItems(comments);
+    generateComments(comments);
 })
