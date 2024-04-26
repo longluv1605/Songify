@@ -3,4 +3,4 @@ VALUES
     ('Action'), ('Adventure'), ('Animation'), ('Comedy'), 
     ('Crime'), ('Documentary'), ('Drama'), ('Family'), ('Fantasy'),
     ('History'), ('Music'), ('Horror'), ('Mystery'), ('Romance'), 
-    ('Science Fiction'), ('Thriller'), ('War'), ('Western');
+    ('Science Fiction'), ('Thriller'), ('TV Movie'), ('War'), ('Western');

@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS user_rating (
     user_id INT,
     movie_id INT,
     value INT,
+    time TIMESTAMP,
     PRIMARY KEY (user_id, movie_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id),
