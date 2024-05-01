@@ -111,18 +111,18 @@ CREATE TABLE IF NOT EXISTS user_purchase (
 
 
 CREATE TABLE IF NOT EXISTS comment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     movie_id INT,
     date DATE DEFAULT CURRENT_DATE,
     detail TEXT,
-    PRIMARY KEY (user_id, movie_id, date),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id)
 );
 
 CREATE TABLE IF NOT EXISTS user_plan (
     user_id INT,
-    plan_id INT,
+    plan_id INT DEFAULT 1,
     start_date DATE DEFAULT CURRENT_DATE,
     exp_date DATE,
     FOREIGN KEY (user_id) REFERENCES user(id),
@@ -130,12 +130,36 @@ CREATE TABLE IF NOT EXISTS user_plan (
 );
 
 
-CREATE TABLE IF NOT EXISTS user_movie (
+CREATE TABLE IF NOT EXISTS user_favorite (
     user_id INT,
     movie_id INT,
-    date DATE DEFAULT CURRENT_DATE,
-    last_scene_time INT,
     PRIMARY KEY (user_id, movie_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS user_watchlist (
+    user_id INT,
+    movie_id INT,
+    PRIMARY KEY (user_id, movie_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (movie_id) REFERENCES movie(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS user_history (
+    user_id INT,
+    movie_id INT,
+    date DATE DEFAULT CURRENT_DATE,
+    PRIMARY KEY (user_id, movie_id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (movie_id) REFERENCES movie(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS movie_view (
+    movie_id INT PRIMARY KEY,
+    view INT,
+    FOREIGN KEY (movie_id) REFERENCES movie(id),
 );
