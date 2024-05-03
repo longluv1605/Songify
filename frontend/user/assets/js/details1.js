@@ -105,22 +105,25 @@ const commentsData = [
 const reviews = [
     {
         "avatarSrc": "img/user.svg",
-        "authorName": "Best Marvel movie in my opinion",
-        "commentTime": "24.08.2023, by Tess Harper",
+        "authorName": "Tess Harper",
+        "title": "Best Marvel movie in my opinion",
+        "commentTime": "24.08.2023, by ",
         "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
         "rating": "8.0"
     },
     {
         "avatarSrc": "img/user.svg",
-        "authorName": "Greate movie",
-        "commentTime": "24.08.2023, by Gene Graham",
+        "authorName": "Gene Graham",
+        "title": "Greate movie",
+        "commentTime": "24.08.2023, by ",
         "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
         "rating": "9.0"
     },
     {
         "avatarSrc": "img/user.svg",
-        "authorName": "It could be better",
-        "commentTime": "24.08.2023, by Rosa Lee",
+        "authorName": "Rosa Lee",
+        "title": "It could be better",
+        "commentTime": "24.08.2023, by ",
         "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
         "rating": "7.0"
     }
@@ -241,34 +244,34 @@ function generateComments(commentsData) {
       commentText.textContent = comment.commentText;
 
       // Create actions section
-      const actionsDiv = document.createElement("div");
-      actionsDiv.classList.add("comments__actions");
+    //   const actionsDiv = document.createElement("div");
+    //   actionsDiv.classList.add("comments__actions");
 
-      // Create rate section
-      const rateDiv = document.createElement("div");
-      rateDiv.classList.add("comments__rate");
+    //   // Create rate section
+    //   const rateDiv = document.createElement("div");
+    //   rateDiv.classList.add("comments__rate");
 
-      // Create like button
-      const likeButton = document.createElement("button");
-      likeButton.setAttribute("type", "button");
-      likeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.3,10.08A3,3,0,0,0,19,9H14.44L15,7.57A4.13,4.13,0,0,0,11.11,2a1,1,0,0,0-.91.59L7.35,9H5a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17.73a3,3,0,0,0,2.95-2.46l1.27-7A3,3,0,0,0,21.3,10.08ZM7,20H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H7Zm13-7.82-1.27,7a1,1,0,0,1-1,.82H9V10.21l2.72-6.12A2.11,2.11,0,0,1,13.1,6.87L12.57,8.3A2,2,0,0,0,14.44,11H19a1,1,0,0,1,.77.36A1,1,0,0,1,20,12.18Z"/></svg>${comment.likes}`;
+    //   // Create like button
+    //   const likeButton = document.createElement("button");
+    //   likeButton.setAttribute("type", "button");
+    //   likeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.3,10.08A3,3,0,0,0,19,9H14.44L15,7.57A4.13,4.13,0,0,0,11.11,2a1,1,0,0,0-.91.59L7.35,9H5a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17.73a3,3,0,0,0,2.95-2.46l1.27-7A3,3,0,0,0,21.3,10.08ZM7,20H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H7Zm13-7.82-1.27,7a1,1,0,0,1-1,.82H9V10.21l2.72-6.12A2.11,2.11,0,0,1,13.1,6.87L12.57,8.3A2,2,0,0,0,14.44,11H19a1,1,0,0,1,.77.36A1,1,0,0,1,20,12.18Z"/></svg>${comment.likes}`;
 
-      // Create dislike button
-      const dislikeButton = document.createElement("button");
-      dislikeButton.setAttribute("type", "button");
-      dislikeButton.innerHTML = `${comment.dislikes}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,2H6.27A3,3,0,0,0,3.32,4.46l-1.27,7A3,3,0,0,0,5,15H9.56L9,16.43A4.13,4.13,0,0,0,12.89,22a1,1,0,0,0,.91-.59L16.65,15H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2ZM15,13.79l-2.72,6.12a2.13,2.13,0,0,1-1.38-2.78l.53-1.43A2,2,0,0,0,9.56,13H5a1,1,0,0,1-.77-.36A1,1,0,0,1,4,11.82l1.27-7a1,1,0,0,1,1-.82H15ZM20,12a1,1,0,0,1-1,1H17V4h2a1,1,0,0,1,1,1Z"/></svg>`;
+    //   // Create dislike button
+    //   const dislikeButton = document.createElement("button");
+    //   dislikeButton.setAttribute("type", "button");
+    //   dislikeButton.innerHTML = `${comment.dislikes}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,2H6.27A3,3,0,0,0,3.32,4.46l-1.27,7A3,3,0,0,0,5,15H9.56L9,16.43A4.13,4.13,0,0,0,12.89,22a1,1,0,0,0,.91-.59L16.65,15H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2ZM15,13.79l-2.72,6.12a2.13,2.13,0,0,1-1.38-2.78l.53-1.43A2,2,0,0,0,9.56,13H5a1,1,0,0,1-.77-.36A1,1,0,0,1,4,11.82l1.27-7a1,1,0,0,1,1-.82H15ZM20,12a1,1,0,0,1-1,1H17V4h2a1,1,0,0,1,1,1Z"/></svg>`;
 
-      // Append like and dislike buttons to rate section
-      rateDiv.appendChild(likeButton);
-      rateDiv.appendChild(dislikeButton);
+    //   // Append like and dislike buttons to rate section
+    //   rateDiv.appendChild(likeButton);
+    //   rateDiv.appendChild(dislikeButton);
 
-      // Append rate section to actions section
-      actionsDiv.appendChild(rateDiv);
+    //   // Append rate section to actions section
+    //   actionsDiv.appendChild(rateDiv);
 
       // Append author section, comment text, and actions section to <li> element
       liElement.appendChild(authorDiv);
       liElement.appendChild(commentText);
-      liElement.appendChild(actionsDiv);
+    //   liElement.appendChild(actionsDiv);
 
       // Append <li> element to comments container
       commentsContainer.appendChild(liElement);
@@ -296,12 +299,12 @@ function generateReviewItems(reviews) {
         // Tạo phần tử tên tác giả
         const nameSpan = document.createElement("span");
         nameSpan.classList.add("reviews__name");
-        nameSpan.textContent = review.authorName;
+        nameSpan.textContent = review.title;
 
         // Tạo phần tử thời gian đăng bình luận
         const timeSpan = document.createElement("span");
         timeSpan.classList.add("reviews__time");
-        timeSpan.textContent = review.commentTime;
+        timeSpan.textContent = review.commentTime + review.authorName;
 
         // Tạo phần tử đánh giá
         const ratingSpan = document.createElement("span");
@@ -328,10 +331,149 @@ function generateReviewItems(reviews) {
     });
 }
 
+const comment_button = document.querySelector("#submit_comment");
+
+function upload_new_comment(context){
+    let currentDate = new Date();
+    let dateString = currentDate.toLocaleDateString(); // Lấy ngày theo định dạng dd/mm/yyyy
+    let timeString = currentDate.toLocaleTimeString(); // Lấy giờ theo định dạng hh:mm:ss
+    let comment_time = dateString + ", " + timeString;
+
+    let user_info = {
+        "authorName": "Rosa Lee"
+    }
+
+    const commentsContainer = document.querySelector(".comments__list")
+    // Create <li> element
+    const liElement = document.createElement("li");
+    liElement.classList.add("comments__item");
+
+    // Create author section
+    const authorDiv = document.createElement("div");
+    authorDiv.classList.add("comments__autor");
+
+    // Create avatar image
+    const avatarImg = document.createElement("img");
+    avatarImg.classList.add("comments__avatar");
+    avatarImg.setAttribute("src", "img/user.svg");
+    avatarImg.setAttribute("alt", "");
+
+    // Create author name
+    const nameSpan = document.createElement("span");
+    nameSpan.classList.add("comments__name");
+    nameSpan.textContent = user_info.authorName;
+
+    // Create comment time
+    const timeSpan = document.createElement("span");
+    timeSpan.classList.add("comments__time");
+    timeSpan.textContent = comment_time;
+
+    // Append author section elements to <div class="comments__autor">
+    authorDiv.appendChild(avatarImg);
+    authorDiv.appendChild(nameSpan);
+    authorDiv.appendChild(timeSpan);
+
+    // Create comment text
+    const commentText = document.createElement("p");
+    commentText.classList.add("comments__text");
+    commentText.textContent = context;
+
+    // Append author section, comment text, and actions section to <li> element
+    liElement.appendChild(authorDiv);
+    liElement.appendChild(commentText);
+
+    // Append <li> element to comments container
+    commentsContainer.appendChild(liElement);
+}
+
+const review_button = document.querySelector("#submit_review");
+
+function upload_new_review(title, rating, context){
+    let currentDate = new Date();
+    let dateString = currentDate.toLocaleDateString(); // Lấy ngày theo định dạng dd/mm/yyyy
+    let timeString = currentDate.toLocaleTimeString(); // Lấy giờ theo định dạng hh:mm:ss
+    let comment_time = dateString + ", " + timeString;
+
+    let numberPart = rating.split(' ')[0];
+    rating = numberPart + ".0";
+
+    let review = {
+        "authorName": "Gene Graham"
+    }
+
+    const reviewsList = document.querySelector(".reviews__list");
+
+    // Tạo phần tử <li>
+    const reviewItem = document.createElement("li");
+    reviewItem.classList.add("reviews__item");
+
+    // Tạo phần tử chứa thông tin người đăng bình luận
+    const authorDiv = document.createElement("div");
+    authorDiv.classList.add("reviews__autor");
+
+    // Tạo phần tử ảnh đại diện
+    const avatarImg = document.createElement("img");
+    avatarImg.classList.add("reviews__avatar");
+    avatarImg.setAttribute("src", "img/user.svg");
+    avatarImg.setAttribute("alt", "");
+
+    // Tạo phần tử tên tác giả
+    const nameSpan = document.createElement("span");
+    nameSpan.classList.add("reviews__name");
+    nameSpan.textContent = title;
+
+    // Tạo phần tử thời gian đăng bình luận
+    const timeSpan = document.createElement("span");
+    timeSpan.classList.add("reviews__time");
+    timeSpan.textContent = comment_time + ', by ' + review.authorName;
+
+    // Tạo phần tử đánh giá
+    const ratingSpan = document.createElement("span");
+    ratingSpan.classList.add("reviews__rating");
+    ratingSpan.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M22,10.1c0.1-0.5-0.3-1.1-0.8-1.1l-5.7-0.8L12.9,3c-0.1-0.2-0.2-0.3-0.4-0.4C12,2.3,11.4,2.5,11.1,3L8.6,8.2L2.9,9C2.6,9,2.4,9.1,2.3,9.3c-0.4,0.4-0.4,1,0,1.4l4.1,4l-1,5.7c0,0.2,0,0.4,0.1,0.6c0.3,0.5,0.9,0.7,1.4,0.4l5.1-2.7l5.1,2.7c0.1,0.1,0.3,0.1,0.5,0.1v0c0.1,0,0.1,0,0.2,0c0.5-0.1,0.9-0.6,0.8-1.2l-1-5.7l4.1-4C21.9,10.5,22,10.3,22,10.1z"></path></svg>${rating}`;
+
+    // Thêm các phần tử vào phần tử chứa thông tin người đăng bình luận
+    authorDiv.appendChild(avatarImg);
+    authorDiv.appendChild(nameSpan);
+    authorDiv.appendChild(timeSpan);
+    authorDiv.appendChild(ratingSpan);
+
+    // Tạo phần tử chứa nội dung bình luận
+    const textParagraph = document.createElement("p");
+    textParagraph.classList.add("reviews__text");
+    textParagraph.textContent = context;
+
+    // Thêm các phần tử vào phần tử <li>
+    reviewItem.appendChild(authorDiv);
+    reviewItem.appendChild(textParagraph);
+
+    // Thêm phần tử <li> vào danh sách bình luận
+    reviewsList.appendChild(reviewItem);
+
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   updateDetails(details);
   update_u_may_like(itemContents);
   generateComments(commentsData);
   generateReviewItems(reviews);
+  comment_button.addEventListener("click", function(){
+    let textarea = document.getElementById("comment_text");
+    if (textarea.value.trim() == "") {
+        return;
+    }
+    upload_new_comment(textarea.value);
+  })
+  review_button.addEventListener("click", function(){
+    let titleInput = document.querySelector('.sign__input');
+    let ratingSelect = document.getElementById('rating');
+    let reviewTextarea = document.getElementById('review_text');
+
+    if (titleInput.value.trim() === '' || ratingSelect.value === '0' || reviewTextarea.value.trim() === '') {
+        return;
+    }
+    upload_new_review(titleInput.value, ratingSelect.value, reviewTextarea.value);
+
+  })
 });
 
