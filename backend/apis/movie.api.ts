@@ -11,7 +11,7 @@ class MovieAPI implements API {
         this.initializeRoutes();
     }
 
-    private initializeRoutes() {
+    private initializeRoutes = async () => {
         this.router.get(this.path, this.controller.getMovieData);
     }
 }
