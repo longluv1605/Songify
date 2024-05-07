@@ -92,6 +92,7 @@
 				<ul class="dropdown-menu sidebar__dropdown-menu scrollbar-dropdown">
 					<li><a href="add-item.html">Add item</a></li>
 					<li><a href="edit-user.html">Edit user</a></li>
+					<li><a href="edit-item.html">Edit item</a></li>
 				</ul>
 			</li>
 			<!-- end dropdown -->
@@ -216,7 +217,7 @@
 						<p class="modal__text">Are you sure about immediately change status?</p>
 
 						<div class="modal__btns">
-							<button class="modal__btn modal__btn--apply" type="button"><span>Apply</span></button>
+							<button id="applyButton" class="modal__btn modal__btn--apply" type="button" data-bs-dismiss="modal" aria-label="Apply and Close"><span>Apply</span></button>
 							<button class="modal__btn modal__btn--dismiss" type="button" data-bs-dismiss="modal" aria-label="Close"><span>Dismiss</span></button>
 						</div>
 					</form>
@@ -237,7 +238,7 @@
 						<p class="modal__text">Are you sure to permanently delete this item?</p>
 
 						<div class="modal__btns">
-							<button class="modal__btn modal__btn--apply" type="button"><span>Delete</span></button>
+							<button id="deleteButton" class="modal__btn modal__btn--apply" type="button" data-bs-dismiss="modal" aria-label="Delete and Close"><span>Delete</span></button>
 							<button class="modal__btn modal__btn--dismiss" type="button" data-bs-dismiss="modal" aria-label="Close"><span>Dismiss</span></button>
 						</div>
 					</form>

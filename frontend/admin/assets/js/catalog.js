@@ -147,5 +147,73 @@ function add_data_for_table_items(dataset){
     });
 };
 
-changeAdminName(Admin_Data);
-add_data_for_table_items(Catalog_Data);
+
+function confirmDelete() {
+    var lastClickedRow;
+
+    var showButtons = document.getElementById('add-data-for-table-items').querySelectorAll('tr');
+
+    // Gắn sự kiện click cho mỗi button
+    showButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lưu trữ hàng được click trước đó
+            lastClickedRow = button;
+        });
+    });
+
+    // Lấy nút xóa hàng
+    var deleteButton = document.getElementById('deleteButton');
+
+    // Gắn sự kiện click cho nút xóa hàng
+    deleteButton.addEventListener('click', function() {
+        // Kiểm tra xem có hàng được click trước đó không
+        if (lastClickedRow) {
+            // Xóa hàng được click trước đó
+            lastClickedRow.parentNode.removeChild(lastClickedRow);
+            lastClickedRow = null; // Đặt lại biến lastClickedRow
+        }
+    });
+};
+
+function confirmApply() {
+    var lastClickedRow;
+
+    var showButtons = document.getElementById('add-data-for-table-items').querySelectorAll('tr');
+
+    // Gắn sự kiện click cho mỗi button
+    showButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lưu trữ hàng được click trước đó
+            lastClickedRow = button;
+        });
+    });
+
+    // Lấy nút apply hàng
+    var deleteButton = document.getElementById('applyButton');
+
+    // Gắn sự kiện click cho nút apply hàng
+    deleteButton.addEventListener('click', function() {
+        // Kiểm tra xem có hàng được click trước đó không
+        if (lastClickedRow) {
+            var cellsToEdit = lastClickedRow.getElementsByTagName('td');
+            var cellToEdit = cellsToEdit[5];
+            // Chỉnh sửa giá trị của cột
+            if (cellToEdit.textContent == "Hidden") {
+                cellToEdit.className = "catalog__text catalog__text--green";
+                cellToEdit.textContent = "Visible";
+            } else if (cellToEdit.textContent == "Visible") {
+                cellToEdit.className = "catalog__text catalog__text--red";
+                cellToEdit.textContent = "Hidden";
+            };
+            
+            lastClickedRow = null; // Đặt lại biến lastClickedRow
+        }
+    });
+};
+
+document.addEventListener("DOMContentLoaded", function(){
+    changeAdminName(Admin_Data);
+    add_data_for_table_items(Catalog_Data);
+    confirmDelete();
+    confirmApply();
+});

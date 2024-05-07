@@ -151,5 +151,7 @@ function add_data_for_user_table(dataset){
     });
 };
 
-changeAdminName(Admin_Data);
-add_data_for_user_table(User_Infomation_Data);
+document.addEventListener("DOMContentLoaded", function(){
+    changeAdminName(Admin_Data);
+    add_data_for_user_table(User_Infomation_Data);
+});
