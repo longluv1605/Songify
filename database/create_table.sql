@@ -4,7 +4,7 @@ USE moflix;
 
 CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    login_name VARCHAR(50) UNIQUE,
+    username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
     first_name VARCHAR(50),
     last_name VARCHAR(50),

@@ -13,14 +13,14 @@ class ProfileController {
             const user_id = req.body.user_id;
             const sql: string = `ádasadsa`;
 
-            const profile = '';
+            const profile = "";
 
             res.status(200).json({ profile });
         } catch (err) {
             console.log(err);
             res.status(500).json({ message: "Internal Server Error" });
         }
-    }
+    };
 }
 
 export default ProfileController;

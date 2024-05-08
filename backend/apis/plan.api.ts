@@ -13,7 +13,7 @@ class PlanAPI implements API {
 
     private initializeRoutes = async () => {
         this.router.get(this.path, this.controller.getPlansData);
-    }
+    };
 }
 
 export default PlanAPI;

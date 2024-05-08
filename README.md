@@ -31,3 +31,4 @@ Tạo file `.env` theo mẫu `.env.example`
 -   `npm run backend`: Khởi chạy BE.
 -   `npm run frontend`: Khởi chạy FE.
 -   `npm run dev`: Khởi chạy FE và BE.
+    

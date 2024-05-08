@@ -13,7 +13,7 @@ class ProfileAPI implements API {
 
     private initializeRoutes = async () => {
         this.router.get(this.path, this.controller.getProfileData);
-    }
+    };
 }
 
 export default ProfileAPI;
