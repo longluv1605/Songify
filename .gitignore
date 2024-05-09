@@ -3,4 +3,3 @@ node_modules
 data
 /database/pyfake/fakedata/ratings.csv
 config.py
-test.js
