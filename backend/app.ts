@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { API } from "interfaces/interfaces";
-import bodyParser from "body-parser";
+import cors from "cors";
 
 class App {
     private app: express.Application;
@@ -12,7 +12,7 @@ class App {
         this.app = express();
         this.app.use(express.json()); // config for request.body
         this.app.use(express.urlencoded({ extended: true })); // config for HTML FORM data
-        this.app.use(bodyParser.json());
+        this.app.use(cors());
 
         this.port = process.env.PORT || 8080;
         this.host = process.env.HOST || "localhost";
