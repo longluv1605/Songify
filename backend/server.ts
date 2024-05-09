@@ -7,6 +7,9 @@ import {
     ProfileAPI,
     LoginAPI,
     RegisterAPI,
+    CommentAPI,
+    RatingAPI,
+    PasswordAPI,
 } from "./apis/apis";
 import App from "./app";
 
@@ -19,6 +22,9 @@ const apis = [
     new ProfileAPI(),
     new LoginAPI(),
     new RegisterAPI(),
+    new CommentAPI(),
+    new RatingAPI(),
+    new PasswordAPI(),
 ];
 
 const app = new App(apis);

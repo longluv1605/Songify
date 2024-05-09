@@ -6,6 +6,9 @@ import PlanAPI from "./plan.api";
 import ProfileAPI from "./profile.api";
 import LoginAPI from "./login.api";
 import RegisterAPI from "./register.api";
+import CommentAPI from "./comment.api";
+import RatingAPI from "./rating.api";
+import PasswordAPI from "./password.api";
 
 export {
     HomeAPI,
@@ -16,4 +19,7 @@ export {
     ProfileAPI,
     LoginAPI,
     RegisterAPI,
+    CommentAPI,
+    RatingAPI,
+    PasswordAPI,
 };

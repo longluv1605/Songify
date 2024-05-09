@@ -12,15 +12,12 @@ class MovieController {
         try {
             const userId = parseInt(req.query.userId as string);
             const movie = await this.getMovie(req);
-            const comments = await this.getComments(req);
 
             const results: {
-                movie: any,
-                comments: any,
-                userId: number | null,
+                movie: any;
+                userId: number | null;
             } = {
                 movie,
-                comments,
                 userId: null,
             };
 
@@ -37,7 +34,7 @@ class MovieController {
     private getMovie = async (req: Request) => {
         try {
             const movieId: number = parseInt(req.query.movieId as string);
-            console.log(movieId);
+
             const sql: string = `SELECT m.*, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
@@ -51,21 +48,21 @@ class MovieController {
         }
     };
 
-    private getComments = async (req: Request) => {
+    public postHistory = async (req: Request, res: Response) => {
         try {
+            const userId: number = parseInt(req.query.userId as string);
             const movieId: number = parseInt(req.query.movieId as string);
-            const sql: string = `SELECT cmt.date, cmt.detail, u.first_name, u.last_name
-                                    FROM comment cmt
-                                    LEFT JOIN user u ON cmt.user_id = u.id
-                                    WHERE cmt.movie_id = ?
-                                    ORDER BY cmt.date DESC`;
-            const data = await this.db.query(sql, [movieId]);
 
-            return data;
+            const sql: string = `INSERT INTO user_history (user_id, movie_id)
+                                    VALUES (?, ?)`;
+                                    
+            await this.db.query(sql, [userId, movieId]);
+
+            res.status(200).json({ message: "History posted" });
         } catch (err) {
-            console.log(err);
+            res.status(500).json({ err });
         }
-    };
+    }
 }
 
 export default MovieController;
