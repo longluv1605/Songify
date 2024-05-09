@@ -3,5 +3,5 @@ node_modules
 data
 /database/pyfake/fakedata/ratings.csv
 config.py
-# backend_js
+backend_js
 test.js

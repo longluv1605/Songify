@@ -4,7 +4,7 @@ USE moflix;
 
 CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    login_name VARCHAR(50) UNIQUE,
+    username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS user_rating (
     user_id INT,
     movie_id INT,
     value INT,
-    time TIMESTAMP,
+    time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, movie_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id),
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS user_rating (
 CREATE TABLE IF NOT EXISTS user_purchase (
     user_id INT,
     pricing_plan_id INT,
-    purchase_date DATE DEFAULT CURRENT_DATE,
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, pricing_plan_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (pricing_plan_id) REFERENCES pricing_plan(id)
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS comment (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     movie_id INT,
-    date DATE DEFAULT CURRENT_DATE,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     detail TEXT,
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id)
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS user_watchlist (
 CREATE TABLE IF NOT EXISTS user_history (
     user_id INT,
     movie_id INT,
-    date DATE DEFAULT CURRENT_DATE,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, movie_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id)

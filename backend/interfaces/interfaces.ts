@@ -1,6 +1,3 @@
-import API from './api.interface';
+import API from "./api.interface";
 
-
-export {
-    API
-};
+export { API };

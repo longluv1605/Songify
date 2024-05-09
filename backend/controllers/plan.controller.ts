@@ -18,7 +18,7 @@ class PlanController {
             console.log(err);
             res.status(500).json({ message: "Internal Server Error" });
         }
-    }
+    };
 
     private getPlans = async () => {
         try {
@@ -34,12 +34,14 @@ class PlanController {
     private currentPlan = async (req: Request) => {
         try {
             const userId = req.query.userId;
+            if (userId == undefined || null || userId == "") {
+                return;
+            }
             const sql: string = `SELECT * FROM user_plan WHERE user_id = ?`;
 
             const result = await this.db.query(sql, [userId]);
 
-
-            return result;
+            return { userId, result };
         } catch (err) {
             console.log(err);
         }

@@ -13,7 +13,7 @@ class SearchAPI implements API {
 
     private initializeRoutes = async () => {
         this.router.get(this.path, this.controller.getSearchData);
-    }
+    };
 }
 
 export default SearchAPI;

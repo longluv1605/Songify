@@ -10,6 +10,7 @@ class SearchController {
 
     public getSearchData = async (req: Request, res: Response) => {
         try {
+            const userId = parseInt(req.query.userId as string);
             const str: string | undefined = req.query.string as string; // Explicitly cast to string
             const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
                                     FROM movie m
@@ -19,9 +20,21 @@ class SearchController {
                                     HAVING LOWER(m.title) LIKE LOWER('%${str}%')
                                     ORDER BY average_rating DESC`;
             // console.log(str);
-            const data = await this.db.query(sql, [str]);
+            const movies = await this.db.query(sql, [str]);
 
-            res.status(200).json(data);
+            const results: {
+                movies: any,
+                userId: number | null,
+            } = {
+                movies,
+                userId: null,
+            };
+
+            if (userId !== undefined || null || userId !== "") {
+                results.userId = userId;
+            }
+
+            res.status(200).json(results);
         } catch (err) {
             res.status(500).json({ err });
         }
