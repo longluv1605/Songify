@@ -16,3 +16,4 @@
 | Thay đổi thông tin cá nhân | `profile` | `http://localhost:8080/api/profile?userId=` | `PUT` | `JSON{"firstName": "?", "lastName": "?", "email": "?"} - cái nào không có thì không cho vào` |
 | Thay đổi password | `password` | `http://localhost:8080/api/password?userId=` | `PUT` | `JSON{"oldPassword": "?", "newPassword": "?"}` |
 | Thay đổi lượng view của phim khi nhấn xem | `movie` | `http://localhost:8080/api/movie?movieId=&userId=` | `PUT` |  |
+| Đăng xuất | `logout` | `http://localhost:8080/api/logout` | `GET` |  |
