@@ -1,5 +1,6 @@
 import Database from "../database/database";
-import { Request, Response } from "express";
+import { Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class HomeController {
     private db: Database;
@@ -8,9 +9,9 @@ class HomeController {
         this.db = new Database();
     }
 
-    public getHomeData = async (req: Request, res: Response) => {
+    public getHomeData = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId = parseInt(req.query.userId as string);
+            const userId = parseInt(req.userId as string);
             if (userId == undefined || null) {
                 return;
             }
