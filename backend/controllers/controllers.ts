@@ -9,6 +9,7 @@ import ProfileController from "./profile.controller";
 import RatingController from "./rating.controller";
 import RegisterController from "./register.controller";
 import SearchController from "./search.controller";
+import LogoutController from "./logout.controller";
 
 export {
     HomeController,
@@ -22,4 +23,5 @@ export {
     CommentController,
     RatingController,
     PasswordController,
+    LogoutController,
 };

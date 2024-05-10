@@ -10,6 +10,7 @@ import {
     CommentAPI,
     RatingAPI,
     PasswordAPI,
+    LogoutAPI,
 } from "./apis/apis";
 import App from "./app";
 
@@ -25,6 +26,7 @@ const apis = [
     new CommentAPI(),
     new RatingAPI(),
     new PasswordAPI(),
+    new LogoutAPI(),
 ];
 
 const app = new App(apis);

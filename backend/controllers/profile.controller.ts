@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class ProfileController {
     private db: Database;
@@ -8,13 +9,9 @@ class ProfileController {
         this.db = new Database();
     }
 
-    public getProfileData = async (req: Request, res: Response) => {
+    public getProfileData = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId = parseInt(req.query.userId as string);
-            if (userId == undefined || null) {
-                res.status(400).json({ message: "User ID is required" });
-            }
-
+            const userId = parseInt(req.userId as string);
             const user = await this.getUserData(userId);
             const numberOfComments = await this.getNumberofComments(userId);
             const numberOfRatings = await this.getNumberofRatings(userId);
