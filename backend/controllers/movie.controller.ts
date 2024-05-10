@@ -35,7 +35,7 @@ class MovieController {
         try {
             const movieId: number = parseInt(req.query.movieId as string);
 
-            const sql: string = `SELECT m.*, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
+            const sql: string = `SELECT m.*, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views, (SELECT label_name FROM movie_label WHERE movie_id = m.id) AS label
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
@@ -61,6 +61,21 @@ class MovieController {
             res.status(200).json({ message: "History posted" });
         } catch (err) {
             res.status(500).json({ err });
+        }
+    }
+
+    public updateView = async (req: Request, res: Response) => {
+        try {
+            const movieId: number = parseInt(req.query.movieId as string);
+
+            const sql: string = `UPDATE movie_view
+                                    SET view = view + 1
+                                    WHERE movie_id = ?`;
+
+            await this.db.query(sql, [movieId]);
+            res.status(200).json({ message: "View updated" });
+        } catch (err) {
+            console.log(err);
         }
     }
 }
