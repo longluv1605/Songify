@@ -13,8 +13,9 @@ class ProfileAPI implements API {
     }
 
     private initializeRoutes = async () => {
-        this.router.get(this.path, authenticateToken, this.controller.getProfileData);
-        this.router.put(this.path, authenticateToken,  this.controller.changeUserInfo);
+        //TODO: nhắc fe phải luôn gửi token trong localStorage vào headers.Authorization khi gửi cùng các request yêu cầu đăng nhập mới thực hiện được (đăng xuất, xem profile...)
+        this.router.get(this.path, authenticateToken, this.controller.getProfileData); 
+        this.router.put(this.path, authenticateToken, this.controller.changeUserInfo);
     };
 }
 

@@ -27,8 +27,8 @@ class LoginController {
 
                 //creat JWT
                 const secret_key: string = process.env.SECRET_KEY || "";
-                const token = jwt.sign({ userId }, secret_key, { expiresIn: '120s',algorithm: 'HS256' });// TODO: change expiresIn, add more payload to creat jwt (time, randomId)
-                res.status(200).json({ token }); // TODO: nhắc frontend lưu token vào localstorage phía client và sau đó gửi vào headers.Authoiation: Beared ${token} cùng request
+                const token = jwt.sign({ userId }, secret_key, { expiresIn: '300s',algorithm: 'HS256' });// TODO: change expiresIn, add more payload to creat jwt (time, randomId)
+                res.status(200).json({ token }); // TODO: nhắc frontend lưu token vào localstorage phía client và sau đó gửi vào headers.Authorization: Beared ${token} cùng request
             }
         } catch (err) {
             res.status(500).json({ err });
