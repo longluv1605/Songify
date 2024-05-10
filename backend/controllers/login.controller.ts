@@ -1,6 +1,7 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
-require('dotenv').config({ path: '../../.env' });
+import dotenv from 'dotenv';
+dotenv.config();
 //TODO: add jsonwebtoken into packeage.json
 import jwt from "jsonwebtoken";
 
@@ -26,8 +27,8 @@ class LoginController {
 
                 //creat JWT
                 const secret_key: string = process.env.SECRET_KEY || "";
-                const token = jwt.sign({ userId }, secret_key, { expiresIn: '1h',algorithm: 'HS256' });
-                res.status(200).json({ token }); // lưu token vào localstorage phía client
+                const token = jwt.sign({ userId }, secret_key, { expiresIn: '120s',algorithm: 'HS256' });// TODO: change expiresIn, add more payload to creat jwt (time, randomId)
+                res.status(200).json({ token }); // TODO: nhắc frontend lưu token vào localstorage phía client và sau đó gửi vào headers.Authoiation: Beared ${token} cùng request
             }
         } catch (err) {
             res.status(500).json({ err });
