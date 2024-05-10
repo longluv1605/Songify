@@ -1,5 +1,9 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+require('dotenv').config({ path: '../../.env' });
+//TODO: add jsonwebtoken into packeage.json
+import jwt from "jsonwebtoken";
+
 
 class LoginController {
     private db: Database;
@@ -19,7 +23,11 @@ class LoginController {
             if (data.length === 0) {
                 res.status(300).json({ message: "User not found" });
             } else {
-                res.status(200).json({ userId });
+
+                //creat JWT
+                const secret_key: string = process.env.SECRET_KEY || "";
+                const token = jwt.sign({ userId }, secret_key, { expiresIn: '1h',algorithm: 'HS256' });
+                res.status(200).json({ token }); // lưu token vào localstorage phía client
             }
         } catch (err) {
             res.status(500).json({ err });

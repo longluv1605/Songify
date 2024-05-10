@@ -161,5 +161,5 @@ CREATE TABLE IF NOT EXISTS user_history (
 CREATE TABLE IF NOT EXISTS movie_view (
     movie_id INT PRIMARY KEY,
     view INT,
-    FOREIGN KEY (movie_id) REFERENCES movie(id),
+    FOREIGN KEY (movie_id) REFERENCES movie(id)
 );
