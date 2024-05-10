@@ -3,7 +3,9 @@ const app = express();
 const path = require('path');
 const port = 3000;
 const hostname = process.env.HOST_NAME || 'localhost';
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.static(__dirname + '/user'))
 app.use('/assets', express.static(__dirname + '/user/assets'))
 app.use('/css', express.static(__dirname + '/user/assets/css'))

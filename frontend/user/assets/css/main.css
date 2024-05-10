@@ -2175,6 +2175,7 @@ body::-webkit-scrollbar-thumb {
   align-items: flex-start;
   flex-wrap: wrap;
   margin-top: 5px;
+  width: 100%;
 }
 .item__category a {
   font-size: 14px;
@@ -2183,6 +2184,10 @@ body::-webkit-scrollbar-thumb {
   color: #ff55a5;
   margin-right: 8px;
   opacity: 0.8;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
   font-family: 'Open Sans', sans-serif;
 }
 .item__category a:after {
