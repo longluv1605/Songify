@@ -1,7 +1,3 @@
-CREATE DATABASE IF NOT EXISTS moflix;
-
-USE moflix;
-
 CREATE TABLE IF NOT EXISTS user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE,
@@ -15,7 +11,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS admin (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    login_name VARCHAR(50) UNIQUE,
+    username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
@@ -28,13 +24,13 @@ CREATE TABLE IF NOT EXISTS movie (
     title VARCHAR(255),
     description TEXT,
     release_year INT,
-    added_at DATE DEFAULT CURRENT_DATE,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     duration INT,
     directors TEXT,
     actors TEXT,
-    cover_img_url VARCHAR(255),
-    trailer_url VARCHAR(255),
-    film_url VARCHAR(255)
+    cover_img_url TEXT,
+    trailer_url TEXT,
+    film_url TEXT
 );
 
 
@@ -96,7 +92,7 @@ CREATE TABLE IF NOT EXISTS user_rating (
     PRIMARY KEY (user_id, movie_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (movie_id) REFERENCES movie(id),
-    CONSTRAINT CHK_RatingValue CHECK (value >= 1 AND value <= 5)
+    CONSTRAINT CHK_RatingValue CHECK (value >= 1 AND value <= 10)
 );
 
 

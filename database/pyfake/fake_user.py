@@ -9,7 +9,7 @@ def get_fake_login_name(first_name, last_name):
 
 def fake_user(path):
     with open(path, 'a') as f:
-        f.write('INSERT INTO user (login_name, password, first_name, last_name, email)\nVALUES\n')
+        f.write('INSERT INTO user (username, password, first_name, last_name, email)\nVALUES\n')
         i = 1
         while i <= 204234:
             print(i)
