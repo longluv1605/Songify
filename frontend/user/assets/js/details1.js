@@ -2,14 +2,36 @@ const getDetail = async(movieid, id) => {
     try{
         let response = await axios.get(`http://localhost:8080/api/movie?movieId=${movieid}&userId=${id}`);
         console.log(response.data.movie[0]);
-        // console.log(response.data.comments.slice(0,10));
         updateDetails(response.data.movie[0]);
-        // generateComments(response.data.comments.slice(0,10));
+        let comments = await axios.get(`http://localhost:8080/api/comment?movieId=${movieid}&userId=${id}`)
+        console.log(comments.data.comments.slice(0,10));
+        generateComments(comments.data.comments.slice(0,10));
         }
     catch(error){
         console.log(error);
         }
 };
+
+const postComment = async(movieid, id, context) => {
+    try {
+        comment = {"cmtText": context}
+        let response = await axios.post(`http://localhost:8080/api/comment?movieId=${movieid}&userId=${id}`, comment)
+        console.log('Comment added successfully:', response.data);
+    } catch (error) {
+        console.error('Error adding comment:', error);
+    }
+}
+
+const postRating = async(movieid, id, rating) => {
+    try{
+        rating = {"rating": rating}
+        let response = await axios.post(`http://localhost:8080/api/rating?movieId=${movieid}&userId=${id}`, rating)
+        console.log('Rating added successfully:', response.data);
+    }
+    catch(error){
+        console.error('Error adding rating:', error);
+    }
+}
 
 const Recommend = async(genre, id) => {
     try{
@@ -315,6 +337,8 @@ function upload_new_comment(context){
     const firstChild = document.querySelector(".comments__item");
     commentsContainer.insertBefore(liElement, firstChild);
     // commentsContainer.appendChild(liElement);
+    postComment(20,1,context);
+    
 }
 
 const review_button = document.querySelector("#submit_review");
@@ -327,6 +351,8 @@ function upload_new_review(rating){
 
     let numberPart = rating.split(' ')[0];
     rating = numberPart + ".0";
+
+    numberPart = parseInt(numberPart)
 
     let review = {
         "authorName": "Gene Graham"
@@ -382,6 +408,7 @@ function upload_new_review(rating){
     const firstChild = document.querySelector(".reviews__item");
     reviewsList.insertBefore(reviewItem,firstChild);
     // reviewsList.appendChild(reviewItem);
+    postRating(20,1,numberPart);
 }
 
 function selectGenre(){
@@ -409,6 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //update_u_may_like(itemContents);
   // generateComments(commentsData);
   generateReviewItems(reviews);
+
   comment_button.addEventListener("click", function(){
     let textarea = document.getElementById("comment_text");
     if (textarea.value.trim() == "") {
@@ -418,6 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
     textarea.value = "";
     textarea.placeholder = "Write a comment";
   })
+
   review_button.addEventListener("click", function(){
     let ratingSelect = document.getElementById('rating');
 
