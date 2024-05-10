@@ -1,24 +1,27 @@
-const details = [
-  {
-      "src": "img/covers/14.png",
-      "textContent": {
-          "resolution": "Full HD",
-          "age_restriction" : "18-",
-          "title": "I Dream in Another Language",
-          "rate": "8.4",
-          "genre": ["Action", "tân béo"],
-          "runningTime": "120 min",
-          "country": "USA",
-          "premiere": "05.02.2023",
-          "director": "Louis Leterrier",
-          "actors": ["Tân peo", "Tân cá voi", "Jordana Brewster", "Tyreese Gibson", "Charlize Theron"],
-          "description": [
-              "When a renowned archaeologist goes missing, his daughter sets out on a perilous journey to the heart of the Amazon rainforest to find him. Along the way, she discovers a hidden city and a dangerous conspiracy that threatens the very balance of power in the world. With the help of a charming rogue, she must navigate treacherous terrain and outwit powerful enemies to save her father and uncover the secrets of the lost city. A down-on-his-luck boxer struggles to make ends meet while raising his young son. When an old friend offers him a chance to make some quick cash by fighting in an illegal underground boxing tournament, he sees it as his last shot at redemption. But as the stakes get higher and the fights get more brutal, he must confront his own demons and find the strength to win not just for himself, but for his son.",
-              "A brilliant scientist discovers a way to harness the power of the ocean's currents to create a new, renewable energy source. But when her groundbreaking technology falls into the wrong hands, she must race against time to stop it from being used for evil. Along the way, she must navigate complex political alliances and confront her own past to save the world from disaster."
-          ]
-      }
-  }
-];
+const getDetail = async(movieid, id) => {
+    try{
+        let response = await axios.get(`http://localhost:8080/api/movie?movieId=${movieid}&userId=${id}`);
+        console.log(response.data.movie[0]);
+        // console.log(response.data.comments.slice(0,10));
+        updateDetails(response.data.movie[0]);
+        // generateComments(response.data.comments.slice(0,10));
+        }
+    catch(error){
+        console.log(error);
+        }
+};
+
+const Recommend = async(genre, id) => {
+    try{
+        let response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}&userId=${id}`);
+        console.log(response.data.movies.slice(0,6));
+        update_u_may_like(response.data.movies.slice(0,6));
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
 
 const itemContents = [
   {
@@ -59,48 +62,6 @@ const itemContents = [
   }
 ]
 
-const commentsData = [
-  {
-      "avatarSrc": "img/user.svg",
-      "authorName": "Matt Jones",
-      "commentTime": "30.08.2023, 17:53",
-      "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-      "likes": 12,
-      "dislikes": 7
-  },
-  {
-      "avatarSrc": "img/user.svg",
-      "authorName": "Gene Graham",
-      "commentTime": "24.08.2023, 16:41",
-      "commentText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      "likes": 8,
-      "dislikes": 3
-  },
-  {
-      "avatarSrc": "img/user.svg",
-      "authorName": "Rosa Lee",
-      "commentTime": "11.08.2023, 11:11",
-      "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      "likes": 11,
-      "dislikes": 1
-  },
-  {
-      "avatarSrc": "img/user.svg",
-      "authorName": "Brian Cranston",
-      "commentTime": "07.08.2023, 14:33",
-      "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-      "likes": 99,
-      "dislikes": 35
-  },
-  {
-      "avatarSrc": "img/user.svg",
-      "authorName": "Tess Harper",
-      "commentTime": "02.08.2023, 15:24",
-      "commentText": "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-      "likes": 74,
-      "dislikes": 13
-  }
-];
 
 const reviews = [
     {
@@ -131,54 +92,53 @@ const reviews = [
 
 
 function updateDetails(jsonData) {
+  const title = document.querySelector('.section__title.section__title--head');
   const itemCoverImg = document.querySelector('.item--details .item__cover img');
   const itemRate = document.querySelector('.item--details .item__rate');
   const itemLists = document.querySelectorAll('.item--details .item__list li');
-  const genreLinks = document.querySelectorAll('.item--details .item__meta li:nth-child(1) a');
+  const genreLinks = document.querySelector('.item--details .item__meta li:nth-child(1) a');
   const runningTime = document.querySelector('.item--details .item__meta li:nth-child(2)');
   const countryLink = document.querySelector('.item--details .item__meta li:nth-child(3) a');
   const premiereDate = document.querySelector('.item--details .item__meta li:nth-child(4)');
   const directorLink = document.querySelector('.item--details .item__meta--second li:nth-child(1) a');
-  const actorLinks = document.querySelectorAll('.item--details .item__meta--second li:nth-child(2) a');
-  const descriptionDiv = document.querySelector('.item--details .item__description--details');
+  const actorLinks = document.querySelector('.item--details .item__meta--second li:nth-child(2) a');
+  const descriptionParagraph = document.querySelector('.item--details .item__description--details p');
 
+  //Update title
+  title.textContent = jsonData.title;
   // Update cover image src
-  itemCoverImg.src = jsonData[0].src;
+  itemCoverImg.src =  "img/covers/14.png";//jsonData.cover_img_url;
 
   // Update rate
-  itemRate.textContent = jsonData[0].textContent.rate;
+  itemRate.textContent = jsonData.average_rating;
 
   // Update lists
-  itemLists[0].textContent = jsonData[0].textContent.resolution;
-  itemLists[1].textContent = jsonData[0].textContent.age_restriction;
+  itemLists[0].textContent = "4K";
+  itemLists[1].textContent = "18";
 
   // Update genres
-  genreLinks[0].textContent = jsonData[0].textContent.genre[0];
-  genreLinks[0].setAttribute('href', '#');
-  genreLinks[1].textContent = jsonData[0].textContent.genre[1];
-  genreLinks[1].setAttribute('href', '#');
+  genreLinks.textContent = jsonData.genres;
+  genreLinks.setAttribute('href', '#');
 
   // Update running time
-  runningTime.textContent = `Running time: ${jsonData[0].textContent.runningTime}`;
+  runningTime.textContent = `Running time: ${jsonData.duration} min`;
 
   // Update country
-  countryLink.textContent = jsonData[0].textContent.country;
+  countryLink.textContent = "USA";
   countryLink.setAttribute('href', '#');
 
   // Update premiere date
-  premiereDate.textContent = `Premiere: ${jsonData[0].textContent.premiere}`;
+  premiereDate.textContent = `Premiere: ${jsonData.release_year}`;
 
   // Update director
-  directorLink.textContent = jsonData[0].textContent.director;
+  directorLink.textContent = jsonData.directors;
   directorLink.setAttribute('href', '#');
 
   // Update actors
-  actorLinks.forEach((link, index) => {
-      link.textContent = jsonData[0].textContent.actors[index];
-      link.setAttribute('href', '#');
-  });
+  actorLinks.textContent = jsonData.actors;
+
   // Update description
-  descriptionDiv.innerHTML = jsonData[0].textContent.description.map(para => `<p>${para}</p>`).join('');
+  descriptionParagraph.textContent = jsonData.description;
 }
 
 function update_u_may_like(itemContents) {
@@ -186,22 +146,16 @@ function update_u_may_like(itemContents) {
       const itemDiv = document.getElementById(`item${index + 1}`);
           const titleElement = itemDiv.querySelector(".item__title a");
           const coverElement = itemDiv.querySelector(".item__cover img");
-          const categoryElement = itemDiv.querySelector(".item__category");
+          const categoryElement = itemDiv.querySelector(".item__category a");
           const rateElement = itemDiv.querySelector(".item__rate");
 
           titleElement.textContent = item.title;
-          
-          coverElement.setAttribute("src", item.coverSrc);
+
+          coverElement.setAttribute("src", "img/covers/7.png");
           coverElement.setAttribute("alt", "");
 
-          categoryElement.innerHTML = ""; // Clear previous categories
-          item.categories.forEach(category => {
-          const categoryLink = document.createElement("a");
-          categoryLink.setAttribute("href", "#");
-          categoryLink.textContent = category;
-          categoryElement.appendChild(categoryLink);
-          });
-          rateElement.textContent = item.rate;
+          categoryElement.textContent = item.genres;
+          rateElement.textContent = item.average_rating;
   });
 }
 
@@ -220,18 +174,18 @@ function generateComments(commentsData) {
       // Create avatar image
       const avatarImg = document.createElement("img");
       avatarImg.classList.add("comments__avatar");
-      avatarImg.setAttribute("src", comment.avatarSrc);
+      avatarImg.setAttribute("src", "img/user.svg");
       avatarImg.setAttribute("alt", "");
 
       // Create author name
       const nameSpan = document.createElement("span");
       nameSpan.classList.add("comments__name");
-      nameSpan.textContent = comment.authorName;
+      nameSpan.textContent = comment.first_name + comment.last_name;
 
       // Create comment time
       const timeSpan = document.createElement("span");
       timeSpan.classList.add("comments__time");
-      timeSpan.textContent = comment.commentTime;
+      timeSpan.textContent = comment.date;
 
       // Append author section elements to <div class="comments__autor">
       authorDiv.appendChild(avatarImg);
@@ -241,32 +195,7 @@ function generateComments(commentsData) {
       // Create comment text
       const commentText = document.createElement("p");
       commentText.classList.add("comments__text");
-      commentText.textContent = comment.commentText;
-
-      // Create actions section
-    //   const actionsDiv = document.createElement("div");
-    //   actionsDiv.classList.add("comments__actions");
-
-    //   // Create rate section
-    //   const rateDiv = document.createElement("div");
-    //   rateDiv.classList.add("comments__rate");
-
-    //   // Create like button
-    //   const likeButton = document.createElement("button");
-    //   likeButton.setAttribute("type", "button");
-    //   likeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.3,10.08A3,3,0,0,0,19,9H14.44L15,7.57A4.13,4.13,0,0,0,11.11,2a1,1,0,0,0-.91.59L7.35,9H5a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17.73a3,3,0,0,0,2.95-2.46l1.27-7A3,3,0,0,0,21.3,10.08ZM7,20H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H7Zm13-7.82-1.27,7a1,1,0,0,1-1,.82H9V10.21l2.72-6.12A2.11,2.11,0,0,1,13.1,6.87L12.57,8.3A2,2,0,0,0,14.44,11H19a1,1,0,0,1,.77.36A1,1,0,0,1,20,12.18Z"/></svg>${comment.likes}`;
-
-    //   // Create dislike button
-    //   const dislikeButton = document.createElement("button");
-    //   dislikeButton.setAttribute("type", "button");
-    //   dislikeButton.innerHTML = `${comment.dislikes}<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,2H6.27A3,3,0,0,0,3.32,4.46l-1.27,7A3,3,0,0,0,5,15H9.56L9,16.43A4.13,4.13,0,0,0,12.89,22a1,1,0,0,0,.91-.59L16.65,15H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2ZM15,13.79l-2.72,6.12a2.13,2.13,0,0,1-1.38-2.78l.53-1.43A2,2,0,0,0,9.56,13H5a1,1,0,0,1-.77-.36A1,1,0,0,1,4,11.82l1.27-7a1,1,0,0,1,1-.82H15ZM20,12a1,1,0,0,1-1,1H17V4h2a1,1,0,0,1,1,1Z"/></svg>`;
-
-    //   // Append like and dislike buttons to rate section
-    //   rateDiv.appendChild(likeButton);
-    //   rateDiv.appendChild(dislikeButton);
-
-    //   // Append rate section to actions section
-    //   actionsDiv.appendChild(rateDiv);
+      commentText.textContent = comment.detail;
 
       // Append author section, comment text, and actions section to <li> element
       liElement.appendChild(authorDiv);
@@ -297,9 +226,9 @@ function generateReviewItems(reviews) {
         avatarImg.setAttribute("alt", "");
 
         // Tạo phần tử tên tác giả
-        const nameSpan = document.createElement("span");
-        nameSpan.classList.add("reviews__name");
-        nameSpan.textContent = review.title;
+        // const nameSpan = document.createElement("span");
+        // nameSpan.classList.add("reviews__name");
+        // nameSpan.textContent = review.title;
 
         // Tạo phần tử thời gian đăng bình luận
         const timeSpan = document.createElement("span");
@@ -313,18 +242,18 @@ function generateReviewItems(reviews) {
 
         // Thêm các phần tử vào phần tử chứa thông tin người đăng bình luận
         authorDiv.appendChild(avatarImg);
-        authorDiv.appendChild(nameSpan);
+        // authorDiv.appendChild(nameSpan);
         authorDiv.appendChild(timeSpan);
         authorDiv.appendChild(ratingSpan);
 
         // Tạo phần tử chứa nội dung bình luận
-        const textParagraph = document.createElement("p");
-        textParagraph.classList.add("reviews__text");
-        textParagraph.textContent = review.commentText;
+        // const textParagraph = document.createElement("p");
+        // textParagraph.classList.add("reviews__text");
+        // textParagraph.textContent = review.commentText;
 
         // Thêm các phần tử vào phần tử <li>
         reviewItem.appendChild(authorDiv);
-        reviewItem.appendChild(textParagraph);
+        // reviewItem.appendChild(textParagraph);
 
         // Thêm phần tử <li> vào danh sách bình luận
         reviewsList.appendChild(reviewItem);
@@ -383,12 +312,14 @@ function upload_new_comment(context){
     liElement.appendChild(commentText);
 
     // Append <li> element to comments container
-    commentsContainer.appendChild(liElement);
+    const firstChild = document.querySelector(".comments__item");
+    commentsContainer.insertBefore(liElement, firstChild);
+    // commentsContainer.appendChild(liElement);
 }
 
 const review_button = document.querySelector("#submit_review");
 
-function upload_new_review(title, rating, context){
+function upload_new_review(rating){
     let currentDate = new Date();
     let dateString = currentDate.toLocaleDateString(); // Lấy ngày theo định dạng dd/mm/yyyy
     let timeString = currentDate.toLocaleTimeString(); // Lấy giờ theo định dạng hh:mm:ss
@@ -417,10 +348,10 @@ function upload_new_review(title, rating, context){
     avatarImg.setAttribute("src", "img/user.svg");
     avatarImg.setAttribute("alt", "");
 
-    // Tạo phần tử tên tác giả
-    const nameSpan = document.createElement("span");
-    nameSpan.classList.add("reviews__name");
-    nameSpan.textContent = title;
+    // Tạo phần tử tiêu đề
+    // const nameSpan = document.createElement("span");
+    // nameSpan.classList.add("reviews__name");
+    // nameSpan.textContent = "";
 
     // Tạo phần tử thời gian đăng bình luận
     const timeSpan = document.createElement("span");
@@ -434,28 +365,49 @@ function upload_new_review(title, rating, context){
 
     // Thêm các phần tử vào phần tử chứa thông tin người đăng bình luận
     authorDiv.appendChild(avatarImg);
-    authorDiv.appendChild(nameSpan);
+    // authorDiv.appendChild(nameSpan);
     authorDiv.appendChild(timeSpan);
     authorDiv.appendChild(ratingSpan);
 
     // Tạo phần tử chứa nội dung bình luận
-    const textParagraph = document.createElement("p");
-    textParagraph.classList.add("reviews__text");
-    textParagraph.textContent = context;
+    // const textParagraph = document.createElement("p");
+    // textParagraph.classList.add("reviews__text");
+    // textParagraph.textContent = "";
 
     // Thêm các phần tử vào phần tử <li>
     reviewItem.appendChild(authorDiv);
-    reviewItem.appendChild(textParagraph);
+    // reviewItem.appendChild(textParagraph);
 
     // Thêm phần tử <li> vào danh sách bình luận
-    reviewsList.appendChild(reviewItem);
+    const firstChild = document.querySelector(".reviews__item");
+    reviewsList.insertBefore(reviewItem,firstChild);
+    // reviewsList.appendChild(reviewItem);
+}
+
+function selectGenre(){
+    let genreLinks = document.querySelector('.item--details .item__meta li:nth-child(1) a');
+    let genreString = genreLinks.textContent; // Lấy chuỗi từ phần tử genreLinks
+    // console.log(genreString);
+    let genresArray = genreString.split(', '); // Chuyển chuỗi thành mảng bằng cách tách chuỗi theo dấu phẩy
+    // console.log(genresArray[0], genresArray[1], genresArray[2]);
+    // Lấy ngẫu nhiên một chỉ số từ 0 đến độ dài của mảng thể loại
+    let randomIndex = Math.floor(Math.random() * genresArray.length);
+    // console.log(randomIndex);
+    // Sử dụng chỉ số đã chọn để lấy ra thể loại ngẫu nhiên
+    let randomGenre = genresArray[randomIndex];
+    console.log("Recommend genre:", randomGenre);
+    return randomGenre;
 
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  updateDetails(details);
-  update_u_may_like(itemContents);
-  generateComments(commentsData);
+//   updateDetails(details);
+  getDetail(20,1).then(function(){
+    const recommended_genre = selectGenre();
+    Recommend(recommended_genre, 1);
+  });
+  //update_u_may_like(itemContents);
+  // generateComments(commentsData);
   generateReviewItems(reviews);
   comment_button.addEventListener("click", function(){
     let textarea = document.getElementById("comment_text");
@@ -463,17 +415,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     upload_new_comment(textarea.value);
+    textarea.value = "";
+    textarea.placeholder = "Write a comment";
   })
   review_button.addEventListener("click", function(){
-    let titleInput = document.querySelector('.sign__input');
     let ratingSelect = document.getElementById('rating');
-    let reviewTextarea = document.getElementById('review_text');
 
-    if (titleInput.value.trim() === '' || ratingSelect.value === '0' || reviewTextarea.value.trim() === '') {
+    if (ratingSelect.value === '0') {
         return;
     }
-    upload_new_review(titleInput.value, ratingSelect.value, reviewTextarea.value);
-
+    upload_new_review(ratingSelect.value);
+    ratingSelect.value = '0';
   })
 });
 
