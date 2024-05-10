@@ -8,6 +8,7 @@
 | Lấy data gói| `plan` | `http://localhost:8080/api/plans?userId=` | `GET` |  |
 | Lấy kết quả tìm kiếm| `search` | `http://localhost:8080/api/search?string=&userId=` | `GET` |  |
 | Lấy kết quả lọc theo danh mục | `filter` | `http://localhost:8080/api/movies?genre=&userId=` | `GET` |  |
+| Lấy comment | `comment` | `http://localhost:8080/api/comment?movieId=&userId=` | `GET` |||
 | Lấy thông tin về trang cá nhân | `profile` | `http://localhost:8080/api/profile?userId=` | `GET` |  |
 | Thêm comment | `comment` | `http://localhost:8080/api/comment?movieId=&userId=` | `POST` | `JSON{"cmtText": "?"}`||
 | Thêm rating | `rating` | `http://localhost:8080/api/rating?movieId=&userId=` | `POST` | `JSON{"rating": ?}`||
