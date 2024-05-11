@@ -85,17 +85,6 @@ const movies = [
     }
   ]
 
-const fetchData = async () => {
-    try {
-        const response = await axios.get('http://localhost:8080/api/movies');
-        console.log(response);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const catalog_name = localStorage.getItem('genre');
-const to_cata = localStorage.getItem('genre');
 function catalog_title(name) {
     const title = document.querySelector('.section__title.section__title--head')
     title.textContent = name;
@@ -122,7 +111,7 @@ function createItems(jsonData) {
         link.classList.add('item__cover');
 
         const img = document.createElement('img');
-        img.src = item.src;
+        img.src = item.cover_img_url;
         img.alt = '';
 
         const playSpan = document.createElement('span');
@@ -139,21 +128,19 @@ function createItems(jsonData) {
         title.classList.add('item__title');
         const titleLink = document.createElement('a');
         titleLink.href = '/details';
-        titleLink.textContent = item.context;
+        titleLink.textContent = item.title;
         title.appendChild(titleLink);
 
         const categorySpan = document.createElement('span');
         categorySpan.classList.add('item__category');
-        item.category.forEach(cat => {
-            const catLink = document.createElement('a');
-            catLink.href = '#'; // Chỉnh sửa href theo yêu cầu của bạn
-            catLink.textContent = cat;
-            categorySpan.appendChild(catLink);
-        });
+        const catLink = document.createElement('a');
+        catLink.href = '#'; // Chỉnh sửa href theo yêu cầu của bạn
+        catLink.textContent = item.genres;
+        categorySpan.appendChild(catLink);
 
         const rateSpan = document.createElement('span');
         rateSpan.classList.add('item__rate');
-        rateSpan.textContent = item.rate;
+        rateSpan.textContent = item.average_rating;
 
         contentDiv.appendChild(title);
         contentDiv.appendChild(categorySpan);
@@ -168,12 +155,24 @@ function createItems(jsonData) {
     });
     return container;
 }
-  document.addEventListener('DOMContentLoaded', function() {
-    const container = createItems(movies);
-    const catalogSection = document.querySelector(".section.section--catalog .container");
-    catalogSection.appendChild(container);
-    catalog_title(catalog_name);
-    home_to_catalog(to_cata);
+
+const fetchData = async (genre) => {
+  try {
+      const response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}&userId=3`);
+      const catalogSection = document.querySelector(".section.section--catalog .container");
+      catalog_title(genre);
+      home_to_catalog(genre);
+      const container = createItems(response.data.movies.slice(0, 30));
+      catalogSection.appendChild(container);
+} catch (error) {
+      console.log(error);
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+  const genre = localStorage.getItem('genre');
+  console.log(genre);
+  fetchData(genre);
 });
 
 

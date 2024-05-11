@@ -323,7 +323,6 @@ function UpdateDataFilmGenres(userId, genre, getElementById) {
     });
 };
 
-const move_genres = document.querySelector('.set_genre');
 document.addEventListener('DOMContentLoaded', function() {
     let userId = 3;
     UpdateDataNewItemOfThisSeason(userId);
@@ -339,11 +338,5 @@ document.addEventListener('DOMContentLoaded', function() {
     UpdateDataFilmGenres(userId, genre, getElementById);
     getElementById = "add-now-watching";
     addDataFilm(dataNewItemOfThisSeason, getElementById);
-
-    move_genres.addEventListener('click', function() {
-        let genre = this.textContent;
-        localStorage.setItem('genre', genre);
-        window.location.href = 'http://localhost:3000/catalog';
-    });
 });
 
