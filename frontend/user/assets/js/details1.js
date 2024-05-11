@@ -44,76 +44,19 @@ const Recommend = async(genre, id) => {
     }
 }
 
-
-const itemContents = [
-  {
-      "title": "Tân mất tích",
-      "coverSrc": "img/covers/7.png",
-      "categories": ["Action", "Triler"],
-      "rate": "8.4"
-  },
-  {
-      "title": "Red Sky at Night",
-      "coverSrc": "img/covers/8.png",
-      "categories": ["Comedy"],
-      "rate": "7.1"
-  },
-  {
-      "title": "The Forgotten Road",
-      "coverSrc": "img/covers/9.png",
-      "categories": ["Romance", "Drama", "Music"],
-      "rate": "6.3"
-  },
-  {
-      "title": "Dark Horizons",
-      "coverSrc": "img/covers/10.png",
-      "categories": ["Comedy", "Drama"],
-      "rate": "7.9"
-  },
-  {
-      "title": "Echoes of Yesterday",
-      "coverSrc": "img/covers/11.png",
-      "categories": ["Action", "Triler"],
-      "rate": "8.4"
-  },
-  {
-      "title": "Into the Unknown",
-      "coverSrc": "img/covers/12.png",
-      "categories": ["Comedy"],
-      "rate": "7.1"
-  }
-]
-
-
-const reviews = [
-    {
-        "avatarSrc": "img/user.svg",
-        "authorName": "Tess Harper",
-        "title": "Best Marvel movie in my opinion",
-        "commentTime": "24.08.2023, by ",
-        "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-        "rating": "8.0"
-    },
-    {
-        "avatarSrc": "img/user.svg",
-        "authorName": "Gene Graham",
-        "title": "Greate movie",
-        "commentTime": "24.08.2023, by ",
-        "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-        "rating": "9.0"
-    },
-    {
-        "avatarSrc": "img/user.svg",
-        "authorName": "Rosa Lee",
-        "title": "It could be better",
-        "commentTime": "24.08.2023, by ",
-        "commentText": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.",
-        "rating": "7.0"
+const UpdateView =  async(movieid, id) => {
+    try{
+        let response = await axios.put(`http://localhost:8080/api/movie?movieId=${movieid}&userId=${id}`);
+        console.log(response);
     }
-]
+    catch(error){
+        console.log(error);
+    }
+}
 
 
 function updateDetails(jsonData) {
+  const id = document.getElementById('need_changing_details');
   const title = document.querySelector('.section__title.section__title--head');
   const itemCoverImg = document.querySelector('.item--details .item__cover img');
   const itemRate = document.querySelector('.item--details .item__rate');
@@ -122,21 +65,29 @@ function updateDetails(jsonData) {
   const runningTime = document.querySelector('.item--details .item__meta li:nth-child(2)');
   const countryLink = document.querySelector('.item--details .item__meta li:nth-child(3) a');
   const premiereDate = document.querySelector('.item--details .item__meta li:nth-child(4)');
+  const views = document.querySelector('.item--details .item__meta li:nth-child(5)');
   const directorLink = document.querySelector('.item--details .item__meta--second li:nth-child(1) a');
   const actorLinks = document.querySelector('.item--details .item__meta--second li:nth-child(2) a');
   const descriptionParagraph = document.querySelector('.item--details .item__description--details p');
+//   const trailers = document.querySelectorAll('#player source');
 
+//   trailers.forEach(function(trailer){
+//     console.log(trailer.src);
+//     trailer.setAttribute("src", jsonData.trailer_url);
+//   });
+
+  id.setAttribute("id", jsonData.id);
   //Update title
   title.textContent = jsonData.title;
   // Update cover image src
-  itemCoverImg.src =  "img/covers/14.png";//jsonData.cover_img_url;
+  itemCoverImg.src =  jsonData.cover_img_url
 
   // Update rate
   itemRate.textContent = jsonData.average_rating;
 
   // Update lists
-  itemLists[0].textContent = "4K";
-  itemLists[1].textContent = "18";
+  itemLists[0].textContent = "4K"; //pricing plans needed
+  itemLists[1].textContent = jsonData.label;
 
   // Update genres
   genreLinks.textContent = jsonData.genres;
@@ -144,7 +95,8 @@ function updateDetails(jsonData) {
 
   // Update running time
   runningTime.textContent = `Running time: ${jsonData.duration} min`;
-
+  //update views
+  views.textContent = `Views: ${jsonData.views}`
   // Update country
   countryLink.textContent = "USA";
   countryLink.setAttribute('href', '#');
@@ -170,14 +122,18 @@ function update_u_may_like(itemContents) {
           const coverElement = itemDiv.querySelector(".item__cover img");
           const categoryElement = itemDiv.querySelector(".item__category a");
           const rateElement = itemDiv.querySelector(".item__rate");
+          const idsave = itemDiv.querySelector(".recommend")
 
           titleElement.textContent = item.title;
 
-          coverElement.setAttribute("src", "img/covers/7.png");
+          coverElement.setAttribute("src", item.cover_img_url);
           coverElement.setAttribute("alt", "");
 
           categoryElement.textContent = item.genres;
           rateElement.textContent = item.average_rating;
+
+          idsave.setAttribute('id', item.id)
+        //   console.log(idsave.id);
   });
 }
 
@@ -427,6 +383,9 @@ function selectGenre(){
 
 }
 
+const watchMovie = document.querySelector(".playVideo");
+const recommended_list = document.querySelectorAll(".recommend");
+
 document.addEventListener('DOMContentLoaded', function() {
 //   updateDetails(details);
   getDetail(20,1).then(function(){
@@ -435,7 +394,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   //update_u_may_like(itemContents);
   // generateComments(commentsData);
-  generateReviewItems(reviews);
+
+  //generateReviewItems(reviews);
 
   comment_button.addEventListener("click", function(){
     let textarea = document.getElementById("comment_text");
@@ -455,6 +415,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     upload_new_review(ratingSelect.value);
     ratingSelect.value = '0';
+  })
+
+  watchMovie.addEventListener("click", function(){
+    console.log("watching");
+    UpdateView(20,1);
+  })
+
+  recommended_list.forEach(function(element){
+    element.addEventListener("click", function(){
+        console.log(element.id);
+        localStorage.setItem("movieid", element.id);
+        window.location.href = 'http://localhost:3000/details'
+    })
   })
 });
 

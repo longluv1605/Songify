@@ -5188,3 +5188,9 @@ body::-webkit-scrollbar-thumb {
   display: none;
   
 }
+
+.item--details .item__meta--second li:nth-child(2) a{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
