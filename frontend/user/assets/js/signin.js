@@ -14,6 +14,7 @@ const postAcout = async() => {
         });
         console.log(response);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('genre', '');
         window.location.href = 'http://localhost:3000/home';
     } catch (error) {
         console.log(error);

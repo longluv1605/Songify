@@ -85,8 +85,17 @@ const movies = [
     }
   ]
 
-const catalog_name = "Tiêu đề"
-const to_cata = "Tên danh mục"
+const fetchData = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/api/movies');
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+const catalog_name = localStorage.getItem('genre');
+const to_cata = localStorage.getItem('genre');
 function catalog_title(name) {
     const title = document.querySelector('.section__title.section__title--head')
     title.textContent = name;
@@ -109,7 +118,7 @@ function createItems(jsonData) {
         itemDiv.classList.add('item');
 
         const link = document.createElement('a');
-        link.href = item.href;
+        link.href = '/details';
         link.classList.add('item__cover');
 
         const img = document.createElement('img');
@@ -129,7 +138,7 @@ function createItems(jsonData) {
         const title = document.createElement('h3');
         title.classList.add('item__title');
         const titleLink = document.createElement('a');
-        titleLink.href = item.href;
+        titleLink.href = '/details';
         titleLink.textContent = item.context;
         title.appendChild(titleLink);
 
