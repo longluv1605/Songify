@@ -5184,3 +5184,7 @@ body::-webkit-scrollbar-thumb {
 .reviews__item {
   margin-bottom: 60px; /* Khoảng cách giữa các phần tử */
 }
+#check-person label{
+  display: none;
+  
+}
