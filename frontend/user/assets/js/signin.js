@@ -16,8 +16,7 @@ const postAccount = async() => {
         // let deny_access = document.querySelector("#check-person label")
         // deny_access.style.display = "block";
         localStorage.setItem('token', response.data.token);
-        localStorage.setItem('movieid', "");
-        localStorage.setItem('genre', "");
+        localStorage.setItem('genre', '');
         window.location.href = 'http://localhost:3000/home';
     } catch (error) {
         console.log(error);

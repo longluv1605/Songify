@@ -118,6 +118,8 @@ function UpdateNewItemOfThisSeason(data){
     // Lặp qua từng phần tử <li> và xử lý
     liElements.forEach((li, index) => {
         if(index<=9) {
+            const div = li.querySelector('.item.item--big');
+            div.id = data[index].id;
             const img = li.querySelector('img');
             img.src = data[index].cover_img_url;
             const title = li.querySelector('h3');
@@ -128,6 +130,8 @@ function UpdateNewItemOfThisSeason(data){
             const rating = li.querySelector('.item__rate');
             rating.textContent = data[index].average_rating;
         } else if (index>=10 && index<=19) {
+            const div = li.querySelector('.item.item--big');
+            div.id = data[index-10].id;
             const img = li.querySelector('img');
             img.src = data[index-10].cover_img_url;
             const title = li.querySelector('h3');
@@ -138,6 +142,8 @@ function UpdateNewItemOfThisSeason(data){
             const rating = li.querySelector('.item__rate');
             rating.textContent = data[index-10].average_rating;
         } else if (index>=20) {
+            const div = li.querySelector('.item.item--big');
+            div.id = data[index-20].id;
             const img = li.querySelector('img');
             img.src = data[index-20].cover_img_url;
             const title = li.querySelector('h3');
@@ -317,6 +323,7 @@ function UpdateDataFilmGenres(userId, genre, getElementById) {
     });
 };
 
+const move_genres = document.querySelector('.set_genre');
 document.addEventListener('DOMContentLoaded', function() {
     let userId = 3;
     UpdateDataNewItemOfThisSeason(userId);
@@ -332,5 +339,11 @@ document.addEventListener('DOMContentLoaded', function() {
     UpdateDataFilmGenres(userId, genre, getElementById);
     getElementById = "add-now-watching";
     addDataFilm(dataNewItemOfThisSeason, getElementById);
+
+    move_genres.addEventListener('click', function() {
+        let genre = this.textContent;
+        localStorage.setItem('genre', genre);
+        window.location.href = 'http://localhost:3000/catalog';
+    });
 });
 
