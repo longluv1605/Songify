@@ -1,3 +1,18 @@
+const fetchData = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://localhost:8080/api/profile',
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
+        window.location.href = 'http://localhost:3000/signin';
+    }
+};
+
 var dataUsser = {
     id: 21313141,
     userName: "David Đặng",
@@ -237,3 +252,5 @@ addDataForRecentViews(Recent_Views_Data);
 addDataForLatestReviews(Latest_Reviews_Data);
 addDataPricingPlant(Pricing_Plant_Data);
 changeInformationInSetting(dataUsser);
+
+fetchData();

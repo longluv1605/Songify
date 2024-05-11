@@ -6,6 +6,7 @@ const hostname = process.env.HOST_NAME || 'localhost';
 const cors = require('cors');
 
 app.use(cors());
+
 app.use(express.static(__dirname + '/user'))
 app.use('/assets', express.static(__dirname + '/user/assets'))
 app.use('/css', express.static(__dirname + '/user/assets/css'))
@@ -28,7 +29,7 @@ app.use('/catalog', express.static(path.join(__dirname+ '/user/views/catalog1.ht
 app.use('/contacts', express.static(path.join(__dirname+ '/user/views/contacts.html')));
 app.use('/details', express.static(path.join(__dirname+ '/user/views/details1.html')));
 app.use('/forgot', express.static(path.join(__dirname+ '/user/views/forgot.html')));
-app.use('/home', express.static(path.join(__dirname+ '/user/views/index.html')));
+app.use('/home', express.static(path.join(__dirname+ '/user/views/home.html')));
 app.use('/pricing', express.static(path.join(__dirname+ '/user/views/pricing.html')));
 app.use('/profile', express.static(path.join(__dirname+ '/user/views/profile.html')));
 app.use('/signin', express.static(path.join(__dirname+ '/user/views/signin.html')));
@@ -47,12 +48,12 @@ app.use('/admin/users', express.static(path.join(__dirname+ '/admin/views/users.
 
 // Route chính
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname + '/admin/views/catalog.html'));
+  res.sendFile(path.join(__dirname + '/admin/views/signin.html'));
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/user/views/index.html'));
-  });
+  res.sendFile(path.join(__dirname + '/user/views/signin.html'));
+});
 
 // Khởi động máy chủ
 app.listen(port, () => {
