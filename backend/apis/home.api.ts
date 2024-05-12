@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { HomeController } from "../controllers/controllers";
-import { authenticateToken } from "../middlewares/authenticate";
+import authenticateToken from "../middlewares/authenticate";
 
 class HomeAPI implements API {
     public path = "/";

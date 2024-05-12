@@ -9,7 +9,7 @@ dotenv.config();
 const JWT_SECRET = process.env.SECRET_KEY as Secret;
 
 // Middleware to authenticate JWT
-export function authenticateToken(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+const authenticateToken = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
     if (token == null) return res.sendStatus(401); // Unauthorized
@@ -29,3 +29,5 @@ export function authenticateToken(req: AuthenticatedRequest, res: Response, next
 function isBlacklisted(token: string): boolean {
     return LogoutController.blacklist.includes(token);
 }
+
+export default authenticateToken;

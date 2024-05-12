@@ -14,6 +14,14 @@ class RatingController {
             const userId: number = parseInt(req.userId as string);
             const movieId: number = parseInt(req.query.movieId as string);
 
+            if (userId == undefined || userId == null || Number.isNaN(userId)) {
+                throw new Error("User not found");
+            }
+
+            if (movieId == undefined || movieId == null || Number.isNaN(movieId)) {
+                throw new Error("User not found");
+            }
+
             const rating: number = parseInt(req.body.rating as string);
 
             if (rating == undefined || null) {

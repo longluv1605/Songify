@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { ProfileController } from "../controllers/controllers";
-import { authenticateToken } from "../middlewares/authenticate";
+import authenticateToken from "../middlewares/authenticate";
 
 class ProfileAPI implements API {
     public path = "/profile";

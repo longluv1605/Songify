@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { LogoutController } from "../controllers/controllers";
-import { authenticateToken } from "../middlewares/authenticate";
+import authenticateToken from "../middlewares/authenticate";
 
 class LogoutAPI implements API {
     public path = "/logout";

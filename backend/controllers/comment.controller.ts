@@ -1,6 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../interfaces/authenticatedRequest";
 
 class CommentController {
     private db: Database;
@@ -14,7 +14,7 @@ class CommentController {
             const movieId: number = parseInt(req.query.movieId as string);
 
             if (movieId == undefined || null) {
-                return;
+                throw new Error("Movie not found");
             }
 
             const sql: string = `SELECT cmt.date, cmt.detail, u.first_name, u.last_name
@@ -26,7 +26,7 @@ class CommentController {
 
             res.status(200).json({ comments });
         } catch (err) {
-            console.log(err);
+            res.status(500).json({ err });
         }
     };
 

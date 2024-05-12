@@ -12,6 +12,11 @@ class ProfileController {
     public getProfileData = async (req: AuthenticatedRequest, res: Response) => {
         try {
             const userId = parseInt(req.userId as string);
+
+            if (userId == undefined || userId == null || Number.isNaN(userId)) {
+                throw new Error("User not found");
+            }
+
             const user = await this.getUserData(userId);
             const numberOfComments = await this.getNumberofComments(userId);
             const numberOfRatings = await this.getNumberofRatings(userId);
@@ -30,14 +35,14 @@ class ProfileController {
 
             res.status(200).json({ profile });
         } catch (err) {
-            console.log(err);
-            res.status(500).json({ message: "Internal Server Error" });
+            // console.log(err);
+            res.status(500).json({ err });
         }
     };
 
     public getUserData = async (userId: number) => {
         try {
-            const sql: string = `SELECT id, first_name, last_name FROM user WHERE id = ?`;
+            const sql: string = `SELECT id, first_name, last_name, email FROM user WHERE id = ?`;
             const user = await this.db.query(sql, [userId]);
 
             return user;
@@ -115,11 +120,11 @@ class ProfileController {
         }
     };
 
-    public changeUserInfo = async (req: Request, res: Response) => {
+    public changeUserInfo = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId = parseInt(req.query.userId as string);
-            if (userId == undefined || null) {
-                res.status(400).json({ message: "User ID is required" });
+            const userId = parseInt(req.userId as string);
+            if (userId == undefined || userId == null || Number.isNaN(userId)) {
+                throw new Error("User not found");
             }
 
             const oldInfo = await this.db.query(`SELECT * FROM user WHERE id = ?`, [userId]);

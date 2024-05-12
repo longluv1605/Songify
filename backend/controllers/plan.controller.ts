@@ -9,7 +9,7 @@ class PlanController {
         this.db = new Database();
     }
 
-    public getPlansData = async (req: Request, res: Response) => {
+    public getPlansData = async (req: AuthenticatedRequest, res: Response) => {
         try {
             const plans = await this.getPlans();
             const currPlan = await this.currentPlan(req);
@@ -34,10 +34,13 @@ class PlanController {
 
     private currentPlan = async (req: AuthenticatedRequest) => {
         try {
-            const userId = req.userId;
-            if (userId == undefined || null || userId == "") {
+            const userId = parseInt(req.userId as string);
+            if (userId == undefined || userId == null || Number.isNaN(userId)) {
                 return;
             }
+
+            console.log("userId", userId);
+
             const sql: string = `SELECT * FROM user_plan WHERE user_id = ?`;
 
             const result = await this.db.query(sql, [userId]);

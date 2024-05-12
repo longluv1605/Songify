@@ -9,11 +9,11 @@ class LogoutController {
         try {
             // TODO: nhắc fe Xóa JWT từ client-side (ví dụ: xóa token từ local storage)
             const token: string = req.headers['authorization']?.split(' ')[1] || "";
-            console.log(token + "\n Blist:" + "\n");
+            // console.log(token + "\n Blist:" + "\n");
             LogoutController.blacklist.push(token);
-            for (const token of LogoutController.blacklist) {
-                console.log(token + "\n");
-            }
+            // for (const token of LogoutController.blacklist) {
+            //     console.log(token + "\n");
+            // }
             res.status(200).json({ message: "Logged out successfully" });
         } catch (error: any) {
             res.status(500).json({ error: error.message });

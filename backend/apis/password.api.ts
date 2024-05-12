@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { PasswordController } from "../controllers/controllers";
-import { authenticateToken } from "../middlewares/authenticate";
+import authenticateToken from "../middlewares/authenticate";
 
 class PasswordAPI implements API {
     public path = "/password";

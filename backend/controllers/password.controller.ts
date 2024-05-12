@@ -12,6 +12,11 @@ class PasswordController {
     public changePassword = async (req: AuthenticatedRequest, res: Response) => {
         try {
             const userId: number = parseInt(req.userId as string);
+
+            if (userId == undefined || userId == null || Number.isNaN(userId)) {
+                throw new Error("User not found");
+            }
+
             const oldPassword: string = req.body.oldPassword;
             const newPassword: string = req.body.newPassword;
 
@@ -41,7 +46,7 @@ class PasswordController {
 
             return user;
         } catch (err) {
-            console.log(err);
+            throw err;
         }
     };
 }
