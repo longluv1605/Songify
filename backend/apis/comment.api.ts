@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { CommentController } from "../controllers/controllers";
+import { authenticateToken } from "../middlewares/authenticate";
 
 class CommentAPI implements API {
     public path = "/comment";
@@ -12,8 +13,8 @@ class CommentAPI implements API {
     }
 
     private initializeRoutes = async () => {
-        this.router.get(this.path, this.controller.getComments);
-        this.router.post(this.path, this.controller.postComment);
+        this.router.get(this.path, authenticateToken, this.controller.getComments);
+        this.router.post(this.path, authenticateToken, this.controller.postComment);
     };
 }
 

@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class FilterController {
     private db: Database;
@@ -9,11 +10,11 @@ class FilterController {
     }
 
     public getFilteredMovies = async (
-        req: Request,
+        req: AuthenticatedRequest,
         res: Response
     ): Promise<void> => {
         try {
-            const userId = parseInt(req.query.userId as string);
+            const userId = parseInt(req.userId as string);
             const genre = req.query.genre;
             const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
                                     FROM movie m

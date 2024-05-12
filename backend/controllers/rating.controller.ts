@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class RatingController {
     private db: Database;
@@ -8,9 +9,9 @@ class RatingController {
         this.db = new Database();
     }
 
-    public postRating = async (req: Request, res: Response) => {
+    public postRating = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId: number = parseInt(req.query.userId as string);
+            const userId: number = parseInt(req.userId as string);
             const movieId: number = parseInt(req.query.movieId as string);
 
             const rating: number = parseInt(req.body.rating as string);

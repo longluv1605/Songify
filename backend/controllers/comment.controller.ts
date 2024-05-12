@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class CommentController {
     private db: Database;
@@ -29,9 +30,9 @@ class CommentController {
         }
     };
 
-    public postComment = async (req: Request, res: Response) => {
+    public postComment = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId: number = parseInt(req.query.userId as string);
+            const userId: number = parseInt(req.userId as string);
             const movieId: number = parseInt(req.query.movieId as string);
             const comment: string = req.body.cmtText;
 

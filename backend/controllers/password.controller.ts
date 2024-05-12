@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class PasswordController {
     private db: Database;
@@ -8,9 +9,9 @@ class PasswordController {
         this.db = new Database();
     }
 
-    public changePassword = async (req: Request, res: Response) => {
+    public changePassword = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId: number = parseInt(req.query.userId as string);
+            const userId: number = parseInt(req.userId as string);
             const oldPassword: string = req.body.oldPassword;
             const newPassword: string = req.body.newPassword;
 
