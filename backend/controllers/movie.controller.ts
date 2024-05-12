@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class MovieController {
     private db: Database;
@@ -8,9 +9,9 @@ class MovieController {
         this.db = new Database();
     }
 
-    public getMovieData = async (req: Request, res: Response) => {
+    public getMovieData = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId = parseInt(req.query.userId as string);
+            const userId = parseInt(req.userId as string);
             const movie = await this.getMovie(req);
 
             const results: {
@@ -31,7 +32,7 @@ class MovieController {
         }
     };
 
-    private getMovie = async (req: Request) => {
+    private getMovie = async (req: AuthenticatedRequest) => {
         try {
             const movieId: number = parseInt(req.query.movieId as string);
 
@@ -48,9 +49,9 @@ class MovieController {
         }
     };
 
-    public postHistory = async (req: Request, res: Response) => {
+    public postHistory = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId: number = parseInt(req.query.userId as string);
+            const userId = parseInt(req.userId as string);
             const movieId: number = parseInt(req.query.movieId as string);
 
             const sql: string = `INSERT INTO user_history (user_id, movie_id)

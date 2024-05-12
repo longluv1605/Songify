@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class SearchController {
     private db: Database;
@@ -8,9 +9,9 @@ class SearchController {
         this.db = new Database();
     }
 
-    public getSearchData = async (req: Request, res: Response) => {
+    public getSearchData = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const userId = parseInt(req.query.userId as string);
+            const userId = parseInt(req.userId as string);
             const str: string | undefined = req.query.string as string; // Explicitly cast to string
             const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
                                     FROM movie m

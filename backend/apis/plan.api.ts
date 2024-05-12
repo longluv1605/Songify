@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { PlanController } from "../controllers/controllers";
+import { authenticateToken } from "../middlewares/authenticate";
 
 class PlanAPI implements API {
     public path = "/plans";
@@ -12,7 +13,7 @@ class PlanAPI implements API {
     }
 
     private initializeRoutes = async () => {
-        this.router.get(this.path, this.controller.getPlansData);
+        this.router.get(this.path, authenticateToken, this.controller.getPlansData);
     };
 }
 

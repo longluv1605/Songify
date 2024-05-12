@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { PasswordController } from "../controllers/controllers";
+import { authenticateToken } from "../middlewares/authenticate";
 
 class PasswordAPI implements API {
     public path = "/password";
@@ -12,7 +13,7 @@ class PasswordAPI implements API {
     }
 
     private initializeRoutes = async () => {
-        this.router.put(this.path, this.controller.changePassword);
+        this.router.put(this.path, authenticateToken, this.controller.changePassword);
     };
 }
 

@@ -1,5 +1,6 @@
 import Database from "../database/database";
 import { Request, Response } from "express";
+import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
 
 class PlanController {
     private db: Database;
@@ -31,9 +32,9 @@ class PlanController {
         }
     };
 
-    private currentPlan = async (req: Request) => {
+    private currentPlan = async (req: AuthenticatedRequest) => {
         try {
-            const userId = req.query.userId;
+            const userId = req.userId;
             if (userId == undefined || null || userId == "") {
                 return;
             }
