@@ -1,9 +1,19 @@
-const getDetail = async(movieid, id) => {
+const token = localStorage.getItem('token');
+console.log(token);
+const getDetail = async(movieid) => {
     try{
-        let response = await axios.get(`http://localhost:8080/api/movie?movieId=${movieid}&userId=${id}`);
+        let response = await axios.get(`http://localhost:8080/api/movie?movieId=${movieid}`,
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        );
         console.log(response.data.movie[0]);
         updateDetails(response.data.movie[0]);
-        let comments = await axios.get(`http://localhost:8080/api/comment?movieId=${movieid}&userId=${id}`)
+        let comments = await axios.get(`http://localhost:8080/api/comment?movieId=${movieid}`,
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        )
         console.log(comments.data.comments.slice(0,10));
         generateComments(comments.data.comments.slice(0,10));
         }
@@ -12,20 +22,28 @@ const getDetail = async(movieid, id) => {
         }
 };
 
-const postComment = async(movieid, id, context) => {
+const postComment = async(movieid, context) => {
     try {
         comment = {"cmtText": context}
-        let response = await axios.post(`http://localhost:8080/api/comment?movieId=${movieid}&userId=${id}`, comment)
+        let response = await axios.post(`http://localhost:8080/api/comment?movieId=${movieid}`, comment,
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        )
         console.log('Comment added successfully:', response.data);
     } catch (error) {
         console.error('Error adding comment:', error);
     }
 }
 
-const postRating = async(movieid, id, rating) => {
+const postRating = async(movieid, rating) => {
     try{
         rating = {"rating": rating}
-        let response = await axios.post(`http://localhost:8080/api/rating?movieId=${movieid}&userId=${id}`, rating)
+        let response = await axios.post(`http://localhost:8080/api/rating?movieId=${movieid}`, rating,
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        )
         console.log('Rating added successfully:', response.data);
     }
     catch(error){
@@ -33,9 +51,14 @@ const postRating = async(movieid, id, rating) => {
     }
 }
 
-const Recommend = async(genre, id) => {
+const Recommend = async(genre) => {
     try{
-        let response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}&userId=${id}`);
+        console.log("getting recommend");
+        let response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}`,
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        );
         console.log(response.data.movies.slice(0,6));
         update_u_may_like(response.data.movies.slice(0,6));
     }
@@ -44,9 +67,15 @@ const Recommend = async(genre, id) => {
     }
 }
 
-const UpdateView =  async(movieid, id) => {
+const UpdateView =  async(movieid) => {
     try{
-        let response = await axios.put(`http://localhost:8080/api/movie?movieId=${movieid}&userId=${id}`);
+        let response = await axios.put(
+            `http://localhost:8080/api/movie?movieId=${movieid}`,
+            null, // Thêm null để biểu thị không có dữ liệu gửi đi
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
         console.log(response);
     }
     catch(error){
@@ -54,6 +83,20 @@ const UpdateView =  async(movieid, id) => {
     }
 }
 
+const UpdateWatchHist = async(movieid) => {
+    try{
+        let response = await axios.post(`http://localhost:8080/api/movie?movieId=${movieid}`,
+            null,
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        )
+        console.log(response);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
 
 function updateDetails(jsonData) {
   const id = document.getElementById('need_changing_details');
@@ -293,7 +336,7 @@ function upload_new_comment(context){
     const firstChild = document.querySelector(".comments__item");
     commentsContainer.insertBefore(liElement, firstChild);
     // commentsContainer.appendChild(liElement);
-    postComment(20,1,context);
+    postComment(localStorage.getItem("movieid"),context);
     
 }
 
@@ -364,7 +407,7 @@ function upload_new_review(rating){
     const firstChild = document.querySelector(".reviews__item");
     reviewsList.insertBefore(reviewItem,firstChild);
     // reviewsList.appendChild(reviewItem);
-    postRating(20,1,numberPart);
+    postRating(localStorage.getItem("movieid"),numberPart);
 }
 
 function selectGenre(){
@@ -388,9 +431,9 @@ const recommended_list = document.querySelectorAll(".recommend");
 
 document.addEventListener('DOMContentLoaded', function() {
 //   updateDetails(details);
-  getDetail(20,1).then(function(){
+  getDetail(localStorage.getItem("movieid")).then(function(){
     const recommended_genre = selectGenre();
-    Recommend(recommended_genre, 1);
+    Recommend(recommended_genre);
   });
   //update_u_may_like(itemContents);
   // generateComments(commentsData);
@@ -419,7 +462,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   watchMovie.addEventListener("click", function(){
     console.log("watching");
-    UpdateView(20,1);
+    UpdateView(localStorage.getItem("movieid"));
+    UpdateWatchHist(localStorage.getItem("movieid"));
   })
 
   recommended_list.forEach(function(element){
