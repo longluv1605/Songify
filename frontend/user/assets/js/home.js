@@ -301,41 +301,47 @@ function addDataFilm(dataset, id){
 
 const fetchData = async(url) => {
     try {
-        const response = await axios.get(url);
+        const token = localStorage.getItem('token');
+        // console.log(token);
+        const response = await axios.get(url,
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
-        return null;
     }
 };
 
-function UpdateDataNewItemOfThisSeason(userId) {
-    const url = `http://localhost:8080/api?userId=${userId}`;
+function UpdateDataNewItemOfThisSeason() {
+    const url = `http://localhost:8080/api`;
     fetchData(url).then(dataset => {
         UpdateNewItemOfThisSeason(dataset.newMovies);
     });
 };
 
-function UpdateDataFilmGenres(userId, genre, getElementById) {
-    const url = `http://localhost:8080/api/movies?genre=${genre}&userId=${userId}`;
+function UpdateDataFilmGenres(genre, getElementById) {
+    const url = `http://localhost:8080/api/movies?genre=${genre}`;
     fetchData(url).then(dataset => {
         addDataFilm(dataset.movies, getElementById);
     });
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    let userId = 3;
-    UpdateDataNewItemOfThisSeason(userId);
+    console.log(localStorage.getItem('token'));
+    UpdateDataNewItemOfThisSeason();
     add_item_of_new_item(dataNewItem);
     let getElementById = "add-item-for-anime";
     let genre = 'Animation';
-    UpdateDataFilmGenres(userId, genre, getElementById);
+    UpdateDataFilmGenres(genre, getElementById);
     
     getElementById = "add-item-for-movie";
     addDataFilm(dataNewItemOfThisSeason, getElementById);
     getElementById = "add-item-for-tvshow";
     genre = 'TV Movie';
-    UpdateDataFilmGenres(userId, genre, getElementById);
+    UpdateDataFilmGenres(genre, getElementById);
     getElementById = "add-now-watching";
     addDataFilm(dataNewItemOfThisSeason, getElementById);
 });
