@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { API } from "../interfaces/interfaces";
 import { MovieController } from "../controllers/controllers";
+import { authenticateToken } from "../middlewares/authenticate";
 
 class MovieAPI implements API {
     public path = "/movie";
@@ -12,9 +13,9 @@ class MovieAPI implements API {
     }
 
     private initializeRoutes = async () => {
-        this.router.get(this.path, this.controller.getMovieData);
-        this.router.post(this.path, this.controller.postHistory);
-        this.router.put(this.path, this.controller.updateView);
+        this.router.get(this.path, authenticateToken, this.controller.getMovieData);
+        this.router.post(this.path, authenticateToken, this.controller.postHistory);
+        this.router.put(this.path, authenticateToken, this.controller.updateView);
     };
 }
 

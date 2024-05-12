@@ -20,7 +20,7 @@ class LoginController {
 
             const sql: string = `SELECT * FROM user WHERE email = ? AND password = ?`;
             const data = await this.db.query(sql, [email, password]);
-            const userId = data[0].id;
+            const userId = data[0].id;//TODO: xử lý lỗi
             if (data.length === 0) {
                 res.status(300).json({ message: "User not found" });
             } else {
