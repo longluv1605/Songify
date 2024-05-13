@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS user (
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(100) UNIQUE,
-    status VARCHAR(20) DEFAULT 'accepted'
+    status VARCHAR(20) DEFAULT 'accepted',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -34,7 +35,8 @@ CREATE TABLE IF NOT EXISTS movie (
     actors TEXT,
     cover_img_url TEXT,
     trailer_url TEXT,
-    film_url TEXT
+    film_url TEXT,
+    status VARCHAR(20) DEFAULT 'show'
 );
 
 
@@ -57,6 +59,13 @@ CREATE TABLE IF NOT EXISTS pricing_plan (
 
 CREATE TABLE IF NOT EXISTS label (
     name VARCHAR(50) UNIQUE PRIMARY KEY,
+    description TEXT
+);
+
+
+CREATE TABLE IF NOT EXISTS purchase_method (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) UNIQUE,
     description TEXT
 );
 
@@ -104,9 +113,11 @@ CREATE TABLE IF NOT EXISTS user_purchase (
     user_id INT,
     pricing_plan_id INT,
     purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    purchase_method VARCHAR(50),
     PRIMARY KEY (user_id, pricing_plan_id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (pricing_plan_id) REFERENCES pricing_plan(id)
+    FOREIGN KEY (purchase_method) REFERENCES purchase_method(name)
 );
 
 

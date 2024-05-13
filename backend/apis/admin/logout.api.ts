@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { API } from "../interfaces/interfaces";
-import { LogoutController } from "../controllers/controllers";
-import authenticateToken from "../middlewares/authenticate";
+import { API } from "../../interfaces/interfaces";
+import { LogoutController } from "../../controllers/controllers";
+import authenticateToken from "../../middlewares/authenticate";
 
-class LogoutAPI implements API {
-    public path = "/logout";
+class AdminLogoutAPI implements API {
+    public path = "/admin/logout";
     public router = Router();
     public controller: LogoutController = new LogoutController();
 
@@ -17,4 +17,4 @@ class LogoutAPI implements API {
     };
 }
 
-export default LogoutAPI;
+export default AdminLogoutAPI;

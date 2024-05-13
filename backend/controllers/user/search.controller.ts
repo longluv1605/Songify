@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class SearchController {
     private db: Database;
@@ -29,8 +29,8 @@ class SearchController {
             const movies = await this.db.query(sql, [str]);
 
             const results: {
-                movies: any,
-                userId: number | null,
+                movies: any;
+                userId: number | null;
             } = {
                 movies,
                 userId: null,

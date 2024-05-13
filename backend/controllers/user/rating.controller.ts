@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class RatingController {
     private db: Database;
@@ -18,7 +18,11 @@ class RatingController {
                 throw new Error("User not found");
             }
 
-            if (movieId == undefined || movieId == null || Number.isNaN(movieId)) {
+            if (
+                movieId == undefined ||
+                movieId == null ||
+                Number.isNaN(movieId)
+            ) {
                 throw new Error("User not found");
             }
 

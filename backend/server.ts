@@ -11,6 +11,10 @@ import {
     RatingAPI,
     PasswordAPI,
     LogoutAPI,
+    AdminLoginAPI,
+    AdminLogoutAPI,
+    AdminMovieAPI,
+    AdminUserAPI,
 } from "./apis/apis";
 import App from "./app";
 
@@ -27,6 +31,10 @@ const apis = [
     new RatingAPI(),
     new PasswordAPI(),
     new LogoutAPI(),
+    new AdminLoginAPI(),
+    new AdminLogoutAPI(),
+    new AdminMovieAPI(),
+    new AdminUserAPI(),
 ];
 
 const app = new App(apis);

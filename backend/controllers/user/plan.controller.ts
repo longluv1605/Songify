@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class PlanController {
     private db: Database;
@@ -16,7 +16,7 @@ class PlanController {
 
             res.status(200).json({ plans, currPlan });
         } catch (err) {
-            console.log(err);
+            // console.log(err);
             res.status(500).json({ message: "Internal Server Error" });
         }
     };
@@ -28,7 +28,7 @@ class PlanController {
 
             return result;
         } catch (err) {
-            console.log(err);
+            throw err;
         }
     };
 
@@ -36,10 +36,10 @@ class PlanController {
         try {
             const userId = parseInt(req.userId as string);
             if (userId == undefined || userId == null || Number.isNaN(userId)) {
-                return;
+                throw new Error("User not found");
             }
 
-            console.log("userId", userId);
+            // console.log("userId", userId);
 
             const sql: string = `SELECT * FROM user_plan WHERE user_id = ?`;
 
@@ -47,7 +47,7 @@ class PlanController {
 
             return { userId, result };
         } catch (err) {
-            console.log(err);
+            throw err;
         }
     };
 }

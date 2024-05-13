@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { API } from "../interfaces/interfaces";
-import { RegisterController } from "../controllers/controllers";
+import { API } from "../../interfaces/interfaces";
+import { RegisterController } from "../../controllers/controllers";
 
 class RegisterAPI implements API {
     public path = "/register";

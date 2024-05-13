@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 import { throws } from "assert";
 
 class MovieController {
@@ -38,7 +38,11 @@ class MovieController {
                 throw new Error("User not found");
             }
 
-            if (movieId == undefined || movieId == null || Number.isNaN(movieId)) {
+            if (
+                movieId == undefined ||
+                movieId == null ||
+                Number.isNaN(movieId)
+            ) {
                 throw new Error("Movie not found");
             }
 
@@ -50,14 +54,14 @@ class MovieController {
 
             sql = `INSERT INTO user_history (user_id, movie_id)
                                     VALUES (?, ?)`;
-                                    
+
             await this.db.query(sql, [userId, movieId]);
 
             res.status(200).json({ message: "History posted" });
         } catch (err) {
             res.status(500).json({ err });
         }
-    }
+    };
 
     public updateView = async (req: AuthenticatedRequest, res: Response) => {
         try {
@@ -72,7 +76,7 @@ class MovieController {
         } catch (err) {
             res.status(500).json({ err });
         }
-    }
+    };
 }
 
 export default MovieController;

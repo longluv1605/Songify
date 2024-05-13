@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from "../interfaces/authenticatedRequest";
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class FilterController {
     private db: Database;

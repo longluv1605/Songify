@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Response } from "express";
-import { AuthenticatedRequest } from "../interfaces/authenticatedRequest";
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class HomeController {
     private db: Database;
@@ -32,11 +32,11 @@ class HomeController {
 
     private getNewMovies = async (): Promise<any> => {
         try {
-            const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
+            const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
-                                    GROUP BY m.id ORDER BY m.added_at desc limit 10`;
+                                    GROUP BY m.id ORDER BY m.added_at DESC LIMIT 10`;
             const movies = await this.db.query(sql);
 
             return movies;
@@ -50,7 +50,7 @@ class HomeController {
         limit: number
     ): Promise<any> => {
         try {
-            const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating
+            const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, , (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id

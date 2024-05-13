@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class ProfileController {
     private db: Database;
@@ -9,7 +9,10 @@ class ProfileController {
         this.db = new Database();
     }
 
-    public getProfileData = async (req: AuthenticatedRequest, res: Response) => {
+    public getProfileData = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
         try {
             const userId = parseInt(req.userId as string);
 
@@ -120,19 +123,25 @@ class ProfileController {
         }
     };
 
-    public changeUserInfo = async (req: AuthenticatedRequest, res: Response) => {
+    public changeUserInfo = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
         try {
             const userId = parseInt(req.userId as string);
             if (userId == undefined || userId == null || Number.isNaN(userId)) {
                 throw new Error("User not found");
             }
 
-            const oldInfo = await this.db.query(`SELECT * FROM user WHERE id = ?`, [userId]);
+            const oldInfo = await this.db.query(
+                `SELECT * FROM user WHERE id = ?`,
+                [userId]
+            );
 
             const firstName = req.body.firstName || oldInfo[0].first_name;
             const lastName = req.body.lastName || oldInfo[0].last_name;
             const email = req.body.email || oldInfo[0].email;
-            
+
             const sql: string = `UPDATE user SET first_name = ?, last_name = ?, email = ? WHERE id = ?`;
 
             await this.db.query(sql, [firstName, lastName, email, userId]);
@@ -141,7 +150,7 @@ class ProfileController {
         } catch (err) {
             res.status(500).json({ message: "Internal Server Error" });
         }
-    } 
+    };
 }
 
 export default ProfileController;

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { API } from "../interfaces/interfaces";
-import { LoginController } from "../controllers/controllers";
+import { API } from "../../interfaces/interfaces";
+import { LoginController } from "../../controllers/controllers";
 
 class LoginAPI implements API {
     public path = "/login";

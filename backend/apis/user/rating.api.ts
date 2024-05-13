@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { API } from "../interfaces/interfaces";
-import { RatingController } from "../controllers/controllers";
-import authenticateToken from "../middlewares/authenticate";
+import { API } from "../../interfaces/interfaces";
+import { RatingController } from "../../controllers/controllers";
+import authenticateToken from "../../middlewares/authenticate";
 
 class RatingAPI implements API {
     public path = "/rating";
@@ -13,7 +13,11 @@ class RatingAPI implements API {
     }
 
     private initializeRoutes = async () => {
-        this.router.post(this.path, authenticateToken, this.controller.postRating);
+        this.router.post(
+            this.path,
+            authenticateToken,
+            this.controller.postRating
+        );
     };
 }
 

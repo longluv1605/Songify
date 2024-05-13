@@ -1,6 +1,6 @@
-import Database from "../database/database";
+import Database from "../../database/database";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from '../interfaces/authenticatedRequest'
+import { AuthenticatedRequest } from "../../interfaces/authenticatedRequest";
 
 class PasswordController {
     private db: Database;
@@ -9,7 +9,10 @@ class PasswordController {
         this.db = new Database();
     }
 
-    public changePassword = async (req: AuthenticatedRequest, res: Response) => {
+    public changePassword = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
         try {
             const userId: number = parseInt(req.userId as string);
 
@@ -20,14 +23,25 @@ class PasswordController {
             const oldPassword: string = req.body.oldPassword;
             const newPassword: string = req.body.newPassword;
 
-            if (oldPassword == undefined || null || newPassword == undefined || null) {
-                return res.status(400).json({ message: "Old password and new password are required" });
+            if (
+                oldPassword == undefined ||
+                null ||
+                newPassword == undefined ||
+                null
+            ) {
+                return res
+                    .status(400)
+                    .json({
+                        message: "Old password and new password are required",
+                    });
             }
 
             const user = await this.getUserData(userId);
 
             if (user[0].password !== oldPassword) {
-                return res.status(400).json({ message: "Old password is incorrect" });
+                return res
+                    .status(400)
+                    .json({ message: "Old password is incorrect" });
             }
 
             const sql: string = `UPDATE user SET password = ? WHERE id = ?`;
