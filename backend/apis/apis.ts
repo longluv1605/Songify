@@ -14,6 +14,8 @@ import AdminLoginAPI from "./admin/login.api";
 import AdminLogoutAPI from "./admin/logout.api";
 import AdminMovieAPI from "./admin/movies.api";
 import AdminUserAPI from "./admin/user.api";
+import AdminProfileAPI from "./admin/profile.api";
+import AdminSaleAPI from "./admin/sale.api";
 
 export {
     HomeAPI,
@@ -32,4 +34,6 @@ export {
     AdminLogoutAPI,
     AdminMovieAPI,
     AdminUserAPI,
+    AdminProfileAPI,
+    AdminSaleAPI,
 };

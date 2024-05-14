@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { API } from "../../interfaces/interfaces";
-import { PlanController } from "../../controllers/controllers";
+import { AdminSaleController } from "../../controllers/controllers";
 import authenticateToken from "../../middlewares/authenticate";
 
-class PlanAPI implements API {
-    public path = "/plans";
+class AdminSaleAPI implements API {
+    public path = "/admin/sale";
     public router = Router();
-    public controller: PlanController = new PlanController();
+    public controller: AdminSaleController = new AdminSaleController();
 
     constructor() {
         this.initializeRoutes();
@@ -16,10 +16,9 @@ class PlanAPI implements API {
         this.router.get(
             this.path,
             authenticateToken,
-            this.controller.getPlansData
+            this.controller.getSaleData
         );
-        this.router.post(this.path, authenticateToken, this.controller.buyPlan);
     };
 }
 
-export default PlanAPI;
+export default AdminSaleAPI;

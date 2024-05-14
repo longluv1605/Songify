@@ -16,6 +16,17 @@ class RegisterController {
             const email = req.body.email;
             const password = req.body.password;
 
+            if (
+                username == undefined ||
+                firstName == undefined ||
+                lastName == undefined ||
+                email == undefined ||
+                password == undefined
+            ) {
+                res.status(400).json({ message: "All fields are required" });
+                return;
+            }
+
             const sql: string = `SELECT * FROM user WHERE email = ? OR username = ?`;
             const checker = await this.db.query(sql, [email, username]);
 

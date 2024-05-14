@@ -14,7 +14,7 @@ class AdminMovieController {
             const sql: string = `SELECT m.id, m.title, m.added_at, ROUND(AVG(r.value), 1) AS average_rating, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
                                     FROM movie m
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
-                                    GROUP BY m.id ORDER BY m.added_at desc`;
+                                    GROUP BY m.id ORDER BY m.added_at desc LIMIT 100`;
             const movies = await this.db.query(sql);
 
             res.status(200).json({ movies });

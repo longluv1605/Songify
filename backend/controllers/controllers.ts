@@ -14,6 +14,8 @@ import AdminLoginController from "./admin/login.controller";
 import AdminLogoutController from "./admin/logout.controller";
 import AdminMovieController from "./admin/movies.controller";
 import AdminUserController from "./admin/user.controller";
+import AdminProfileController from "./admin/profile.controller";
+import AdminSaleController from "./admin/sale.controller";
 
 export {
     HomeController,
@@ -32,4 +34,6 @@ export {
     AdminLogoutController,
     AdminMovieController,
     AdminUserController,
+    AdminProfileController,
+    AdminSaleController,
 };

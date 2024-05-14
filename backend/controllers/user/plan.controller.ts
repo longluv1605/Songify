@@ -50,6 +50,35 @@ class PlanController {
             throw err;
         }
     };
+
+    public buyPlan = async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const userId = parseInt(req.userId as string);
+            if (userId == undefined || userId == null || Number.isNaN(userId)) {
+                throw new Error("User not found");
+            }
+
+            const planId = parseInt(req.body.planId as string);
+            const paymentMethod = req.body.paymentMethod;
+
+            if (planId == undefined || planId == null || Number.isNaN(planId)) {
+                throw new Error("Plan not found");
+            }
+
+            if (paymentMethod == undefined || paymentMethod == null) {
+                throw new Error("Payment method not found");
+            }
+
+            const sql: string = `INSERT INTO user_purchase (user_id, pricing_plan_id, purchase_method) VALUES (?, ?, ?)`;
+
+            await this.db.query(sql, [userId, planId, paymentMethod]);
+            
+            res.status(200).json({ message: "Plan purchased successfully" });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({ err });
+        }
+    }
 }
 
 export default PlanController;

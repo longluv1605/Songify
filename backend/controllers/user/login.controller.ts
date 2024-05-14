@@ -14,11 +14,11 @@ class LoginController {
 
     public postLoginData = async (req: Request, res: Response) => {
         try {
-            const email = req.body.email;
+            const username = req.body.username;
             const password = req.body.password;
 
-            const sql: string = `SELECT * FROM user WHERE email = ? AND password = ?`;
-            const data = await this.db.query(sql, [email, password]);
+            const sql: string = `SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?`;
+            const data = await this.db.query(sql, [username, username, password]);
             if (data.length === 0) {
                 res.status(300).json({ message: "User not found" });
             } else {

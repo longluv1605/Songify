@@ -88,7 +88,7 @@ class ProfileController {
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
-                                    GROUP BY m.id HAVING m.id IN (SELECT movie_id FROM user_history WHERE user_id = ? ORDER BY date DESC)`;
+                                    GROUP BY m.id HAVING m.id IN (SELECT movie_id FROM user_history WHERE user_id = ? ORDER BY date DESC) LIMIT 10`;
             const movies = await this.db.query(sql, [userId]);
             return { userId, movies };
         } catch (err) {

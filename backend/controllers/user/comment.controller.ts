@@ -21,7 +21,7 @@ class CommentController {
                                     FROM comment cmt
                                     LEFT JOIN user u ON cmt.user_id = u.id
                                     WHERE cmt.movie_id = ?
-                                    ORDER BY cmt.date DESC`;
+                                    ORDER BY cmt.date DESC limit 10`;
             const comments = await this.db.query(sql, [movieId]);
 
             res.status(200).json({ comments });
