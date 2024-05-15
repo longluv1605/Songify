@@ -1,114 +1,3 @@
-var dataNewItemOfThisSeason = [
-    {
-        'cover_img_url': "img/covers/1.png", 
-        'title': "Midnight Sun", 
-        'genres': "Comedy", 
-        'average_rating': '7.1'
-    },
-    {
-        'cover_img_url': "img/covers/2.png", 
-        'title': "The Shadow Hunter", 
-        'genres': "Romance, Drama, Music", 
-        'average_rating': '6.3'
-    },
-    {
-        'cover_img_url': "img/covers/3.png", 
-        'title': "Wild Hearts", 
-        'genres': "Comedy, Drama", 
-        'average_rating': '6.3'
-    },
-    {
-        'cover_img_url': "img/covers/4.png", 
-        'title': "Blindspotting", 
-        'genres': "Action, Trailer", 
-        'average_rating': '7.9'
-    },
-    {
-        'cover_img_url': "img/covers/5.png", 
-        'title': "Tales from the Underworld", 
-        'genres': "Action, Western", 
-        'average_rating': '8.6'
-    },
-    {
-        'cover_img_url': "img/covers/6.png", 
-        'title': "Midnight Sun", 
-        'genres': "Drama", 
-        'average_rating': '7.7'
-    },
-    {
-        'cover_img_url': "img/covers/7.png", 
-        'title': "Wild Hearts", 
-        'genres': "Comedy", 
-        'average_rating': '8.2'
-    },
-    {
-        'cover_img_url': "img/covers/8.png", 
-        'title': "Red Sky at Night", 
-        'genres': "Comedy", 
-        'average_rating': '7.1'
-    },
-    {
-        'cover_img_url': "img/covers/9.png", 
-        'title': "The Forgotten Road", 
-        'genres': "Romance, Drama, Music", 
-        'average_rating': '6.3'
-    },
-    {
-        'cover_img_url': "img/covers/10.png", 
-        'title': "Echoes of the Past", 
-        'genres': "Fantasy", 
-        'average_rating': '9.2'
-    },
-    {
-        'cover_img_url': "img/covers/11.png", 
-        'title': "Echoes of Yesterday", 
-        'genres': "Action, Trailer", 
-        'average_rating': '8.4'
-    },
-    {
-        'cover_img_url': "img/covers/12.png", 
-        'title': "The Last Hope", 
-        'genres': "Animals, Documentary", 
-        'average_rating': '7.3'
-    },
-    {
-        'cover_img_url': "img/covers/13.png", 
-        'title': "The Edge of Tomorrow", 
-        'genres': "Action, Sci-Fi", 
-        'average_rating': '8.4'
-    },
-    {
-        'cover_img_url': "img/covers/14.png", 
-        'title': "A Light in the Darkness",
-        'genres': "Comedy, Drama", 
-        'average_rating': '7.9'
-    },
-    {
-        'cover_img_url': "img/covers/15.png", 
-        'title': "Endless Horizon", 
-        'genres': "Action, Trailer", 
-        'average_rating': '8.4'
-    },
-    {
-        'cover_img_url': "img/covers/16.png", 
-        'title': "Beyond the Horizon", 
-        'genres': "Drama", 
-        'average_rating': '7.1'
-    },
-    {
-        'cover_img_url': "img/covers/17.png", 
-        'title': "Reckoning", 
-        'genres': "Romance, Drama, Music", 
-        'average_rating': '6.3'
-    },
-    {
-        'cover_img_url': "img/covers/18.png", 
-        'title': "Savage Beauty", 
-        'genres': "Comedy, Drama", 
-        'average_rating': '7.9'
-    }
-];
-
 // Hàm add data cho phần new item of this season
 function UpdateNewItemOfThisSeason(data){
     // Lấy danh sách các phần tử <li> trong danh sách <ul>
@@ -338,11 +227,13 @@ document.addEventListener('DOMContentLoaded', function() {
     UpdateDataFilmGenres(genre, getElementById);
     
     getElementById = "add-item-for-movie";
-    addDataFilm(dataNewItemOfThisSeason, getElementById);
+    genre = 'Action';
+    UpdateDataFilmGenres(genre, getElementById);
     getElementById = "add-item-for-tvshow";
     genre = 'TV Movie';
     UpdateDataFilmGenres(genre, getElementById);
     getElementById = "add-now-watching";
-    addDataFilm(dataNewItemOfThisSeason, getElementById);
+    genre = 'Adventure';
+    UpdateDataFilmGenres(genre, getElementById);
 });
 

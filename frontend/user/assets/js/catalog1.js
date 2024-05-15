@@ -1,90 +1,3 @@
-const movies = [
-    {
-      "href": "details1.html",
-      "context": "The Lost Key",
-      "src": "img/covers/7.png",
-      "category": ["Action", "Triler"],
-      "rate": "8.4"
-    },
-    {
-      "href": "details1.html",
-      "context": "Red Sky at Night",
-      "src": "img/covers/8.png",
-      "category": ["Comedy"],
-      "rate": "7.1"
-    },
-    {
-      "href": "details1.html",
-      "context": "The Forgotten Road",
-      "src": "img/covers/9.png",
-      "category": ["Romance", "Drama", "Music"],
-      "rate": "6.3"
-    },
-    {
-      "href": "details1.html",
-      "context": "Dark Horizons",
-      "src": "img/covers/10.png",
-      "category": ["Comedy", "Drama"],
-      "rate": "7.9"
-    },
-    {
-      "href": "details1.html",
-      "context": "Echoes of Yesterday",
-      "src": "img/covers/11.png",
-      "category": ["Action", "Triler"],
-      "rate": "8.4"
-    },
-    {
-      "href": "details1.html",
-      "context": "Into the Unknown",
-      "src": "img/covers/12.png",
-      "category": ["Comedy"],
-      "rate": "7.1"
-    },
-    {
-      "href": "details1.html",
-      "context": "The Broken Path",
-      "src": "img/covers/13.png",
-      "category": ["Romance", "Drama", "Music"],
-      "rate": "6.3"
-    },
-    {
-      "href": "details1.html",
-      "context": "A Light in the Darkness",
-      "src": "img/covers/14.png",
-      "category": ["Comedy", "Drama"],
-      "rate": "7.9"
-    },
-    {
-      "href": "details1.html",
-      "context": "Endless Horizon",
-      "src": "img/covers/15.png",
-      "category": ["Action", "Triler"],
-      "rate": "8.4"
-    },
-    {
-      "href": "details1.html",
-      "context": "The Unseen Journey",
-      "src": "img/covers/16.png",
-      "category": ["Comedy"],
-      "rate": "7.1"
-    },
-    {
-      "href": "details1.html",
-      "context": "Reckoning",
-      "src": "img/covers/17.png",
-      "category": ["Romance", "Drama", "Music"],
-      "rate": "6.3"
-    },
-    {
-      "href": "details1.html",
-      "context": "Savage Beauty",
-      "src": "img/covers/18.png",
-      "category": ["Comedy", "Drama"],
-      "rate": "7.9"
-    }
-  ]
-
 function catalog_title(name) {
     const title = document.querySelector('.section__title.section__title--head')
     title.textContent = name;
@@ -158,11 +71,17 @@ function createItems(jsonData) {
 
 const fetchData = async (genre) => {
   try {
-      const response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}&userId=3`);
+      const response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}`,
+        {
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+          }
+        }
+      );
       const catalogSection = document.querySelector(".section.section--catalog .container");
       catalog_title(genre);
       home_to_catalog(genre);
-      const container = createItems(response.data.movies.slice(0, 30));
+      const container = createItems(response.data.movies);
       catalogSection.appendChild(container);
 } catch (error) {
       console.log(error);
