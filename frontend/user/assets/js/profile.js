@@ -26,6 +26,16 @@ const fetchData = async () => {
         addDataForLatestReviews(recent_rating);
 
         changeSettingInfomation(user_info.first_name, user_info.last_name, "example@gmail.com");
+
+        const plan = await axios.get(`http://localhost:8080/api/plans`,
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        )
+        console.log(plan.data);
+        addDataPricingPlant(plan.data.plans);
+        console.log("current plan: ", plan.data.currPlan.result[0].plan_id);
+        pricingPlantActive(plan.data.currPlan.result[0].plan_id);
     } catch (error) {
         console.log(error);
     }
@@ -127,22 +137,18 @@ function addDataForLatestReviews(dataset){
     });
 };
 
-var Pricing_Plant_Data = [
-    {name: "Ultimate", price: "29.99$", list:["2 months", "2k Resolution", "Any Device", "24/7 Support"]},
-    {name: "Premium", price: "19.99$", list:["1 Months", "1080p Resolution", "TV & Desktop", "24/7 Support"]},
-    {name: "Cinematic", price: "39.99$", list:["2 Months", "4k Resolution", "Any Device", "24/7 Support"]},
-    {name: "Starter", price: "Free", list:["2 months", "720p Resolution", "Desktop Only", "Limited Support"]},
-];
 
-function pricingPlantActive(name){
-    let current_plan = document.getElementById(name)
+function pricingPlantActive(id){
+    planid = "plan" + id
+    // console.log("access to current plan: ", planid);
+    let current_plan = document.getElementById(planid)
     current_plan.textContent = "Current Plan";
     let status = current_plan.closest(".plan.plan--premium")
     status.classList.remove("plan--premium");
     status.classList.add("plan--active");
 };
 
-function pricingPlantPremiun(name, price, list){
+function pricingPlantPremiun(name, price,resolution,duration, list, id){
     var div = document.createElement("div");
     div.className = "col-12 col-lg-3 order-md-1 order-lg-2";
     var div1 = document.createElement("div");
@@ -153,15 +159,29 @@ function pricingPlantPremiun(name, price, list){
     div1.appendChild(h3);
     var span = document.createElement("span");
     span.className = "plan__price";
-    span.textContent =  price;
+    span.textContent =  "$" + price ;
     div1.appendChild(span);
     var ul = document.createElement("ul");
     ul.className = "plan__list";
-    list.forEach(function(temp){
+    var li1 = document.createElement("li");
+    li1.textContent = duration + "days";
+    ul.appendChild(li1);
+    var li2 = document.createElement("li");
+    li2.textContent = resolution;
+    ul.appendChild(li2);
+
+    let str = list;
+        let words = str.split(/[\n-]/).filter(word => word.trim() !== '');
+    words.forEach((word) => {
         var li = document.createElement("li");
-        li.textContent = temp;
+        li.textContent = word;
         ul.appendChild(li);
-    });
+    })
+    // list.forEach(function(temp){
+    //     var li = document.createElement("li");
+    //     li.textContent = temp;
+    //     ul.appendChild(li);
+    // });
     div1.appendChild(ul);
     var button = document.createElement("button");
     button.type = "button";
@@ -170,7 +190,9 @@ function pricingPlantPremiun(name, price, list){
     button.setAttribute("data-bs-target", "#plan-modal");
     var span_of_button = document.createElement("span");
     span_of_button.textContent = "Choose plan";
-    span_of_button.setAttribute("id", name);
+    plan_id = "plan" + id
+    console.log(plan_id);
+    span_of_button.setAttribute("id", plan_id);
     button.appendChild(span_of_button);
     div1.appendChild(button);
     div.appendChild(div1);
@@ -179,14 +201,14 @@ function pricingPlantPremiun(name, price, list){
 
 function addDataPricingPlant(dataset) {
     let plants = document.getElementById("add-data-pricing-plant");
-    let starter = pricingPlantPremiun(dataset[3].name, dataset[3].price, dataset[3].list);
+    let starter = pricingPlantPremiun(dataset[0].name, dataset[0].price,dataset[0].film_quality, dataset[0].duration, dataset[0].description, dataset[0].id);
     plants.appendChild(starter);
-    let normal = pricingPlantPremiun(dataset[0].name, dataset[0].price, dataset[0].list);
-    plants.appendChild(normal);
-    let premium = pricingPlantPremiun(dataset[1].name, dataset[1].price, dataset[1].list);
+    let premium = pricingPlantPremiun(dataset[1].name, dataset[1].price,dataset[1].film_quality, dataset[1].duration, dataset[1].description, dataset[1].id);
     plants.appendChild(premium);
-    let active = pricingPlantPremiun(dataset[2].name, dataset[2].price, dataset[2].list);
-    plants.append(active);
+    let ultimate = pricingPlantPremiun(dataset[2].name, dataset[2].price,dataset[2].film_quality, dataset[2].duration, dataset[2].description, dataset[2].id);
+    plants.appendChild(ultimate);
+    let cinematic = pricingPlantPremiun(dataset[3].name, dataset[3].price,dataset[3].film_quality, dataset[3].duration, dataset[3].description, dataset[3].id);
+    plants.append(cinematic);
 };
 
 function changeSettingInfomation(firstName, lastName, email){
@@ -248,8 +270,6 @@ const changePassword = async() => {
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-    addDataPricingPlant(Pricing_Plant_Data);
-    pricingPlantActive("Starter");
     fetchData();
     save_button.addEventListener("click", function(){
         if(emailInput.value.trim()== "" || firstNameInput.value.trim() == "" || lastNameInput.value.trim() == ""){
