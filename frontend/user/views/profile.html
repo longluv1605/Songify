@@ -326,8 +326,8 @@
 						<!-- stats -->
 						<div class="col-12 col-sm-6 col-xl-4">
 							<div class="stats">
-								<span id="pricing_name_of_user">Premium plan</span>
-								<p id="pricing_price_of_user">$19.99</p>
+								<span id="pricing_name_of_user"></span>
+								<p id="pricing_price_of_user"></p>
 								<img src="img/credit-card.svg" alt="">
 							</div>
 						</div>
@@ -337,7 +337,7 @@
 						<div class="col-12 col-sm-6 col-xl-4">
 							<div class="stats">
 								<span>Your comments</span>
-								<p id="commented_of_user">2 573</p>
+								<p id="commented_of_user"></p>
 								<img src="img/comments.svg" alt="">
 							</div>
 						</div>
@@ -347,7 +347,7 @@
 						<div class="col-12 col-sm-6 col-xl-4">
 							<div class="stats">
 								<span>Your reviews</span>
-								<p id="reviewed_of_user">1 021</p>
+								<p id="reviewed_of_user"></p>
 								<img src="img/star-half-alt.svg" alt="">
 							</div>
 						</div>
@@ -394,7 +394,7 @@
 											<tr>
 												<th>ID</th>
 												<th>ITEM</th>
-												<th>AUTHOR</th>
+												<th>AVERAGE_RATING</th>
 												<th>RATING</th>
 											</tr>
 										</thead>
@@ -412,20 +412,6 @@
 				<div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab" tabindex="0">
 					<div class="row" id="add-data-pricing-plant">
 						<!-- active price plan -->
-						<div class="col-12 col-md-6 col-lg-4 order-md-2 order-lg-1">
-							<div class="plan plan--active">
-								<h3 class="plan__title">Starter</h3>
-								<span class="plan__price">Free</span>
-								<ul class="plan__list">
-									<li>7 days</li>
-									<li>720p Resolution</li>
-									<li>Desktop Only</li>
-									<li>Limited Support</li>
-								</ul>
-								<button type="button" class="plan__btn"><span>Current plan</span></button>
-							</div>
-						</div>
-						<!-- end active price plan -->
 					</div>
 				</div>
 
@@ -441,34 +427,27 @@
 
 									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 										<div class="sign__group">
-											<label class="sign__label" for="username">Username</label>
-											<input id="username" type="text" name="username" class="sign__input" placeholder="User 123">
-										</div>
-									</div>
-
-									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
-										<div class="sign__group">
 											<label class="sign__label" for="email">Email</label>
-											<input id="email2" type="text" name="email" class="sign__input" placeholder="email@email.com">
+											<input id="email2" type="text" name="email" class="sign__input" placeholder="">
 										</div>
 									</div>
 
 									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 										<div class="sign__group">
 											<label class="sign__label" for="firstname">First Name</label>
-											<input id="firstname" type="text" name="firstname" class="sign__input" placeholder="John">
+											<input id="firstname" type="text" name="firstname" class="sign__input" placeholder="">
 										</div>
 									</div>
 
 									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
 										<div class="sign__group">
 											<label class="sign__label" for="lastname">Last Name</label>
-											<input id="lastname" type="text" name="lastname" class="sign__input" placeholder="Doe">
+											<input id="lastname" type="text" name="lastname" class="sign__input" placeholder="">
 										</div>
 									</div>
 
 									<div class="col-12">
-										<button class="sign__btn sign__btn--small" type="button"><span>Save</span></button>
+										<button class="sign__btn sign__btn--small" type="button" id="save_button"><span>Save</span></button>
 									</div>
 								</div>
 							</form>
@@ -505,7 +484,7 @@
 									</div>
 
 									<div class="col-12">
-										<button class="sign__btn sign__btn--small" type="button"><span>Change</span></button>
+										<button class="sign__btn sign__btn--small" type="button" id="change_button"><span>Change</span></button>
 									</div>
 								</div>
 							</form>

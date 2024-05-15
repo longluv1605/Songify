@@ -23,7 +23,7 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
-
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 	<!-- header -->
@@ -218,68 +218,68 @@
 			<div class="row">
 				<!-- price -->
 				<div class="col-12 col-md-6 col-lg-3 order-md-2 order-lg-1">
-					<div class="plan plan--premium plan--mt0">
-						<h3 class="plan__title">Starter</h3>
-						<span class="plan__price">Free</span>
+					<div class="plan plan--premium plan--mt0" id="plan1">
+						<h3 class="plan__title"></h3>
+						<span class="plan__price"></span>
 						<ul class="plan__list">
-							<li>7 days</li>
-							<li>720p Resolution</li>
-							<li>Limited Availability</li>
-							<li>Desktop Only</li>
-							<li>Limited Support</li>
+							<li> </li>
+							<li> </li>
+							<li> </li>
+							<li> </li>
+							<li> </li>
 						</ul>
-						<a href="/signin" class="plan__btn"><span>Try free for 7 days</span></a>
+						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span></span></button>
 					</div>
 				</div>
 				<!-- end price -->
 
 				<!-- price -->
 				<div class="col-12 col-md-6 col-lg-3 order-md-1 order-lg-2">
-					<div class="plan plan--premium plan--mt1">
-						<h3 class="plan__title">Premium</h3>
-						<span class="plan__price">$19.99</span>
+					<div class="plan plan--premium plan--mt0" id="plan2">
+						<h3 class="plan__title"></h3>
+						<span class="plan__price"></span>
 						<ul class="plan__list">
-							<li>1 Month</li>
-							<li>Full HD</li>
-							<li>Lifetime Availability</li>
-							<li>TV & Desktop</li>
-							<li>24/7 Support</li>
+							<li></li>
+							<li> </li>
+							<li></li>
+							<li></li>
+							<li></li>
 						</ul>
-						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span>Choose plan</span></button>
+						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span></span></button>
 					</div>
 				</div>
 				<!-- end price -->
 
 				<!-- price -->
 				<div class="col-12 col-md-6 col-lg-3 order-md-3 order-lg-3">
-					<div class="plan plan--premium plan--mt2">
-						<h3 class="plan__title">Ultimate</h3>
-						<span class="plan__price">$29.99</span>
+					<div class="plan plan--premium plan--mt0" id="plan3">
+						<h3 class="plan__title"></h3>
+						<span class="plan__price"></span>
 						<ul class="plan__list">
-							<li>2 Months</li>
-							<li>2k</li>
-							<li>Lifetime Availability</li>
-							<li>Any Device</li>
-							<li>24/7 Support</li>
+							<li></li>
+							<li></li>
+							<li> </li>
+							<li> </li>
+							<li></li>
 						</ul>
-						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span>Choose plan</span></button>
+						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span></span></button>
 					</div>
 				</div>
 				<!-- end price -->
 
 				<!-- price -->
 				<div class="col-12 col-md-6 col-lg-3 order-md-3 order-lg-3">
-					<div class="plan plan--premium plan--mt2">
-						<h3 class="plan__title">Cinematic</h3>
-						<span class="plan__price">$39.99</span>
+					<div class="plan plan--premium plan--mt0" id="plan4">
+						<h3 class="plan__title"></h3>
+						<span class="plan__price"></span>
 						<ul class="plan__list">
-							<li>2 Months</li>
-							<li>4k</li>
-							<li>Lifetime Availability</li>
-							<li>Any Device</li>
-							<li>24/7 Support</li>
+							<li></li>
+							<li></li>
+							<li> </li>
+							<li> </li>
+							<li> </li>
 						</ul>
-						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span>Choose plan</span></button>
+						<button type="button" data-bs-toggle="modal" class="plan__btn" data-bs-target="#plan-modal"><span></span></button>
 					</div>
 				</div>
 				<!-- end price -->
@@ -386,19 +386,10 @@
 						<h4 class="modal__title">Select plan</h4>
 
 						<div class="sign__group">
-							<label for="fullname" class="sign__label">Name</label>
-							<input id="fullname" type="text" name="name" class="sign__input" placeholder="Full name">
-						</div>
-
-						<div class="sign__group">
-							<label for="email" class="sign__label">Email</label>
-							<input id="email" type="text" name="email" class="sign__input" placeholder="example@domain.com">
-						</div>
-
-						<div class="sign__group">
 							<label class="sign__label" for="value">Choose plan:</label>
 							<select class="sign__select" name="value" id="value">
 								<option value="20">Premium - $19.99</option>
+								<option value="30">Ulimate - $29.99</option>
 								<option value="40">Cinematic - $39.99</option>
 							</select>
 
@@ -444,6 +435,7 @@
 	<script src="js/photoswipe-ui-default.min.js"></script>
 	<script src="js/logout.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/pricing.js"></script>
 </body>
 
 <!-- Mirrored from flixgo.volkovdesign.com/main//pricing by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:18:27 GMT -->

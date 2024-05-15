@@ -8,6 +8,7 @@ const getDetail = async(movieid) => {
         }
         );
         console.log(response.data.movie[0]);
+        loadSkeleton();
         updateDetails(response.data.movie[0]);
         let comments = await axios.get(`http://localhost:8080/api/comment?movieId=${movieid}`,
         {
@@ -97,6 +98,27 @@ const UpdateWatchHist = async(movieid) => {
         console.log(error);
     }
 }
+
+let username = "";
+
+const getprofile = async () => {
+    try {
+        const response = await axios.get('http://localhost:8080/api/profile',
+            {
+                headers: {Authorization: `Bearer ${token}`}
+            }
+        );
+        let needed = response.data.profile.user[0]
+        username = needed.first_name + needed.last_name;
+        if(username == 0){
+            username = "Undefined";
+        }
+        console.log("username:", username);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 function updateDetails(jsonData) {
   const id = document.getElementById('need_changing_details');
@@ -201,7 +223,11 @@ function generateComments(commentsData) {
       // Create author name
       const nameSpan = document.createElement("span");
       nameSpan.classList.add("comments__name");
-      nameSpan.textContent = comment.first_name + comment.last_name;
+      let name = comment.first_name + comment.last_name;
+      if(name == 0){
+        name = "Undefined"
+      }
+      nameSpan.textContent = name;
 
       // Create comment time
       const timeSpan = document.createElement("span");
@@ -289,10 +315,6 @@ function upload_new_comment(context){
     let timeString = currentDate.toLocaleTimeString(); // Lấy giờ theo định dạng hh:mm:ss
     let comment_time = dateString + ", " + timeString;
 
-    let user_info = {
-        "authorName": "Rosa Lee"
-    }
-
     const commentsContainer = document.querySelector(".comments__list")
     // Create <li> element
     const liElement = document.createElement("li");
@@ -311,7 +333,7 @@ function upload_new_comment(context){
     // Create author name
     const nameSpan = document.createElement("span");
     nameSpan.classList.add("comments__name");
-    nameSpan.textContent = user_info.authorName;
+    nameSpan.textContent = username;
 
     // Create comment time
     const timeSpan = document.createElement("span");
@@ -429,7 +451,32 @@ function selectGenre(){
 const watchMovie = document.querySelector(".playVideo");
 const recommended_list = document.querySelectorAll(".recommend");
 
+function loadSkeleton(){
+    detail = document.querySelector(".item.item--details");
+    image = detail.querySelector(".item__cover img")
+
+    Genre = detail.querySelector(".item__meta li:nth-child(1) span")
+    duration = detail.querySelector(".item__meta li:nth-child(2) span")
+    Country = detail.querySelector(".item__meta li:nth-child(3) span")
+    Premiere = detail.querySelector(".item__meta li:nth-child(4) span")
+    Views = detail.querySelector(".item__meta li:nth-child(5) span")
+    
+
+    Directors = detail.querySelector(".item__meta.item__meta--second li:nth-child(1) span")
+    Actors = detail.querySelector(".item__meta.item__meta--second li:nth-child(2) span")
+
+    Genre.textContent = "Genre:";
+    duration.textContent = "Running time:";
+    Country.textContent = "Country:";
+    Premiere.textContent = "Premiere:";
+    Views.textContent = "Views:";
+
+    Directors.textContent = "Directors:";
+    Actors.textContent = "Actors:";
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    localStorage.setItem("movieid",25);
 //   updateDetails(details);
   getDetail(localStorage.getItem("movieid")).then(function(){
     const recommended_genre = selectGenre();
@@ -439,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // generateComments(commentsData);
 
   //generateReviewItems(reviews);
-
+  getprofile()
   comment_button.addEventListener("click", function(){
     let textarea = document.getElementById("comment_text");
     if (textarea.value.trim() == "") {
