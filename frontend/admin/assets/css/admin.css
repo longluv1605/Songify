@@ -2670,3 +2670,8 @@ body::-webkit-scrollbar-thumb {
   padding: 0 20px;
   font-family: 'Open Sans', sans-serif;
 }
+
+#check-admin label {
+  display: none;
+  
+}

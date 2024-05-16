@@ -23,6 +23,7 @@
 	<meta name="keywords" content="">
 	<meta name="author" content="Dmitry Volkov">
 	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
@@ -38,18 +39,18 @@
 							</a>
 
 							<div class="sign__group">
-								<input type="text" class="sign__input" placeholder="Email">
+								<input id="email" type="text" class="sign__input" placeholder="Email">
 							</div>
 
 							<div class="sign__group">
-								<input type="password" class="sign__input" placeholder="Password">
+								<input id="password" type="password" class="sign__input" placeholder="Password">
 							</div>
 
-							<div class="sign__group">
+							<div class="sign__group" id="check-admin" tabindex="-1" aria-labelledby="plan-modal" aria-hidden="false">
 								<label style="color: red;">Wrong User Name or Password</label>
 							</div>
 							
-							<button class="sign__btn" type="button"><span>Sign in</span></button>
+							<button id="signin" class="sign__btn" type="button"><span>Sign in</span></button>
 
 							<span class="sign__text">Don't have an account? <a href="/admin/signup">Sign up!</a></span>
 
@@ -70,6 +71,7 @@
 	<script src="js/plyr.min.js"></script>
 	<script src="js/photoswipe.min.js"></script>
 	<script src="js/photoswipe-ui-default.min.js"></script>
+	<script src="js/signin_admin.js"></script>
 	<script src="js/main.js"></script>
 </body>
 
