@@ -13,15 +13,14 @@ const postAccount = async() => {
         });
         console.log(response);
         // tạm ẩn xử lý hiển thị sai mật khẩu hoặc gmail (chờ api)
-        // let deny_access = document.querySelector("#check-person label")
-        // deny_access.style.display = "block";
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('movieid', "");
         localStorage.setItem('genre', "");
         localStorage.setItem('search', "");
         window.location.href = 'http://localhost:3000/home';
     } catch (error) {
-        console.log(error);
+        let deny_access = document.querySelector("#check-person label")
+        deny_access.style.display = "block";
     }
 };
 
