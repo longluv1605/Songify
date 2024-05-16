@@ -16,11 +16,11 @@ app.use('/icon', express.static(path.join(__dirname+ '/user/assets/icon')));
 app.use(express.static(__dirname + '/user/views'))
 
 app.use(express.static(__dirname + '/admin'))
-app.use('/assets', express.static(__dirname + '/admin/assets'))
-app.use('/css', express.static(__dirname + '/admin/assets/css'))
-app.use('/js', express.static(path.join(__dirname + '/admin/assets/js')));
-app.use('/img', express.static(path.join(__dirname + '/admin/assets/img')));
-app.use('/icon', express.static(path.join(__dirname+ '/admin/assets/icon')));
+app.use('/assets_admin', express.static(__dirname + '/admin/assets'))
+app.use('/css_admin', express.static(__dirname + '/admin/assets/css'))
+app.use('/js_admin', express.static(path.join(__dirname + '/admin/assets/js')));
+app.use('/img_admin', express.static(path.join(__dirname + '/admin/assets/img')));
+app.use('/icon_admin', express.static(path.join(__dirname+ '/admin/assets/icon')));
 app.use(express.static(__dirname + '/admin/views'));
 
 // views of user
@@ -36,15 +36,16 @@ app.use('/signin', express.static(path.join(__dirname+ '/user/views/signin.html'
 app.use('/signup', express.static(path.join(__dirname+ '/user/views/signup.html')));
 
 // views of admin
-app.use('/admin/catalog', express.static(path.join(__dirname+ '/admin/views/catalog.html')));
-app.use('/admin/comments', express.static(path.join(__dirname+ '/admin/views/comments.html')));
-app.use('/admin/edit-item', express.static(path.join(__dirname+ '/admin/views/edit-item.html')));
-app.use('/admin/edit-user', express.static(path.join(__dirname+ '/admin/views/edit-user.html')));
-app.use('/admin/forgot', express.static(path.join(__dirname+ '/admin/views/forgot.html')));
-app.use('/admin/reviews', express.static(path.join(__dirname+ '/admin/views/reviews.html')));
-app.use('/admin/signin', express.static(path.join(__dirname+ '/admin/views/signin.html')));
-app.use('/admin/signup', express.static(path.join(__dirname+ '/admin/views/signup.html')));
-app.use('/admin/users', express.static(path.join(__dirname+ '/admin/views/users.html')));
+app.use('/admin-catalog', express.static(path.join(__dirname+ '/admin/views/catalog.html')));
+app.use('/admin-comments', express.static(path.join(__dirname+ '/admin/views/comments.html')));
+app.use('/admin-edit-item', express.static(path.join(__dirname+ '/admin/views/edit-item.html')));
+app.use('/admin-add-item', express.static(path.join(__dirname+ '/admin/views/add-item.html')));
+app.use('/admin-edit-user', express.static(path.join(__dirname+ '/admin/views/edit-user.html')));
+app.use('/admin-forgot', express.static(path.join(__dirname+ '/admin/views/forgot.html')));
+app.use('/admin-reviews', express.static(path.join(__dirname+ '/admin/views/reviews.html')));
+app.use('/admin-signin', express.static(path.join(__dirname+ '/admin/views/signin.html')));
+app.use('/admin-signup', express.static(path.join(__dirname+ '/admin/views/signup.html')));
+app.use('/admin-users', express.static(path.join(__dirname+ '/admin/views/users.html')));
 
 // Route chính
 app.get('/admin', (req, res) => {

@@ -11,8 +11,8 @@ const postAccountAdmin = async (data) => {
             password: password
         });
         localStorage.setItem('token_admin', response.data.token);
-
-        window.location.href = 'http://localhost:3000/admin/catalog';
+        // console.log(response);
+        window.location.href = 'http://localhost:3000/admin-catalog';
     } catch (error) {
         let deny_access = document.querySelector("#check-admin label");
         deny_access.style.display = "block";
