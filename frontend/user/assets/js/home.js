@@ -43,7 +43,6 @@ function UpdateNewItemOfThisSeason(data){
             const rating = li.querySelector('.item__rate');
             rating.textContent = data[index-20].average_rating;
         }
-        // console.log(li);
     });
 };
 
@@ -195,8 +194,6 @@ function addDataFilm(dataset, id){
             // Lấy ID của phim
             const movieId = item.getAttribute('id');
             
-            // Hiển thị ID của phim ra console
-            console.log('Movie ID:', movieId);
             // Chỉnh sửa localStorage và chuyển hướng trang
             localStorage.setItem('movieid', movieId);
             window.location.href = "http://localhost:3000/details";
@@ -207,13 +204,11 @@ function addDataFilm(dataset, id){
 const fetchData = async(url) => {
     try {
         const token = localStorage.getItem('token');
-        // console.log(token);
         const response = await axios.get(url,
             {
                 headers: {Authorization: `Bearer ${token}`}
             }
         );
-        // console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -224,18 +219,20 @@ function UpdateDataNewItemOfThisSeason() {
     const url = `http://localhost:8080/api`;
     fetchData(url).then(dataset => {
         UpdateNewItemOfThisSeason(dataset.newMovies);
+        // console.log(dataset);
     });
 };
 
 function UpdateDataFilmGenres(genre, getElementById) {
     const url = `http://localhost:8080/api/movies?genre=${genre}`;
     fetchData(url).then(dataset => {
-        addDataFilm(dataset.movies, getElementById);
+        addDataFilm(dataset, getElementById);
+        // console.log(dataset);
     });
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    // UpdateDataNewItemOfThisSeason();
+    UpdateDataNewItemOfThisSeason();
     add_item_of_new_item(dataNewItem);
     let getElementById = "add-item-for-anime";
     let genre = 'Animation';
@@ -258,8 +255,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Lấy ID của phim
             const movieId = item.getAttribute('id');
             
-            // Hiển thị ID của phim ra console
-            console.log('Movie ID:', movieId);
             // Chỉnh sửa localStorage và chuyển hướng trang
             localStorage.setItem('movieid', movieId);
             window.location.href = "http://localhost:3000/details";
@@ -269,13 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Thêm sự kiện click cho từng item trong phần New items Recently
     const movieItems1 = document.querySelectorAll('.col-6.col-sm-12.col-lg-6.col-xxl-4');
     movieItems1.forEach(item => {
-        // console.log(item);
         item.addEventListener('click', (e) => {
             // Lấy ID của phim
             const movieId = item.getAttribute('id');
             
-            // Hiển thị ID của phim ra console
-            console.log('Movie ID:', movieId);
             // Chỉnh sửa localStorage và chuyển hướng trang
             localStorage.setItem('movieid', movieId);
             window.location.href = "http://localhost:3000/details";

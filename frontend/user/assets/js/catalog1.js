@@ -81,7 +81,7 @@ const fetchData = async (genre) => {
       const catalogSection = document.querySelector(".section.section--catalog .container");
       catalog_title(genre);
       home_to_catalog(genre);
-      const container = createItems(response.data.movies);
+      const container = createItems(response.data);
       catalogSection.appendChild(container);
       const clickItem = document.querySelectorAll('.col-6.col-sm-4.col-lg-3.col-xl-2');
       clickItem.forEach((item) => {

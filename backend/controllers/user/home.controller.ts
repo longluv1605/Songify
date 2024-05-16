@@ -50,7 +50,7 @@ class HomeController {
         limit: number
     ): Promise<any> => {
         try {
-            const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, , (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
+            const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id

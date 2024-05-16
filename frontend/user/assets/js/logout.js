@@ -16,9 +16,11 @@ const check_out = async() => {
 };
 
 document.addEventListener("DOMContentLoaded", function(){
-    const logout = document.getElementById('logout');
-    logout.addEventListener('click', function(){
-        check_out();
+    const logout = document.querySelectorAll('#logout');
+    logout.forEach((item) => {
+        item.addEventListener('click', function() {
+            check_out();
+        });
     });
     const token = localStorage.getItem('token');
     if (token===null || token==='') {
