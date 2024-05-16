@@ -7,9 +7,9 @@ const getDetail = async(movieid) => {
             headers: {Authorization: `Bearer ${token}`}
         }
         );
-        console.log(response.data.movie[0]);
+        console.log(response.data[0]);
         loadSkeleton();
-        updateDetails(response.data.movie[0]);
+        updateDetails(response.data[0]);
         let comments = await axios.get(`http://localhost:8080/api/comment?movieId=${movieid}`,
         {
             headers: {Authorization: `Bearer ${token}`}
@@ -60,8 +60,8 @@ const Recommend = async(genre) => {
             headers: {Authorization: `Bearer ${token}`}
         }
         );
-        console.log(response.data.movies.slice(0,6));
-        update_u_may_like(response.data.movies.slice(0,6));
+        console.log(response.data);
+        update_u_may_like(response.data.slice(0,6));
     }
     catch(error){
         console.log(error);
