@@ -16,8 +16,8 @@ const createAccount = async() => {
         }
         const response = await axios.post('http://localhost:8080/api/register', {
             username : username,
-            firstname: firstname,
-            lastname: lastname,
+            firstName: firstname,
+            lastName: lastname,
             email: email,
             password: password
         });

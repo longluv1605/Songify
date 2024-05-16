@@ -8,7 +8,7 @@ const getPlan = async() => {
         )
         console.log(response.data);
         loadPriceplans(response.data.plans);
-        findcurrentplan(response.data.currPlan.userId)
+        findcurrentplan(response.data.currPlan.result[0].plan_id)
 
     }  
     catch(error){
@@ -46,13 +46,47 @@ function loadPriceplans(datas){
     })
 }
 
+const purchase = async(id, payment_method) =>{
+    try{
+        console.log({"planId": id, "paymentMethod": payment_method})
+        console.log("buying");
+        const response =  await axios.post(`http://localhost:8080/api/plans`,
+        {"planId": id, "paymentMethod": payment_method},
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        )
+        console.log(response);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
 function findcurrentplan(id){
     let plan = document.getElementById(`plan${id}`)
     let chooseplan = plan.querySelector("button span")
     chooseplan.textContent = "Current Plan";
 }
 
+const buy_plan = document.querySelector(".sign__btn.sign__btn--modal")
+
 document.addEventListener("DOMContentLoaded", function(){
     getPlan();
-    //loadPriceplans();
+    buy_plan.addEventListener("click",function(){
+        let option = document.getElementById("value")
+        let selected = option.value
+        let selectedValueInt = parseInt(selected, 10);
+        // console.log("id: ", selected)
+        let payment_method = document.querySelectorAll('input[name="type"]')
+        let saved_method = ""
+        payment_method.forEach((method) => {
+            if(method.checked) {
+                let label = method.nextElementSibling;
+                saved_method = label.textContent
+            }
+        })
+        // console.log("payment method: " , saved_method);
+        purchase(selectedValueInt, saved_method)
+    })
 })

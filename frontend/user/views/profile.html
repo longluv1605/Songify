@@ -530,20 +530,11 @@
 						<h4 class="modal__title">Select plan</h4>
 
 						<div class="sign__group">
-							<label for="fullname" class="sign__label">Name</label>
-							<input id="fullname" type="text" name="name" class="sign__input" placeholder="Full name">
-						</div>
-
-						<div class="sign__group">
-							<label for="email" class="sign__label">Email</label>
-							<input id="email" type="text" name="email" class="sign__input" placeholder="example@domain.com">
-						</div>
-
-						<div class="sign__group">
 							<label class="sign__label" for="value">Choose plan:</label>
 							<select class="sign__select" name="value" id="value">
-								<option value="20">Premium - $19.99</option>
-								<option value="40">Cinematic - $39.99</option>
+								<option value="2">Premium - $19.99</option>
+								<option value="3">Ulimate - $29.99</option>
+								<option value="4">Cinematic - $39.99</option>
 							</select>
 
 							<span class="sign__text">You can spend money from your account on the renewal of the connected packages, or to order cars on our website.</span>
@@ -555,15 +546,19 @@
 							<ul class="sign__radio">
 								<li>
 									<input id="type1" type="radio" name="type" checked="">
-									<label for="type1">Visa</label>
+									<label for="type1">Credit Card</label>
 								</li>
 								<li>
-									<input id="type2" type="radio" name="type">
-									<label for="type2">Mastercard</label>
+									<input id="type2" type="radio" name="type" checked="">
+									<label for="type2">Debit Card</label>
 								</li>
 								<li>
 									<input id="type3" type="radio" name="type">
 									<label for="type3">Paypal</label>
+								</li>
+								<li>
+									<input id="type4" type="radio" name="type">
+									<label for="type4">Bank Transfer</label>
 								</li>
 							</ul>
 						</div>

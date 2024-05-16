@@ -2,13 +2,13 @@ const postAccount = async() => {
     try {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        console.log(email, password);
+        // console.log(email, password);
         if(email === '' || password === ''){
             alert('Please enter email and password');
             return;
         }
         const response = await axios.post('http://localhost:8080/api/login', {
-            email: email,
+            username: email,
             password: password
         });
         console.log(response);

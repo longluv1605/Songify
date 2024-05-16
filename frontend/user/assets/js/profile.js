@@ -7,7 +7,7 @@ const fetchData = async () => {
             }
         );
         let user_info = response.data.profile.user[0];
-        let username = user_info.first_name + user_info.last_name;
+        let username = user_info.first_name + " " + user_info.last_name;
         if(username == 0){
             username = "Undefined";
         }
@@ -269,6 +269,25 @@ const changePassword = async() => {
     }
 }
 
+const purchase = async(id, payment_method) =>{
+    try{
+        console.log({"planId": id, "paymentMethod": payment_method})
+        console.log("buying");
+        const response =  await axios.post(`http://localhost:8080/api/plans`,
+        {"planId": id, "paymentMethod": payment_method},
+        {
+            headers: {Authorization: `Bearer ${token}`}
+        }
+        )
+        console.log(response);
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+const buy_plan = document.querySelector(".sign__btn.sign__btn--modal")
+
 document.addEventListener("DOMContentLoaded", function(){
     fetchData();
     save_button.addEventListener("click", function(){
@@ -292,5 +311,19 @@ document.addEventListener("DOMContentLoaded", function(){
             return
         }
         changePassword()
+    })
+    buy_plan.addEventListener("click",function(){
+        let option = document.getElementById("value")
+        let selected = option.value
+        let selectedValueInt = parseInt(selected, 10);
+        let payment_method = document.querySelectorAll('input[name="type"]')
+        let saved_method = ""
+        payment_method.forEach((method) => {
+            if(method.checked) {
+                let label = method.nextElementSibling;
+                saved_method = label.textContent
+            }
+        })
+        purchase(selectedValueInt, saved_method)
     })
 });
