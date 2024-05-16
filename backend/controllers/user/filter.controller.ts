@@ -20,27 +20,33 @@ class FilterController {
                 throw new Error("User not found");
             }
 
-            const genre = req.query.genre;
-            const label = req.query.label;
+            const genre = req.query.genre as string;
+            const label = req.query.label as string;
             let movies;
-            if ((genre !== undefined || null) && (label !== undefined || null)) {
+            if (
+                (genre !== undefined || null) &&
+                genre != "" &&
+                (label !== undefined || null) &&
+                label != ""
+            ) {
                 const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, ml.label_name as label
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
                                     LEFT JOIN movie_label ml ON m.id = ml.movie_id
-                                    GROUP BY m.id HAVING genres LIKE '%${genre}%' AND label = ? ORDER BY average_rating DESC LIMIT 20`;
-                movies = await this.db.query(sql, [genre, label]);
-            }
-            else if (genre !== undefined || null) {
+                                    GROUP BY m.id HAVING genres LIKE '%${genre}%' AND label = '${label}' ORDER BY average_rating DESC LIMIT 20`;
+                // console.log(sql);
+                movies = await this.db.query(sql);
+                // console.log(movies);
+            } else if ((genre !== undefined || null) && genre != "") {
                 const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, ml.label_name as label
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
                                     LEFT JOIN movie_label ml ON m.id = ml.movie_id
                                     GROUP BY m.id HAVING genres LIKE '%${genre}%' ORDER BY average_rating DESC LIMIT 20`;
-                movies = await this.db.query(sql, [genre]);
-            } else if (label !== undefined || null) {
+                movies = await this.db.query(sql);
+            } else if ((label !== undefined || null) && label != "") {
                 const sql: string = `SELECT m.id, m.title, m.cover_img_url, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, ml.label_name as label
                                     FROM movie m
                                     LEFT JOIN movie_genre mg ON m.id = mg.movie_id
@@ -55,9 +61,7 @@ class FilterController {
             const genres = await this.getGenres();
             const labels = await this.getLabels();
 
-
-
-            res.status(200).json({movies, genres, labels});
+            res.status(200).json({ movies, genres, labels });
         } catch (err) {
             res.status(500).json({ err });
         }
