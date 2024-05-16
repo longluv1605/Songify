@@ -11,6 +11,10 @@ class AdminSaleController {
 
     public getSaleData = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const userId = parseInt(req.userId as string);
             if (userId == undefined || userId == null || Number.isNaN(userId)) {
                 throw new Error("User not found");

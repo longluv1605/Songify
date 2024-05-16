@@ -18,6 +18,7 @@ class AdminMovieAPI implements API {
         this.router.put(this.path, authenticateToken, this.controller.updateMovieData);
         this.router.post(this.path, authenticateToken, this.controller.addMovie);
         this.router.delete(this.path, authenticateToken, this.controller.deleteMovie);
+        this.router.put(this.path, authenticateToken, this.controller.changeMovieStatus);
     };
 }
 

@@ -24,9 +24,11 @@ class AdminLoginController {
             } else {
                 const userId = data[0].id; //TODO: xử lý lỗi
 
+                const role = 'admin'
+
                 //creat JWT
                 const secret_key: string = process.env.SECRET_KEY || "";
-                const token = jwt.sign({ userId }, secret_key, {
+                const token = jwt.sign({ userId, role }, secret_key, {
                     expiresIn: "30m",
                     algorithm: "HS256",
                 }); // TODO: change expiresIn, add more payload to creat jwt (time, randomId)

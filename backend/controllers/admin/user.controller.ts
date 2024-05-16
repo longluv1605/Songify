@@ -11,6 +11,10 @@ class AdminUserController {
 
     public getUserData = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const sql: string = `
                 SELECT u.id, u.username, u.status, (SELECT name FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = u.id)) AS plan_name, c.comment_count, r.rating_count
                 FROM user u
@@ -40,6 +44,10 @@ class AdminUserController {
         res: Response
     ) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const userId = parseInt(req.query.userId as string);
             if (userId == undefined || userId == null || Number.isNaN(userId)) {
                 throw new Error("User not found");
@@ -68,6 +76,10 @@ class AdminUserController {
 
     public deleteUser = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const userId = parseInt(req.query.userId as string);
             if (userId == undefined || userId == null || Number.isNaN(userId)) {
                 throw new Error("User not found");

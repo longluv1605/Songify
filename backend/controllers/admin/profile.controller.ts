@@ -11,6 +11,10 @@ class AdminProfileController {
 
     public getAdminData = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const sql: string = `SELECT id, username, first_name, last_name, email FROM admin`;
             const data = await this.db.query(sql);
 
@@ -25,6 +29,10 @@ class AdminProfileController {
         res: Response
     ) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const userId = parseInt(req.userId as string);
             if (userId == undefined || userId == null || Number.isNaN(userId)) {
                 throw new Error("User not found");
@@ -85,6 +93,10 @@ class AdminProfileController {
         res: Response
     ) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const userId = parseInt(req.userId as string);
 
             if (userId == undefined || userId == null || Number.isNaN(userId)) {

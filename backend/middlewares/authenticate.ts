@@ -26,6 +26,7 @@ const authenticateToken = (
         if (err) return res.sendStatus(403); // Forbidden
         const payload = decoded as { [key: string]: any };
         req.userId = payload.userId;
+        req.role = payload.role;
         next();
     });
 };
