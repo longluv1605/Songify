@@ -48,11 +48,40 @@ class FilterController {
                                     LEFT JOIN movie_label ml ON m.id = ml.movie_id
                                     GROUP BY m.id HAVING label = ? ORDER BY average_rating DESC LIMIT 20`;
                 movies = await this.db.query(sql, [label]);
+            } else {
+                throw new Error("Invalid query");
             }
 
-            res.status(200).json(movies);
+            const genres = await this.getGenres();
+            const labels = await this.getLabels();
+
+
+
+            res.status(200).json({movies, genres, labels});
         } catch (err) {
             res.status(500).json({ err });
+        }
+    };
+
+    private getGenres = async (): Promise<any> => {
+        try {
+            const sql: string = `SELECT name FROM genre`;
+            const genres = await this.db.query(sql);
+
+            return genres;
+        } catch (err) {
+            throw err;
+        }
+    };
+
+    private getLabels = async (): Promise<any> => {
+        try {
+            const sql: string = `SELECT name FROM label`;
+            const labels = await this.db.query(sql);
+
+            return labels;
+        } catch (err) {
+            throw err;
         }
     };
 }
