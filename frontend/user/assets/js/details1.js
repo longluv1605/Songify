@@ -476,7 +476,7 @@ function loadSkeleton(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    localStorage.setItem("movieid",25);
+    // localStorage.setItem("movieid",25);
 //   updateDetails(details);
   getDetail(localStorage.getItem("movieid")).then(function(){
     const recommended_genre = selectGenre();

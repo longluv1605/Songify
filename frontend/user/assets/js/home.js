@@ -48,22 +48,23 @@ function UpdateNewItemOfThisSeason(data){
 };
 
 var dataNewItem = [
-    {img: "img/covers/1.png", title: "The Lost City", catalogs: "Action, Trailer", rating: 8.4, movie_quality: "HD", limited_age: 16, description: "When a renowned archaeologist goes missing, his daughter sets out on a perilous journey to the heart of the Amazon rainforest to find him. Along the way, she discovers a hidden city and a dangerous conspiracy that threatens the very balance of power in the world. With the help of a charming rogue, she must navigate treacherous terrain and outwit powerful enemies to save her father and uncover the secrets of the lost city."},
-    {img: "img/covers/2.png", title: "Undercurrents", catalogs: "Comedy", rating: 7.1, movie_quality: "FHD", limited_age: 18, description: "A brilliant scientist discovers a way to harness the power of the ocean's currents to create a new, renewable energy source. But when her groundbreaking technology falls into the wrong hands, she must race against time to stop it from being used for evil. Along the way, she must navigate complex political alliances and confront her own past to save the world from disaster."},
-    {img: "img/covers/3.png", title: "Redemption Road", catalogs: "Romance, Drama, Music", rating: 6.3, movie_quality: "HD", limited_age: 12, description: "A down-on-his-luck boxer struggles to make ends meet while raising his young son. When an old friend offers him a chance to make some quick cash by fighting in an illegal underground boxing tournament, he sees it as his last shot at redemption. But as the stakes get higher and the fights get more brutal, he must confront his own demons and find the strength to win not just for himself, but for his son."},
-    {img: "img/covers/4.png", title: "Tales from the Underworld", catalogs: "Comedy, Drama", rating: 7.9, movie_quality: "HD", limited_age: 16, description: "When a luxury cruise ship sets sail on its final voyage before retirement, the passengers and crew expect nothing but relaxation and indulgence. But when a mysterious illness spreads through the ship, they find themselves fighting for survival in the middle of the ocean. As tensions rise and resources dwindle, they must confront their own mortality and make impossible choices to stay alive."},
-    {img: "img/covers/5.png", title: "Voices from the Other Side", catalogs: "Action, Trailer", rating: 8.4, movie_quality: "HD", limited_age: 12, description: "In a world where magic is outlawed and hunted, a young witch must use her powers to fight back against the corrupt authorities who seek to destroy her kind. With the help of a rogue witch hunter, she sets out on a dangerous mission to uncover the truth about the government's dark secrets and restore balance to the world. But as the stakes get higher and the risks get greater, she must confront her own fears and decide what she's willing to sacrifice for the greater good."},
-    {img: "img/covers/6.png", title: "The Unseen World", catalogs: "Comedy", rating: 7.1, movie_quality: "HD", limited_age: 16, description: "When a brilliant scientist invents a machine that can access parallel universes, she unwittingly unleashes a dangerous force that threatens to destroy everything she holds dear. With the help of her trusted colleagues, she must race against time to stop the machine from falling into the wrong hands and prevent a catastrophic chain reaction that could unravel the fabric of reality itself. But as she delves deeper into the unseen world, she realizes that the greatest danger may be closer than she ever imagined."}
+    {id:12,img: "img/covers/1.png", title: "The Lost City", catalogs: "Action, Trailer", rating: 8.4, movie_quality: "HD", limited_age: 16, description: "When a renowned archaeologist goes missing, his daughter sets out on a perilous journey to the heart of the Amazon rainforest to find him. Along the way, she discovers a hidden city and a dangerous conspiracy that threatens the very balance of power in the world. With the help of a charming rogue, she must navigate treacherous terrain and outwit powerful enemies to save her father and uncover the secrets of the lost city."},
+    {id:24,img: "img/covers/2.png", title: "Undercurrents", catalogs: "Comedy", rating: 7.1, movie_quality: "FHD", limited_age: 18, description: "A brilliant scientist discovers a way to harness the power of the ocean's currents to create a new, renewable energy source. But when her groundbreaking technology falls into the wrong hands, she must race against time to stop it from being used for evil. Along the way, she must navigate complex political alliances and confront her own past to save the world from disaster."},
+    {id:19,img: "img/covers/3.png", title: "Redemption Road", catalogs: "Romance, Drama, Music", rating: 6.3, movie_quality: "HD", limited_age: 12, description: "A down-on-his-luck boxer struggles to make ends meet while raising his young son. When an old friend offers him a chance to make some quick cash by fighting in an illegal underground boxing tournament, he sees it as his last shot at redemption. But as the stakes get higher and the fights get more brutal, he must confront his own demons and find the strength to win not just for himself, but for his son."},
+    {id:6,img: "img/covers/4.png", title: "Tales from the Underworld", catalogs: "Comedy, Drama", rating: 7.9, movie_quality: "HD", limited_age: 16, description: "When a luxury cruise ship sets sail on its final voyage before retirement, the passengers and crew expect nothing but relaxation and indulgence. But when a mysterious illness spreads through the ship, they find themselves fighting for survival in the middle of the ocean. As tensions rise and resources dwindle, they must confront their own mortality and make impossible choices to stay alive."},
+    {id:9,img: "img/covers/5.png", title: "Voices from the Other Side", catalogs: "Action, Trailer", rating: 8.4, movie_quality: "HD", limited_age: 12, description: "In a world where magic is outlawed and hunted, a young witch must use her powers to fight back against the corrupt authorities who seek to destroy her kind. With the help of a rogue witch hunter, she sets out on a dangerous mission to uncover the truth about the government's dark secrets and restore balance to the world. But as the stakes get higher and the risks get greater, she must confront her own fears and decide what she's willing to sacrifice for the greater good."},
+    {id:2,img: "img/covers/6.png", title: "The Unseen World", catalogs: "Comedy", rating: 7.1, movie_quality: "HD", limited_age: 16, description: "When a brilliant scientist invents a machine that can access parallel universes, she unwittingly unleashes a dangerous force that threatens to destroy everything she holds dear. With the help of her trusted colleagues, she must race against time to stop the machine from falling into the wrong hands and prevent a catastrophic chain reaction that could unravel the fabric of reality itself. But as she delves deeper into the unseen world, she realizes that the greatest danger may be closer than she ever imagined."}
 ];
 
 // Tạo các Item từ data cho phần New items
-function createItemOfNewItem(image, title, catalogs, rating, movie_quality, limited_age, description) {
+function createItemOfNewItem(id, image, title, catalogs, rating, movie_quality, limited_age, description) {
     let div = document.createElement("div");
     div.className = "col-6 col-sm-12 col-lg-6 col-xxl-4";
+    div.id = id;
     let div1 = document.createElement("div");
     div1.className = "item item--list";
     let a = document.createElement("a");
-    a.href = "details1.html";
+    a.href = "#";
     a.className = "item__cover";
     let img = document.createElement("img");
     img.src = image;
@@ -84,7 +85,7 @@ function createItemOfNewItem(image, title, catalogs, rating, movie_quality, limi
     let h3 = document.createElement("h3");
     h3.className = "item__title";
     let a_of_h3 = document.createElement("a");
-    a_of_h3.href = "details1.html";
+    a_of_h3.href = "#";
     a_of_h3.textContent = title;
     h3.appendChild(a_of_h3);
     div11.appendChild(h3);
@@ -126,19 +127,20 @@ function createItemOfNewItem(image, title, catalogs, rating, movie_quality, limi
 function add_item_of_new_item(dataset) {
     let new_item = document.getElementById("add-item-of-new-item");
     dataset.forEach(function(data) {
-        let item = createItemOfNewItem(data.img, data.title, data.catalogs, data.rating, data.movie_quality, data.limited_age, data.description);
+        let item = createItemOfNewItem(data.id, data.img, data.title, data.catalogs, data.rating, data.movie_quality, data.limited_age, data.description);
         new_item.appendChild(item);
     });
 };
 
 // Hàm tạo item cho firm
-function createNewItemForFilm(cover_img_url, title, genres, average_rating) {
+function createNewItemForFilm(id, cover_img_url, title, genres, average_rating) {
     let div = document.createElement("div");
     div.className = "col-6 col-sm-4 col-lg-3 col-xl-2";
+    div.id = id;
     let div1 = document.createElement("div");
     div1.className = "item";
     let a = document.createElement("a");
-    a.href = "details1.html";
+    a.href = "#";
     a.className = "item__cover";
     let img = document.createElement("img");
     img.src = cover_img_url;
@@ -159,7 +161,7 @@ function createNewItemForFilm(cover_img_url, title, genres, average_rating) {
     let h3 = document.createElement("h3");
     h3.className = "item__title";
     let a_of_h3 = document.createElement("a");
-    a_of_h3.href = "details1.html";
+    a_of_h3.href = "#";
     a_of_h3.textContent = title;
     h3.appendChild(a_of_h3);
     div11.appendChild(h3);
@@ -179,12 +181,26 @@ function createNewItemForFilm(cover_img_url, title, genres, average_rating) {
     return div;
 };
 
-// Hàm add data cho phần now watching
+// Hàm add data
 function addDataFilm(dataset, id){
     let new_item = document.getElementById(id);
     dataset.forEach(function(data){
-        let newLi = createNewItemForFilm(data.cover_img_url, data.title, data.genres, data.average_rating);
+        let newLi = createNewItemForFilm(data.id, data.cover_img_url, data.title, data.genres, data.average_rating);
         new_item.appendChild(newLi);
+    });
+    // Thêm sự kiện click cho từng item trong các phần khác
+    const movieItems2 = document.querySelectorAll('.col-6.col-sm-4.col-lg-3.col-xl-2');
+    movieItems2.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Lấy ID của phim
+            const movieId = item.getAttribute('id');
+            
+            // Hiển thị ID của phim ra console
+            console.log('Movie ID:', movieId);
+            // Chỉnh sửa localStorage và chuyển hướng trang
+            localStorage.setItem('movieid', movieId);
+            window.location.href = "http://localhost:3000/details";
+        });
     });
 };
 
@@ -197,7 +213,7 @@ const fetchData = async(url) => {
                 headers: {Authorization: `Bearer ${token}`}
             }
         );
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -219,8 +235,7 @@ function UpdateDataFilmGenres(genre, getElementById) {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log(localStorage.getItem('token'));
-    UpdateDataNewItemOfThisSeason();
+    // UpdateDataNewItemOfThisSeason();
     add_item_of_new_item(dataNewItem);
     let getElementById = "add-item-for-anime";
     let genre = 'Animation';
@@ -235,5 +250,36 @@ document.addEventListener('DOMContentLoaded', function() {
     getElementById = "add-now-watching";
     genre = 'Adventure';
     UpdateDataFilmGenres(genre, getElementById);
+
+    // Thêm sự kiện click cho từng item trong phần New items
+    const movieItems = document.querySelectorAll('.splide__slide .item--big');
+    movieItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Lấy ID của phim
+            const movieId = item.getAttribute('id');
+            
+            // Hiển thị ID của phim ra console
+            console.log('Movie ID:', movieId);
+            // Chỉnh sửa localStorage và chuyển hướng trang
+            localStorage.setItem('movieid', movieId);
+            window.location.href = "http://localhost:3000/details";
+        });
+    });
+
+    // Thêm sự kiện click cho từng item trong phần New items Recently
+    const movieItems1 = document.querySelectorAll('.col-6.col-sm-12.col-lg-6.col-xxl-4');
+    movieItems1.forEach(item => {
+        // console.log(item);
+        item.addEventListener('click', (e) => {
+            // Lấy ID của phim
+            const movieId = item.getAttribute('id');
+            
+            // Hiển thị ID của phim ra console
+            console.log('Movie ID:', movieId);
+            // Chỉnh sửa localStorage và chuyển hướng trang
+            localStorage.setItem('movieid', movieId);
+            window.location.href = "http://localhost:3000/details";
+        });
+    });
 });
 

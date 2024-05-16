@@ -15,7 +15,7 @@ function createItems(jsonData) {
     jsonData.forEach(item => {
         const colDiv = document.createElement('div');
         colDiv.classList.add('col-6', 'col-sm-4', 'col-lg-3', 'col-xl-2');
-
+        colDiv.id = item.id;
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('item');
 
@@ -83,6 +83,12 @@ const fetchData = async (genre) => {
       home_to_catalog(genre);
       const container = createItems(response.data.movies);
       catalogSection.appendChild(container);
+      const clickItem = document.querySelectorAll('.col-6.col-sm-4.col-lg-3.col-xl-2');
+      clickItem.forEach((item) => {
+        item.addEventListener('click', function() {
+          localStorage.setItem('movieid', item.id);
+        });
+      });
 } catch (error) {
       console.log(error);
   }

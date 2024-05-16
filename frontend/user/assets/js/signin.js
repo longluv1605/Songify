@@ -18,6 +18,7 @@ const postAccount = async() => {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('movieid', "");
         localStorage.setItem('genre', "");
+        localStorage.setItem('search', "");
         window.location.href = 'http://localhost:3000/home';
     } catch (error) {
         console.log(error);
