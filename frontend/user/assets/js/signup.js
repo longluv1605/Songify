@@ -1,3 +1,9 @@
+function isValidGmail(email) {
+    // Sử dụng biểu thức chính quy để kiểm tra định dạng của email
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
+    return gmailRegex.test(email);
+}
+
 const createAccount = async() => {
     try {
         // Lấy giá trị của phần tử input đầu tiên với placeholder là "Firstname"
@@ -13,6 +19,10 @@ const createAccount = async() => {
         if(email === '' || password === ''||firstname ===''||lastname ===''||username ===''){
             alert('Please fill all the blank spaces');
             return;
+        }
+        if(!isValidGmail(email)){
+            alert('Invalid email syntax')
+            return
         }
         const response = await axios.post('http://localhost:8080/api/register', {
             username : username,
@@ -30,6 +40,8 @@ const createAccount = async() => {
         console.log(error);
     }
 };
+
+
 
 const signup = document.getElementById('sign_up');
 
