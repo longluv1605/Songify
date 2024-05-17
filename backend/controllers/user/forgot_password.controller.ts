@@ -14,7 +14,7 @@ class PlanController {
     public sendAuthCode = async (req: Request, res: Response) => {
         try {
             const email = req.query.email as string;
-            console.log(email);
+            // console.log(email);
             if (email == null || email == undefined) {
                 throw new Error("Email not found");
             }
@@ -29,7 +29,7 @@ class PlanController {
 
             res.status(200).json({ message: "Auth code sent" });
         } catch (err) {
-            res.status(500).json({ err });
+            res.status(500).json({ error: err });
         }
     }
 
