@@ -38,7 +38,7 @@ app.use('/changepass', express.static(path.join(__dirname+ '/user/views/changepa
 
 // views of admin
 app.use('/admin-catalog', express.static(path.join(__dirname+ '/admin/views/catalog.html')));
-app.use('/admin-comments', express.static(path.join(__dirname+ '/admin/views/comments.html')));
+app.use('/admin-sales', express.static(path.join(__dirname+ '/admin/views/sales.html')));
 app.use('/admin-edit-item', express.static(path.join(__dirname+ '/admin/views/edit-item.html')));
 app.use('/admin-add-item', express.static(path.join(__dirname+ '/admin/views/add-item.html')));
 app.use('/admin-edit-user', express.static(path.join(__dirname+ '/admin/views/edit-user.html')));

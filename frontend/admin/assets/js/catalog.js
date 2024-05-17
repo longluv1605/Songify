@@ -45,16 +45,6 @@ function createActiveButton(){
     svg_of_button1.appendChild(path_of_svg_button1);
     button1.appendChild(svg_of_button1);
     div.appendChild(button1);
-    var a1 = document.createElement("a");
-    a1.href = "#";
-    a1.className = "catalog__btn catalog__btn--view";
-    var svg_of_a1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg_of_a1.setAttribute("viewBox", "0 0 24 24");
-    var path_of_svg_a1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path_of_svg_a1.setAttribute("d", "M21.92,11.6C19.9,6.91,16.1,4,12,4S4.1,6.91,2.08,11.6a1,1,0,0,0,0,.8C4.1,17.09,7.9,20,12,20s7.9-2.91,9.92-7.6A1,1,0,0,0,21.92,11.6ZM12,18c-3.17,0-6.17-2.29-7.9-6C5.83,8.29,8.83,6,12,6s6.17,2.29,7.9,6C18.17,15.71,15.17,18,12,18ZM12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Z");
-    svg_of_a1.appendChild(path_of_svg_a1);
-    a1.appendChild(svg_of_a1);
-    div.appendChild(a1);
     var a2 = document.createElement("a");
     a2.href = "edit-item.html";
     a2.className = "catalog__btn catalog__btn--edit";
@@ -211,7 +201,24 @@ function confirmApply() {
     });
 };
 
+const fetchData = async () => {
+    try {
+        const token_admin = localStorage.getItem('token_admin');
+        const response = await axios.get('https:/localhost:8080/admin/movies',
+            {
+                headers:{
+                    'Authorization': 'Bearer ' + token_admin
+                }
+            }
+        );
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 document.addEventListener("DOMContentLoaded", function(){
+    fetchData();
     changeAdminName(Admin_Data);
     add_data_for_table_items(Catalog_Data);
     confirmDelete();
