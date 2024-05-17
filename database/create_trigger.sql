@@ -35,7 +35,7 @@ CREATE TRIGGER  IF NOT EXISTS create_sale
 AFTER INSERT ON user_purchase
 FOR EACH ROW
 BEGIN
-    DECLARE username VARCHAR(50);
+    DECLARE user_name VARCHAR(50);
     DECLARE plan VARCHAR(50);
     DECLARE amount DECIMAL(10, 2);
 
@@ -47,13 +47,13 @@ BEGIN
     FROM pricing_plan
     WHERE id = NEW.pricing_plan_id;
 
-    SELECT username INTO username
+    SELECT username INTO user_name
     FROM user
     WHERE id = NEW.user_id;
 
 
     INSERT INTO sale (username, plan, purchase_date, purchase_method, amount)
-    VALUES (username, plan, NEW.purchase_date, NEW.purchase_method, amount);
+    VALUES (user_name, plan, NEW.purchase_date, NEW.purchase_method, amount);
 END//
 
 -- Trigger for update user_plan when insert user_purchase

@@ -10,6 +10,7 @@ import RatingController from "./user/rating.controller";
 import RegisterController from "./user/register.controller";
 import SearchController from "./user/search.controller";
 import LogoutController from "./user/logout.controller";
+import ForgotPasswordController from "./user/forgot_password.controller";
 import AdminLoginController from "./admin/login.controller";
 import AdminLogoutController from "./admin/logout.controller";
 import AdminMovieController from "./admin/movies.controller";
@@ -30,6 +31,7 @@ export {
     RatingController,
     PasswordController,
     LogoutController,
+    ForgotPasswordController,
     AdminLoginController,
     AdminLogoutController,
     AdminMovieController,
