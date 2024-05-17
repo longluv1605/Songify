@@ -1,28 +1,42 @@
-const changePassword = async() => {
+const sendCode = async(email) => {
     try{
-        // cần api put với đầu vào là username và newpassword
+        console.log(email);
+        const response = await axios.get('http://localhost:8080/api/forgot',
+        {
+            params : {
+                email: email
+            }
+        }
+        )
+        console.log(response);
+        window.location.href = 'http://localhost:3000/changepass';
     }
     catch(error){
-        console.log(error);
+        console.log("lỗi rồi", error);
+        changed_successfully.style.display = "block"
     }
 }
 
-const userNameInput = document.querySelector('input[placeholder="User Name"]');
-const newPasswordInput = document.querySelector('input[placeholder="New Password"]');
-const confirmNewPasswordInput = document.querySelector('input[placeholder="Confirm New Password"]');
+function isValidGmail(email) {
+    // Sử dụng biểu thức chính quy để kiểm tra định dạng của email
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail.com$/;
+    return gmailRegex.test(email);
+}
+
+const userEmail = document.querySelector('input[placeholder="Insert your email"]');
 const recover_button = document.querySelector(".sign__btn")
 const changed_successfully = document.getElementById("success")
 document.addEventListener("DOMContentLoaded", function(){
     recover_button.addEventListener("click", function(){
         // console.log(userNameInput.value, newPasswordInput.value, confirmNewPasswordInput.value);
-        if(userNameInput.value.trim() === '' || newPasswordInput.value.trim() === '' || confirmNewPasswordInput.value.trim() === ''){
+        if(userEmail.value.trim() === ''){
             alert("Please fill all the blank spaces")
             return
         }
-        if(newPasswordInput.value.trim() != confirmNewPasswordInput.value.trim()){
-            alert("New password and confirm new password are not identical")
+        if(!isValidGmail(userEmail.value)){
+            alert('Invalid email syntax')
             return
         }
-        changed_successfully.style.display = "block"
+        sendCode(userEmail.value)
     })  
 })

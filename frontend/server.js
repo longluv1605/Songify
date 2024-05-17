@@ -34,6 +34,7 @@ app.use('/pricing', express.static(path.join(__dirname+ '/user/views/pricing.htm
 app.use('/profile', express.static(path.join(__dirname+ '/user/views/profile.html')));
 app.use('/signin', express.static(path.join(__dirname+ '/user/views/signin.html')));
 app.use('/signup', express.static(path.join(__dirname+ '/user/views/signup.html')));
+app.use('/changepass', express.static(path.join(__dirname+ '/user/views/changepass.html')));
 
 // views of admin
 app.use('/admin-catalog', express.static(path.join(__dirname+ '/admin/views/catalog.html')));

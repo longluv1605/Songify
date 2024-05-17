@@ -2675,3 +2675,8 @@ body::-webkit-scrollbar-thumb {
   display: none;
   
 }
+
+.catalog__text {
+  display: flex;
+  text-align: center;
+}
