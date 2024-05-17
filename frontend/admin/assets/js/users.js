@@ -42,7 +42,7 @@ function createButtonAction(){
     button1.appendChild(svg_of_button1);
     div.appendChild(button1);
     var a = document.createElement("a");
-    a.href = "edit-user.html";
+    a.href = "/admin-edit-user";
     a.className = "catalog__btn catalog__btn--edit";
     var svg_of_a = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg_of_a.setAttribute("viewBox", "0 0 24 24");
@@ -66,7 +66,7 @@ function createButtonAction(){
     return div;
 };
 
-function createNewLine(id, info, userName, pricing, commented, reviewed, status, created_date){
+function createNewLine(id, email, username, plan_name, comment_count, rating_count, status, created_at){
     var tr = document.createElement("tr");
     var td1 = document.createElement("td");
     var div1 = document.createElement("div");
@@ -87,10 +87,10 @@ function createNewLine(id, info, userName, pricing, commented, reviewed, status,
     var div2_of_div2 = document.createElement("div");
     div2_of_div2.className = "catalog__meta";
     var h3 = document.createElement("h3");
-    h3.textContent = info.name;
+    h3.textContent = username;
     div2_of_div2.appendChild(h3);
     var span_of_div2_of_div2 = document.createElement("span");
-    span_of_div2_of_div2.textContent = info.email;
+    span_of_div2_of_div2.textContent = email;
     div2_of_div2.appendChild(span_of_div2_of_div2);
     div2.appendChild(div2_of_div2);
     td2.appendChild(div2);
@@ -98,42 +98,43 @@ function createNewLine(id, info, userName, pricing, commented, reviewed, status,
     var td3 = document.createElement("td");
     var div3 = document.createElement("div");
     div3.className = "catalog__text";
-    div3.textContent = userName;
+    div3.textContent = username;
     td3.appendChild(div3);
     tr.appendChild(td3);
     var td4 = document.createElement("td");
     var div4 = document.createElement("div");
     div4.className = "catalog__text";
-    div4.textContent = pricing;
+    div4.textContent = plan_name;
     td4.appendChild(div4);
     tr.appendChild(td4);
     var td5 = document.createElement("td");
     var div5 = document.createElement("div");
     div5.className = "catalog__text";
-    div5.textContent = commented;
+    div5.textContent = comment_count;
     td5.appendChild(div5);
     tr.appendChild(td5);
     var td6 = document.createElement("td");
     var div6 = document.createElement("div");
     div6.className = "catalog__text";
-    div6.textContent = reviewed;
+    div6.textContent = rating_count;
     td6.appendChild(div6);
     tr.appendChild(td6);
     var td7 = document.createElement("td");
     var div7 = document.createElement("div");
-    if (status === "Banned") {
+    div7.textContent = status;
+    if (status === "banned") {
         div7.className = "catalog__text catalog__text--red";
-        div7.textContent = status;
-    } else if (status === "Approved") {
+    } else if (status === "accepted") {
         div7.className = "catalog__text catalog__text--green";
-        div7.textContent = status;
     }
     td7.appendChild(div7);
     tr.appendChild(td7);
     var td8 = document.createElement("td");
     var div8 = document.createElement("div");
     div8.className = "catalog__text";
-    div8.textContent = created_date;
+    const date = new Date(created_at);
+    const formattedTime = ('0'+date.getDate()).slice(-2)+'-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+date.getFullYear()+' '+('0'+date.getHours()).slice(-2)+':'+('0'+date.getMinutes()).slice(-2)+':'+('0'+date.getSeconds()).slice(-2);
+    div8.textContent = formattedTime;
     td8.appendChild(div8);
     tr.appendChild(td8);
     var td9 = document.createElement("td");
@@ -146,12 +147,30 @@ function createNewLine(id, info, userName, pricing, commented, reviewed, status,
 function add_data_for_user_table(dataset){
     var lists = document.getElementById("add-data-for-user-table");
     dataset.forEach(function(data){
-        var list = createNewLine(data.id, data.info, data.userName, data.pricing, data.commented, data.reviewed, data.status, data.created_date);
+        var list = createNewLine(data.id, data.email, data.username, data.plan_name, data.comment_count, data.rating_count, data.status, data.created_at);
         lists.appendChild(list);
     });
 };
 
+const fetchData = async () => {
+    try {
+        const token_admin = localStorage.getItem('token_admin');
+        const response = await axios.get('http://localhost:8080/api/admin/user',
+            {
+                headers: {Authorization: `Bearer ${token_admin}`}
+            }
+        )
+        return response.data.users;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 document.addEventListener("DOMContentLoaded", function(){
+    const total = document.getElementsByClassName('main__title-stat');
+    fetchData().then((user) => {
+        add_data_for_user_table(user);
+        total[0].textContent = user.length + ' Total';
+    });
     changeAdminName(Admin_Data);
-    add_data_for_user_table(User_Infomation_Data);
 });

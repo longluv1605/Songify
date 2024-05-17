@@ -1,26 +1,5 @@
 var Admin_Data = {id: 12312412, firstName: "David", lastName: "Đặng"};
 
-var Catalog_Data = [
-    {id: 1, title: "Midnight Sun", catalogs: "Comedy", rating: 7.1, views: 1250, status: "Hidden", created_date: "05.02.2023"},
-    {id: 2, title: "The Shadow Hunter", catalogs: "Romance", rating: 6.3, views: 1453, status: "Visible", created_date: "05.02.2023"},
-    {id: 3, title: "Wild Hearts", catalogs: "Drama", rating: 6.3, views: 893, status: "Hidden", created_date: "05.02.2023"},
-    {id: 4, title: "Blindspotting", catalogs: "Action", rating: 7.9, views: 1452, status: "Visible", created_date: "04.02.2023"},
-    {id: 5, title: "Tales from the Underworld", catalogs: "Western", rating: 8.6, views: 487, status: "Visible", created_date: "04.02.2023"},
-    {id: 6, title: "Midnight Sun", catalogs: "Drama", rating: 7.7, views: 341, status: "Hidden", created_date: "04.02.2023"},
-    {id: 7, title: "Wild Hearts", catalogs: "Comedy", rating: 8.2, views: 2103, status: "Hidden", created_date: "04.02.2023"},
-    {id: 8, title: "Red Sky at Night", catalogs: "Comedy", rating: 7.1, views: 978, status: "Visible", created_date: "03.02.2023"},
-    {id: 9, title: "The Forgotten Road", catalogs: "Music", rating: 6.3, views: 6441, status: "Hidden", created_date: "03.02.2023"},
-    {id: 10, title: "Echoes of the Past", catalogs: "Fantasy", rating: 9.2, views: 1354, status: "Visible", created_date: "03.02.2023"},
-    {id: 11, title: "Echoes of Yesterday", catalogs: "Trailer", rating: 8.4, views: 654, status: "Visible", created_date: "02.02.2023"},
-    {id: 12, title: "The Last Hope", catalogs: "Documentary", rating: 7.3, views: 6431, status: "Hidden", created_date: "02.02.2023"},
-    {id: 13, title: "The Edge of Tomorrow", catalogs: "Sci-Fi", rating: 8.4, views: 103, status: "Hidden", created_date: "02.02.2023"},
-    {id: 14, title: "A Light in the Darkness", catalogs: "Comedy", rating: 7.9, views: 6574, status: "Visible", created_date: "02.02.2023"},
-    {id: 15, title: "Endless Horizon", catalogs: "Trailer", rating: 8.4, views: 5412, status: "Visible", created_date: "01.02.2023"},
-    {id: 16, title: "Beyond the Horizon", catalogs: "Drama", rating: 7.1, views: 647, status: "Hidden", created_date: "01.02.2023"},
-    {id: 17, title: "Reckoning", catalogs: "Romance", rating: 6.3, views: 4646, status: "Visible", created_date: "30.01.2023"},
-    {id: 18, title: "Savage Beauty", catalogs: "Comedy", rating: 7.9, views: 5614, status: "Hidden", created_date: "29.01.2023"}
-];
-
 function changeNameOfAdmin(firstName, lastName) {
     var name = document.getElementById("add-name-of-admin");
     name.innerText = firstName + " " + lastName;
@@ -46,7 +25,7 @@ function createActiveButton(){
     button1.appendChild(svg_of_button1);
     div.appendChild(button1);
     var a2 = document.createElement("a");
-    a2.href = "edit-item.html";
+    a2.href = "/admin-edit-item";
     a2.className = "catalog__btn catalog__btn--edit";
     var svg_of_a2 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg_of_a2.setAttribute("viewBox", "0 0 24 24");
@@ -70,7 +49,7 @@ function createActiveButton(){
     return div;
 };
 
-function createLineNewItem(id, title, catalogs, rating, views, status, created_date){
+function createLineNewItem(id, title, genres, average_rating, views, status, added_at){
     var tr = document.createElement("tr");
     var td1 = document.createElement("td");
     var div1 = document.createElement("div");
@@ -90,13 +69,13 @@ function createLineNewItem(id, title, catalogs, rating, views, status, created_d
     var td3 = document.createElement("td");
     var div3 = document.createElement("div");
     div3.className = "catalog__text catalog__text--rate";
-    div3.textContent = rating;
+    div3.textContent = average_rating;
     td3.appendChild(div3);
     tr.appendChild(td3);
     var td4 = document.createElement("td");
     var div4 = document.createElement("div");
     div4.className = "catalog__text";
-    div4.textContent = catalogs;
+    div4.textContent = genres;
     td4.appendChild(div4);
     tr.appendChild(td4);
     var td5 = document.createElement("td");
@@ -107,19 +86,20 @@ function createLineNewItem(id, title, catalogs, rating, views, status, created_d
     tr.appendChild(td5);
     var td6 = document.createElement("td");
     var div6 = document.createElement("div");
-    if (status === "Hidden") {
+    div6.textContent = status;
+    if (status === "hidden") {
         div6.className = "catalog__text catalog__text--red";
-        div6.textContent = status;
-    } else if (status === "Visible") {
+    } else if (status === "show") {
         div6.className = "catalog__text catalog__text--green";
-        div6.textContent = status;
     }
     td6.appendChild(div6);
     tr.appendChild(td6);
     var td7 = document.createElement("td");
     var div7 = document.createElement("div");
     div7.className = "catalog__text";
-    div7.textContent = created_date;
+    const date = new Date(added_at);
+    const formattedTime = ('0'+date.getDate()).slice(-2)+'-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+date.getFullYear()+' '+('0'+date.getHours()).slice(-2)+':'+('0'+date.getMinutes()).slice(-2)+':'+('0'+date.getSeconds()).slice(-2);
+    div7.textContent = formattedTime;
     td7.appendChild(div7);
     tr.appendChild(td7);
     var td8 = document.createElement("td");
@@ -132,7 +112,7 @@ function createLineNewItem(id, title, catalogs, rating, views, status, created_d
 function add_data_for_table_items(dataset){
     var lists = document.getElementById("add-data-for-table-items");
     dataset.forEach(function(data){
-        var list = createLineNewItem(data.id, data.title, data.catalogs, data.rating, data.views, data.status, data.created_date);
+        var list = createLineNewItem(data.id, data.title, data.genres, data.average_rating, data.views, data.status, data.added_at);
         lists.appendChild(list);
     });
 };
@@ -188,12 +168,12 @@ function confirmApply() {
             var cellsToEdit = lastClickedRow.getElementsByTagName('td');
             var cellToEdit = cellsToEdit[5];
             // Chỉnh sửa giá trị của cột
-            if (cellToEdit.textContent == "Hidden") {
+            if (cellToEdit.textContent == "hidden") {
                 cellToEdit.className = "catalog__text catalog__text--green";
-                cellToEdit.textContent = "Visible";
-            } else if (cellToEdit.textContent == "Visible") {
+                cellToEdit.textContent = "show";
+            } else if (cellToEdit.textContent == "show") {
                 cellToEdit.className = "catalog__text catalog__text--red";
-                cellToEdit.textContent = "Hidden";
+                cellToEdit.textContent = "hidden";
             };
             
             lastClickedRow = null; // Đặt lại biến lastClickedRow
@@ -204,23 +184,25 @@ function confirmApply() {
 const fetchData = async () => {
     try {
         const token_admin = localStorage.getItem('token_admin');
-        const response = await axios.get('https:/localhost:8080/admin/movies',
+        const response = await axios.get('http://localhost:8080/api/admin/movie',
             {
-                headers:{
-                    'Authorization': 'Bearer ' + token_admin
-                }
+                headers : {Authorization: `Bearer ${token_admin}`}
             }
         );
-        console.log(response.data);
+        return response.data.movies;
     } catch (error) {
         console.log(error);
     }
 };
 
 document.addEventListener("DOMContentLoaded", function(){
-    fetchData();
+    const total = document.getElementsByClassName("main__title-stat");
+    fetchData().then(movies => {
+        // console.log(movies);
+        total[0].textContent = movies.length + ' Total';
+        add_data_for_table_items(movies);
+        confirmDelete();
+        confirmApply();
+    });
     changeAdminName(Admin_Data);
-    add_data_for_table_items(Catalog_Data);
-    confirmDelete();
-    confirmApply();
 });

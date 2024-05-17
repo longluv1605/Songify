@@ -16,7 +16,7 @@ class AdminUserController {
                 throw new Error("Invalid role");
             }
             const sql: string = `
-                SELECT u.id, u.username, u.status, (SELECT name FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = u.id)) AS plan_name, c.comment_count, r.rating_count
+                SELECT u.id, u.username, u.status, u.email, u.created_at, (SELECT name FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = u.id)) AS plan_name, c.comment_count, r.rating_count
                 FROM user u
                 LEFT JOIN (SELECT user_id, COUNT(*) AS comment_count FROM comment GROUP BY user_id) c ON u.id = c.user_id
                 LEFT JOIN (SELECT user_id, COUNT(*) AS rating_count FROM user_rating GROUP BY user_id) r ON u.id = r.user_id LIMIT 100

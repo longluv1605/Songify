@@ -47,6 +47,7 @@ app.use('/admin-reviews', express.static(path.join(__dirname+ '/admin/views/revi
 app.use('/admin-signin', express.static(path.join(__dirname+ '/admin/views/signin.html')));
 app.use('/admin-signup', express.static(path.join(__dirname+ '/admin/views/signup.html')));
 app.use('/admin-users', express.static(path.join(__dirname+ '/admin/views/users.html')));
+app.use('/admin-profile', express.static(path.join(__dirname+ '/admin/views/profile_admin.html')));
 
 // Route chính
 app.get('/admin', (req, res) => {

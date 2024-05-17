@@ -147,9 +147,9 @@ class AdminMovieController {
             const trailer_url = req.body.trailer_url;
             const film_url = req.body.film_url;
             const labels = req.body.labels;
-            const actors = req.body.actors;
+            const actors = req.body.actors; // string
             const directors = req.body.directors;
-            const genres = req.body.genres;
+            const genres = req.body.genres; // mảng các thể loại
 
             if (
                 !title ||
