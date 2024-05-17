@@ -1,28 +1,21 @@
 function postDataFilm() {
     const token_admin = localStorage.getItem('token_admin');
     const get_title = document.getElementById('get_title').value;
-    console.log(get_title);
     const get_description = document.getElementById('get_description').value;
-    console.log(get_description);
     const get_release_year = document.getElementById('get_release_year').value;
-    console.log(get_release_year);
     const get_duration = document.getElementById('get_duration').value;
-    console.log(get_duration);
     const get_image_url = document.getElementById('get_image_url').value;
-    console.log(get_image_url);
     const get_trailer_url = document.getElementById('get_trailer_url').value;
-    console.log(get_trailer_url);
     const get_film_url = document.getElementById('get_film_url').value;
-    console.log(get_film_url);
     const get_label = document.getElementById('sign__quality').value;
-    console.log(get_label);
     const get_actor = document.getElementById('get_actor').value;
-    console.log(get_actor);
     const get_director = document.getElementById('get_director').value;
-    console.log(get_director);
     const get_genres = document.getElementById('sign__genre');
     const selectedGenres = Array.from(get_genres.selectedOptions).map(option => option.value);
-    console.log(selectedGenres);
+    if (get_title === '' || get_description === '' || get_release_year === '' || get_duration === '' || get_image_url === '' || get_trailer_url === '' || get_film_url === '' || get_label === '' || get_actor === '' || get_director === '' || selectedGenres.length === 0) {
+        alert('Please fill in all fields');
+        return;
+    };
     axios.post('http://localhost:8080/api/admin/movie',
         {
             title: get_title,

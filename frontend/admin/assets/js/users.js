@@ -121,7 +121,7 @@ function createNewLine(id, email, username, plan_name, comment_count, rating_cou
     tr.appendChild(td6);
     var td7 = document.createElement("td");
     var div7 = document.createElement("div");
-    div7.textContent = status;
+    div7.textContent = status.toUpperCase();
     if (status === "banned") {
         div7.className = "catalog__text catalog__text--red";
     } else if (status === "accepted") {
@@ -166,11 +166,102 @@ const fetchData = async () => {
     }
 };
 
+function confirmDelete() {
+    const token_admin = localStorage.getItem('token_admin');
+
+    var lastClickedRow;
+    var showButtons = document.getElementById('add-data-for-user-table').querySelectorAll('tr');
+
+    // Gắn sự kiện click cho mỗi button
+    showButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lưu trữ hàng được click trước đó
+            lastClickedRow = button;
+        });
+    });
+
+    // Lấy nút xóa hàng
+    var deleteButton = document.getElementById('deleteButton');
+
+    // Gắn sự kiện click cho nút xóa hàng
+    deleteButton.addEventListener('click', function() {
+        // Kiểm tra xem có hàng được click trước đó không
+        if (lastClickedRow) {
+            var cellsToEdit = lastClickedRow.getElementsByTagName('td');
+            var cellToEdit = cellsToEdit[0];
+            var id = cellToEdit.textContent;
+            axios.delete(`http://localhost:8080/api/admin/user?userId=${id}`,
+                {
+                    headers: {Authorization: `Bearer ${token_admin}`}
+                }
+            )
+            .then(response => {
+                alert(response.data.message);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+            // Xóa hàng được click trước đó
+            lastClickedRow.parentNode.removeChild(lastClickedRow);
+            lastClickedRow = null; // Đặt lại biến lastClickedRow
+        }
+    });
+};
+
+function confirmApply() {
+    const token_admin = localStorage.getItem('token_admin');
+    var lastClickedRow;
+    var showButtons = document.getElementById('add-data-for-user-table').querySelectorAll('tr');
+    // Gắn sự kiện click cho mỗi button
+    showButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Lưu trữ hàng được click trước đó
+            lastClickedRow = button;
+        });
+    });
+    // Lấy nút apply hàng
+    var deleteButton = document.getElementById('applyButton');
+    // Gắn sự kiện click cho nút apply hàng
+    deleteButton.addEventListener('click', function() {
+        // Kiểm tra xem có hàng được click trước đó không
+        if (lastClickedRow) {
+            var cellsToEdit = lastClickedRow.getElementsByTagName('td');
+            var cellToEdit = cellsToEdit[5];
+            // Chỉnh sửa giá trị của cột
+            if (cellToEdit.textContent == "BANNED") {
+                // cellToEdit.className = "catalog__text catalog__text--green";
+                cellToEdit.textContent = "ACCEPTED";
+            } else if (cellToEdit.textContent == "ACCEPTED") {
+                // cellToEdit.className = "catalog__text catalog__text--red";
+                cellToEdit.textContent = "BANNED";
+            }
+            const id = cellsToEdit[0].textContent;
+            axios.put(`http://localhost:8080/api/admin/user?userId=${id}`,   
+                {
+                    status: cellToEdit.textContent.toLowerCase()
+                },
+                {
+                    headers: {Authorization: `Bearer ${token_admin}`}
+                }
+            ).then(response => {
+                alert(response.data.message);
+                window.location.reload();
+            }).catch(error =>{
+                alert(error.response.data.message);
+            });
+            lastClickedRow = null; // Đặt lại biến lastClickedRow
+        }
+    });
+};
+
 document.addEventListener("DOMContentLoaded", function(){
     const total = document.getElementsByClassName('main__title-stat');
     fetchData().then((user) => {
-        add_data_for_user_table(user);
         total[0].textContent = user.length + ' Total';
+        add_data_for_user_table(user);
+        confirmApply();
+        confirmDelete();
     });
     changeAdminName(Admin_Data);
 });

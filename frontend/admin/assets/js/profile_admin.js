@@ -54,10 +54,6 @@ function changePassword(){
     const oldPassword = document.querySelector('.old_password').value;
     const newPassword = document.querySelector('.new_password').value;
     const confirmPassword = document.querySelector('.confirm_new_password').value;
-    if(newPassword !== confirmPassword){
-        alert('New password and confirm password are not the same');
-        return;
-    }
     axios.post('http://localhost:8080/api/admin/profile',
         {
             old_password: oldPassword,
@@ -72,11 +68,12 @@ function changePassword(){
             window.location.reload();
         }
     }).catch((error) => {
-        console.log(error);
-        if(error.response.status === 300){
-            alert('Old password is incorrect');
-        }
+        alert(error.response.data.message);
     });
+    if(newPassword !== confirmPassword){
+        alert('New password and confirm password are not the same');
+        return;
+    }
 };
 
 document.addEventListener('DOMContentLoaded', function(){

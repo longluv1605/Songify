@@ -63,30 +63,40 @@ function createLineNewItem(id, title, genres, average_rating, views, status, add
     var a = document.createElement("a");
     a.href = "#";
     a.textContent = title;
+    a.style = "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;";
     div2.appendChild(a);
     td2.appendChild(div2);
     tr.appendChild(td2);
     var td3 = document.createElement("td");
     var div3 = document.createElement("div");
     div3.className = "catalog__text catalog__text--rate";
-    div3.textContent = average_rating;
+    if (average_rating === null || average_rating === undefined || average_rating === "" || average_rating === 0) {
+        div3.textContent = 10;
+    } else {
+        div3.textContent = average_rating;
+    }
     td3.appendChild(div3);
     tr.appendChild(td3);
     var td4 = document.createElement("td");
     var div4 = document.createElement("div");
     div4.className = "catalog__text";
     div4.textContent = genres;
+    div4.style = "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;";
     td4.appendChild(div4);
     tr.appendChild(td4);
     var td5 = document.createElement("td");
     var div5 = document.createElement("div");
     div5.className = "catalog__text";
-    div5.textContent = views;
+    if (views === null || views === undefined || views === "" || views === 0) {
+        div5.textContent = 0;
+    } else {
+        div5.textContent = views;
+    }
     td5.appendChild(div5);
     tr.appendChild(td5);
     var td6 = document.createElement("td");
     var div6 = document.createElement("div");
-    div6.textContent = status;
+    div6.textContent = status.toUpperCase();
     if (status === "hidden") {
         div6.className = "catalog__text catalog__text--red";
     } else if (status === "show") {
@@ -100,6 +110,7 @@ function createLineNewItem(id, title, genres, average_rating, views, status, add
     const date = new Date(added_at);
     const formattedTime = ('0'+date.getDate()).slice(-2)+'-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+date.getFullYear()+' '+('0'+date.getHours()).slice(-2)+':'+('0'+date.getMinutes()).slice(-2)+':'+('0'+date.getSeconds()).slice(-2);
     div7.textContent = formattedTime;
+    div7.style = "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;";
     td7.appendChild(div7);
     tr.appendChild(td7);
     var td8 = document.createElement("td");
@@ -119,8 +130,9 @@ function add_data_for_table_items(dataset){
 
 
 function confirmDelete() {
-    var lastClickedRow;
+    const token_admin = localStorage.getItem('token_admin');
 
+    var lastClickedRow;
     var showButtons = document.getElementById('add-data-for-table-items').querySelectorAll('tr');
 
     // Gắn sự kiện click cho mỗi button
@@ -138,6 +150,21 @@ function confirmDelete() {
     deleteButton.addEventListener('click', function() {
         // Kiểm tra xem có hàng được click trước đó không
         if (lastClickedRow) {
+            var cellsToEdit = lastClickedRow.getElementsByTagName('td');
+            var cellToEdit = cellsToEdit[0];
+            var id = cellToEdit.textContent;
+            axios.delete(`http://localhost:8080/api/admin/movie?movieId=${id}`,
+                {
+                    headers: {Authorization: `Bearer ${token_admin}`}
+                }
+            )
+            .then(response => {
+                alert(response.data.message);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.log(error);
+            });
             // Xóa hàng được click trước đó
             lastClickedRow.parentNode.removeChild(lastClickedRow);
             lastClickedRow = null; // Đặt lại biến lastClickedRow
@@ -146,10 +173,9 @@ function confirmDelete() {
 };
 
 function confirmApply() {
+    const token_admin = localStorage.getItem('token_admin');
     var lastClickedRow;
-
     var showButtons = document.getElementById('add-data-for-table-items').querySelectorAll('tr');
-
     // Gắn sự kiện click cho mỗi button
     showButtons.forEach(function(button) {
         button.addEventListener('click', function() {
@@ -157,10 +183,8 @@ function confirmApply() {
             lastClickedRow = button;
         });
     });
-
     // Lấy nút apply hàng
     var deleteButton = document.getElementById('applyButton');
-
     // Gắn sự kiện click cho nút apply hàng
     deleteButton.addEventListener('click', function() {
         // Kiểm tra xem có hàng được click trước đó không
@@ -168,14 +192,27 @@ function confirmApply() {
             var cellsToEdit = lastClickedRow.getElementsByTagName('td');
             var cellToEdit = cellsToEdit[5];
             // Chỉnh sửa giá trị của cột
-            if (cellToEdit.textContent == "hidden") {
-                cellToEdit.className = "catalog__text catalog__text--green";
-                cellToEdit.textContent = "show";
-            } else if (cellToEdit.textContent == "show") {
-                cellToEdit.className = "catalog__text catalog__text--red";
-                cellToEdit.textContent = "hidden";
-            };
-            
+            if (cellToEdit.textContent == "HIDDEN") {
+                // cellToEdit.className = "catalog__text catalog__text--green";
+                cellToEdit.textContent = "SHOW";
+            } else if (cellToEdit.textContent == "SHOW") {
+                // cellToEdit.className = "catalog__text catalog__text--red";
+                cellToEdit.textContent = "HIDDEN";
+            }
+            const id = cellsToEdit[0].textContent;
+            axios.put(`http://localhost:8080/api/admin/movie?movieId=${id}`,     // ĐỢI LONG CHỈNH
+                {
+                    status: cellToEdit.textContent.toLowerCase()
+                },
+                {
+                    headers: {Authorization: `Bearer ${token_admin}`}
+                }
+            ).then(response => {
+                alert(response.data.message);
+                window.location.reload();
+            }).catch(error =>{
+                alert(error.response.data.message);
+            });
             lastClickedRow = null; // Đặt lại biến lastClickedRow
         }
     });
