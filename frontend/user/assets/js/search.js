@@ -7,12 +7,12 @@ const dataSearch = async (searchValue) => {
             }
         });
         const genres = response.data.movies[0].genres;
-        // console.log(genres);
         const genre = genres.split(', ');
+        localStorage.setItem('will_like', genre[0]);
         localStorage.setItem('genre', genre[0]);
         window.location.href = "http://localhost:3000/catalog";
     } catch (error) {
-        console.log(error);
+        alert("Không tìm thấy film bạn muốn xem!")
     }
 };
 
@@ -32,7 +32,6 @@ window.addEventListener("DOMContentLoaded", function() {
             var value = searchTerm.value;
             localStorage.setItem("search", value);
             dataSearch(value);    
-            // var value = searchTerm.value;
         });
     });
 });

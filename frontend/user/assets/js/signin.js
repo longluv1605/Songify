@@ -16,6 +16,8 @@ const postAccount = async() => {
         localStorage.setItem('movieid', "");
         localStorage.setItem('genre', "");
         localStorage.setItem('search', "");
+        localStorage.setItem('will_like',"");
+        localStorage.setItem('label', "");
         window.location.href = 'http://localhost:3000/home';
     } catch (error) {
         let deny_access = document.querySelector("#check-person label")
