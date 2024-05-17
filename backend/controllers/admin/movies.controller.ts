@@ -16,11 +16,11 @@ class AdminMovieController {
                 throw new Error("Invalid role");
             }
 
-        
-            const sql: string = `SELECT m.id, m.title, m.added_at, ROUND(AVG(r.value), 1) AS average_rating, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
+            const sql: string = `SELECT m.id, m.title, m.added_at, m.status, ROUND(AVG(r.value), 1) AS average_rating, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
                                     FROM movie m
+                                    LEFT JOIN movie_genre mg ON m.id = mg.movie_id
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
-                                    GROUP BY m.id ORDER BY m.added_at desc LIMIT 100`;
+                                    GROUP BY m.id ORDER BY m.added_at desc LIMIT 50`;
             const movies = await this.db.query(sql);
 
             res.status(200).json({ movies });
@@ -223,10 +223,7 @@ class AdminMovieController {
         }
     };
 
-    public deleteMovie = async (
-        req: AuthenticatedRequest,
-        res: Response
-    ) => {
+    public deleteMovie = async (req: AuthenticatedRequest, res: Response) => {
         try {
             const role = req.role;
             if (role == null || undefined || role !== "admin") {
@@ -251,14 +248,21 @@ class AdminMovieController {
         }
     };
 
-    public changeMovieStatus = async (req: AuthenticatedRequest, res: Response) => {
+    public changeMovieStatus = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
         try {
             const role = req.role;
             if (role == null || undefined || role !== "admin") {
                 throw new Error("Invalid role");
             }
             const movieId = parseInt(req.query.movieId as string);
-            if (movieId == undefined || movieId == null || Number.isNaN(movieId)) {
+            if (
+                movieId == undefined ||
+                movieId == null ||
+                Number.isNaN(movieId)
+            ) {
                 throw new Error("Movie not found");
             }
 
@@ -273,7 +277,9 @@ class AdminMovieController {
 
                 await this.db.query(sql, [status, movieId]);
 
-                res.status(200).json({ message: "Movie status updated successfully" });
+                res.status(200).json({
+                    message: "Movie status updated successfully",
+                });
             }
         } catch (err) {
             res.status(500).json({ err });
