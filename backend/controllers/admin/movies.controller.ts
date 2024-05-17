@@ -11,6 +11,12 @@ class AdminMovieController {
 
     public getMovieData = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
+
+        
             const sql: string = `SELECT m.id, m.title, m.added_at, ROUND(AVG(r.value), 1) AS average_rating, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
                                     FROM movie m
                                     LEFT JOIN user_rating r ON m.id = r.movie_id
@@ -28,6 +34,10 @@ class AdminMovieController {
         res: Response
     ) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const movieId = parseInt(req.query.movieId as string);
 
             if (
@@ -125,6 +135,10 @@ class AdminMovieController {
 
     public addMovie = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const title = req.body.title;
             const description = req.body.description;
             const release_year = req.body.release_year;
@@ -214,6 +228,10 @@ class AdminMovieController {
         res: Response
     ) => {
         try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
             const movieId = parseInt(req.query.movieId as string);
             if (
                 movieId == undefined ||
@@ -233,30 +251,34 @@ class AdminMovieController {
         }
     };
 
-    // public changeMovieStatus = async (req: AuthenticatedRequest, res: Response) => {
-    //     try {
-    //         const movieId = parseInt(req.query.movieId as string);
-    //         if (movieId == undefined || movieId == null || Number.isNaN(movieId)) {
-    //             throw new Error("Movie not found");
-    //         }
+    public changeMovieStatus = async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const role = req.role;
+            if (role == null || undefined || role !== "admin") {
+                throw new Error("Invalid role");
+            }
+            const movieId = parseInt(req.query.movieId as string);
+            if (movieId == undefined || movieId == null || Number.isNaN(movieId)) {
+                throw new Error("Movie not found");
+            }
 
-    //         const sql: string = `SELECT * FROM movie WHERE id = ?`;
-    //         const data = await this.db.query(sql, [movieId]);
-    //         if (data.length === 0) {
-    //             res.status(300).json({ message: "Movie not found" });
-    //         } else {
-    //             const status = req.body.status || data[0].status;
+            const sql: string = `SELECT * FROM movie WHERE id = ?`;
+            const data = await this.db.query(sql, [movieId]);
+            if (data.length === 0) {
+                res.status(300).json({ message: "Movie not found" });
+            } else {
+                const status = req.body.status || data[0].status;
 
-    //             const sql: string = `UPDATE movie SET status = ? WHERE id = ?`;
+                const sql: string = `UPDATE movie SET status = ? WHERE id = ?`;
 
-    //             await this.db.query(sql, [status, movieId]);
+                await this.db.query(sql, [status, movieId]);
 
-    //             res.status(200).json({ message: "Movie status updated successfully" });
-    //         }
-    //     } catch (err) {
-    //         res.status(500).json({ err });
-    //     }
-    // };
+                res.status(200).json({ message: "Movie status updated successfully" });
+            }
+        } catch (err) {
+            res.status(500).json({ err });
+        }
+    };
 }
 
 export default AdminMovieController;

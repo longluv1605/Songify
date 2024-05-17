@@ -18,15 +18,19 @@ class LoginController {
             const password = req.body.password;
 
             const sql: string = `SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?`;
-            const data = await this.db.query(sql, [username, username, password]);
+            const data = await this.db.query(sql, [
+                username,
+                username,
+                password,
+            ]);
             if (data.length === 0) {
                 res.status(300).json({ message: "User not found" });
             } else {
                 const userId = data[0].id; //TODO: xử lý lỗi
-
+                const role = "user";
                 //creat JWT
                 const secret_key: string = process.env.SECRET_KEY || "";
-                const token = jwt.sign({ userId }, secret_key, {
+                const token = jwt.sign({ userId, role }, secret_key, {
                     expiresIn: "30m",
                     algorithm: "HS256",
                 }); // TODO: change expiresIn, add more payload to creat jwt (time, randomId)

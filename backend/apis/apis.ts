@@ -10,6 +10,7 @@ import CommentAPI from "./user/comment.api";
 import RatingAPI from "./user/rating.api";
 import PasswordAPI from "./user/password.api";
 import LogoutAPI from "./user/logout.api";
+import ForgotPasswordAPI from "./user/forgot_password.api";
 import AdminLoginAPI from "./admin/login.api";
 import AdminLogoutAPI from "./admin/logout.api";
 import AdminMovieAPI from "./admin/movies.api";
@@ -30,6 +31,7 @@ export {
     RatingAPI,
     PasswordAPI,
     LogoutAPI,
+    ForgotPasswordAPI,
     AdminLoginAPI,
     AdminLogoutAPI,
     AdminMovieAPI,
