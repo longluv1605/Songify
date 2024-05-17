@@ -9,6 +9,7 @@ const dataSearch = async (searchValue) => {
         const genres = response.data.movies[0].genres;
         const genre = genres.split(', ');
         localStorage.setItem('will_like', genre[0]);
+        localStorage.setItem('genre', genre[0]);
         window.location.href = "http://localhost:3000/catalog";
     } catch (error) {
         alert("Không tìm thấy film bạn muốn xem!")

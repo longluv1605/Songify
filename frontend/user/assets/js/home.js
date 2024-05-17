@@ -131,9 +131,11 @@ const fetchData = async(url) => {
 };
 
 function UpdateDataNewItemOfThisSeason() {
+    const getElementById = "add-now-watching";
     const url = `http://localhost:8080/api`;
     fetchData(url).then(dataset => {
         UpdateNewItemOfThisSeason(dataset.newMovies);
+        addDataFilm(dataset.recentMovies, getElementById);
         // console.log(dataset);
     });
 };
@@ -141,31 +143,25 @@ function UpdateDataNewItemOfThisSeason() {
 function UpdateDataFilmGenres(genre, getElementById) {
     const url = `http://localhost:8080/api/movies?genre=${genre}`;
     fetchData(url).then(dataset => {
-        addDataFilm(dataset, getElementById);
         // console.log(dataset);
+        addDataFilm(dataset.movies, getElementById);
     });
 };
 
-function UpdateDataRecentMovies(getElementById) {
-    const url = `http://localhost:8080/api`;
-    fetchData(url).then(dataset => {
-        addDataFilm(dataset.recentMovies.movies, getElementById);
-    });
-};
+// function UpdateDataRecentMovies(getElementById) {
+//     const url = `http://localhost:8080/api`;
+//     fetchData(url).then(dataset => {
+//         console.log(dataset);
+//     });
+// };
 
 function selectGenre(){
-    const catalog = [];
-    fetchData(`http://localhost:8080/api`).then((data) => {
-        // console.log(data.genres);
-        data.genres.forEach((genre) => {
-            catalog.push(genre.name);
-        });
-        let randomIndex = Math.floor(Math.random() * catalog.length);
-        let randomGenre = catalog[randomIndex];
-        console.log(randomGenre);
-        getElementById = "add-item-for-movie";
-        UpdateDataFilmGenres(randomGenre, getElementById);
-    });
+    const catalog = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'];
+    let randomIndex = Math.floor(Math.random() * catalog.length);
+    let randomGenre = catalog[randomIndex];
+    // console.log(randomGenre);
+    getElementById = "add-item-for-movie";
+    UpdateDataFilmGenres(randomGenre, getElementById);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -174,8 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let genre = 'Animation';
     UpdateDataFilmGenres(genre, getElementById);
     selectGenre();
-    getElementById = "add-now-watching";
-    UpdateDataRecentMovies(getElementById);
 
     // Thêm sự kiện click cho từng item trong phần New items
     const movieItems = document.querySelectorAll('.splide__slide .item--big');

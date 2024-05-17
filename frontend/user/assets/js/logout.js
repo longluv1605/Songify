@@ -10,6 +10,7 @@ const check_out = async() => {
         localStorage.setItem('genre', "");
         localStorage.setItem('search', "");
         localStorage.setItem('will_like',"");
+        localStorage.setItem('label', "");
         window.location.href = 'http://localhost:3000/signin';
     } catch (error) {
         console.log(error);

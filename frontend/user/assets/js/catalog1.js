@@ -136,30 +136,36 @@ function createMovie(jsonData) {
   return container;
 }
 
-const fetchData = async (genre) => {
+const fetchData = async (genre, label) => {
   try {
-      const response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}`,
+      const response = await axios.get(`http://localhost:8080/api/movies?genre=${genre}&label=${label}`,
         {
           headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
           }
         }
       );
-      return response;
-} catch (error) {
-      console.log(error);
+      if (response.data.movies.length === 0) {
+        throw new Error('Không có phim cùng thể loại thuộc label bạn chọn!');
+      } else {
+        return response;
+      }
+  } catch (error) {
+      console.error(error);
+      alert(error.message);
   }
 };
 
 document.addEventListener('DOMContentLoaded', function() {
   const will_like = localStorage.getItem('will_like');
+  const label = localStorage.getItem('label');
   if (will_like === null || will_like === '') {
     const genre = localStorage.getItem('genre');
-    fetchData(genre).then(response => {
+    fetchData(genre, label).then(response => {
       const catalogSection = document.querySelector(".section.section--catalog .container");
       catalog_title(genre);
       home_to_catalog(genre);
-      const container = createItems(response.data);
+      const container = createItems(response.data.movies);
       catalogSection.appendChild(container);
       const clickItem = document.querySelectorAll('.col-6.col-sm-4.col-lg-3.col-xl-2');
       clickItem.forEach((item) => {
@@ -167,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
           localStorage.setItem('movieid', item.id);
         });
       });
+      localStorage.setItem('label', '');
     });
   } else {
       const catalogSection = document.querySelector(".section.section--catalog .container");
@@ -175,10 +182,10 @@ document.addEventListener('DOMContentLoaded', function() {
       home_to_catalog(will_like);
       const check = document.getElementById('will_like');
       check.style.display = 'block';
-      fetchData(will_like).then(response => {
-        const container = createMovie(response.data);
+      fetchData(will_like, label).then(response => {
+        const container = createMovie(response.data.movies);
         catalogSection.appendChild(container);
-        const now_watching_container = createItems(response.data);
+        const now_watching_container = createItems(response.data.movies);
         now_watching.appendChild(now_watching_container);
         const clickItem = document.querySelectorAll('.col-6.col-sm-4.col-lg-3.col-xl-2');
         clickItem.forEach((item) => {
@@ -187,8 +194,21 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         });
         localStorage.setItem('will_like', '');
+        localStorage.setItem('label', '');
       });
   }
+  const check_apply = document.querySelectorAll('.check-apply');
+  const filterGenre = document.getElementById('filter__genre');
+  filterGenre.addEventListener('change', function() {
+      const selectedIndex = filterGenre.selectedIndex;
+      const selectedText = filterGenre.options[selectedIndex].text;
+      localStorage.setItem('label', selectedText);
+  });
+  check_apply.forEach((item) => {
+    item.addEventListener('click', function() {
+      window.location.href = "http://localhost:3000/catalog";
+    });
+  });
 });
 
 
