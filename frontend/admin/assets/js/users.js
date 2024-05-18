@@ -1,22 +1,5 @@
 var Admin_Data = {id: 12312412, firstName: "David", lastName: "Đặng"};
 
-var User_Infomation_Data = [
-    {id: 1, info:{name: "Tess Harper", email: "TessHarper@gmail.com"}, userName: "Tess Harper", pricing: "Premium", commented: 13, reviewed: 1, status: "Approved", created_date: "05.02.2023"},
-    {id: 2, info:{name: "Tess Harper", email: "GeneGraham@gmail.com"}, userName: "Tess Harper", pricing: "Free", commented: 1, reviewed: 15, status: "Approved", created_date: "05.02.2023"},
-    {id: 3, info:{name: "Rosa Lee", email: "RosaLee@gmail.com"}, userName: "Rosa Lee", pricing: "Premium", commented: 6, reviewed: 6, status: "Approved", created_date: "04.02.2023"},
-    {id: 4, info:{name: "Matt Jones", email: "MattJones@gmail.com"}, userName: "Matt Jones", pricing: "Free", commented: 11, reviewed: 15, status: "Banned", created_date: "04.02.2023"},
-    {id: 5, info:{name: "Brian Cranston", email: "BrianCranston@gmail.com"}, userName: "Brian Cranston", pricing: "Basic", commented: 0, reviewed: 0, status: "Approved", created_date: "04.02.2023"},
-    {id: 6, info:{name: "Louis Leterrier", email: "LouisLeterrier@gmail.com"}, userName: "Louis Leterrier", pricing: "Free", commented: 2, reviewed: 1, status: "Approved", created_date: "03.02.2023"},
-    {id: 7, info:{name: "Son Gun", email: "SonGun@gmail.com"}, userName: "Son Gun", pricing: "Cinematic", commented: 65, reviewed: 0, status: "Approved", created_date: "02.02.2023"},
-    {id: 8, info:{name: "Jordana Brewster", email: "JordanaBrewster@gmail.com"}, userName: "Jordana Brewster", pricing: "Premium", commented: 0, reviewed: 0, status: "Banned", created_date: "02.02.2023"},
-    {id: 9, info:{name: "Tyreese Gibson", email: "TyreeseGibson@gmail.com"}, userName: "Tyreese Gibson", pricing: "Premium", commented: 13, reviewed: 1, status: "Approved", created_date: "01.02.2023"},
-    {id: 10, info:{name: "Charlize Theron", email: "CharlizeTheron@gmail.com"}, userName: "Charlize Theron", pricing: "Free", commented: 1, reviewed: 15, status: "Banned", created_date: "01.02.2023"},
-    {id: 11, info:{name: "Long", email: "Long@gmail.com"}, userName: "Long Boss", pricing: "Cinematic", commented: 78, reviewed: 65, status: "Approved", created_date: "01.02.2023"},
-    {id: 12, info:{name: "Minh", email: "Minh@gmail.com"}, userName: "Minh RickKid", pricing: "Premium", commented: 54, reviewed: 15, status: "Approved", created_date: "31.01.2023"},
-    {id: 13, info:{name: "Hieu", email: "Hieu@gmail.com"}, userName: "HieuNo1", pricing: "Cinematic", commented: 15, reviewed: 2, status: "Approved", created_date: "31.01.2023"},
-    {id: 14, info:{name: "Nam", email: "Nam@gmail.com"}, userName: "Nam Poor", pricing: "Free", commented: 1, reviewed: 1, status: "Banned", created_date: "30.01.2023"}
-];
-
 function changeNameOfAdmin(firstName, lastName) {
     var name = document.getElementById("add-name-of-admin");
     name.innerText = firstName + " " + lastName;

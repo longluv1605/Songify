@@ -76,7 +76,7 @@ Data c<!DOCTYPE html>
 		<ul class="sidebar__nav">
 
 			<li class="sidebar__nav-item">
-				<a href="/admin-catalog" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2a1,1,0,0,0-1,1V5H18V3a1,1,0,0,0-2,0V4H8V3A1,1,0,0,0,6,3V5H4V3A1,1,0,0,0,2,3V21a1,1,0,0,0,2,0V19H6v2a1,1,0,0,0,2,0V20h8v1a1,1,0,0,0,2,0V19h2v2a1,1,0,0,0,2,0V3A1,1,0,0,0,21,2ZM6,17H4V15H6Zm0-4H4V11H6ZM6,9H4V7H6Zm10,9H8V13h8Zm0-7H8V6h8Zm4,6H18V15h2Zm0-4H18V11h2Zm0-4H18V7h2Z"/></svg> Catalog</a>
+				<a href="/admin-catalog" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2a1,1,0,0,0-1,1V5H18V3a1,1,0,0,0-2,0V4H8V3A1,1,0,0,0,6,3V5H4V3A1,1,0,0,0,2,3V21a1,1,0,0,0,2,0V19H6v2a1,1,0,0,0,2,0V20h8v1a1,1,0,0,0,2,0V19h2v2a1,1,0,0,0,2,0V3A1,1,0,0,0,21,2ZM6,17H4V15H6Zm0-4H4V11H6ZM6,9H4V7H6Zm10,9H8V13h8Zm0-7H8V6h8Zm4,6H18V15h2Zm0-4H18V11h2Zm0-4H18V7h2Z"/></svg>MOVIES</a>
 			</li>
 
 			<li class="sidebar__nav-item">
@@ -108,9 +108,16 @@ Data c<!DOCTYPE html>
 					<div class="main__title">
 						<h2>Sales</h2>
 
-						<span class="main__title-stat">21,356 Total</span>
+						<span class="main__title-stat"></span>
 
 						<div class="main__title-wrap">
+							<select class="filter__select" name="sort" id="filter__sort">
+								<option value="0">Total sales</option>
+								<option value="1">Sales today</option>
+								<option value="2">Sales last 7 days</option>
+								<option value="3">Sales last 30 days</option>
+							</select>
+
 							<!-- search -->
 							<form action="#" class="main__title-form">
 								<input type="text" placeholder="Key word..">
@@ -130,12 +137,12 @@ Data c<!DOCTYPE html>
 						<table class="catalog__table">
 							<thead>
 								<tr>
-									<th>PURCHASE_ID</th>
+									<th>PURCHASE ID</th>
 									<th>USERNAME</th>
 									<th>PLAN</th>
 									<th>AMOUNT</th>
-									<th>PURCHASE_DATE</th>
-									<th>PURCHASE_METHOD</th>
+									<th>PURCHASE DATE</th>
+									<th>PURCHASE METHOD</th>
 								</tr>
 							</thead>
 
