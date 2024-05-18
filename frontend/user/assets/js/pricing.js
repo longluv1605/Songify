@@ -21,7 +21,7 @@ const getPlan = async() => {
         }
     }  
     catch(error){
-        alert(error.response.data.message);
+        showCustomAlert(error.response.data.message);
     }
 };
 
@@ -85,7 +85,10 @@ document.addEventListener("DOMContentLoaded", function(){
     getPlan();
     buy_plan.addEventListener("click",function(){
         if(had_plan){
-            alert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
+            var modal = document.getElementById("plan-modal");
+            var bootstrapModal = bootstrap.Modal.getInstance(modal);
+            bootstrapModal.hide();
+            showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
             return
         }
         let option = document.getElementById("value")

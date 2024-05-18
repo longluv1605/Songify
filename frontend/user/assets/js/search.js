@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded", function() {
             // console.log(searchTerm);
             var value = searchTerm.value;
             if (value === "") {
-                alert("Please type a movie first!");
+                showCustomAlert("Please type a movie first!");
                 return;
             }
             localStorage.setItem("search", value);
@@ -43,7 +43,7 @@ window.addEventListener("DOMContentLoaded", function() {
             var searchTerm = document.querySelector("input");
             var value = searchTerm.value;
             if (value === "") {
-                showCustomAlert("Cannot search with empty string!");
+                showCustomAlert("Please type a movie first!");
                 return;
             }
             localStorage.setItem("search", value);

@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
   comment_button.addEventListener("click", function(){
     let textarea = document.getElementById("comment_text");
     if (textarea.value.trim() == "") {
-        alert("Please write a comment!");
+        showCustomAlert("Please write a comment!");
         return;
     }
     upload_new_comment(textarea.value);
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let ratingSelect = document.getElementById('rating');
 
     if (ratingSelect.value === '0') {
-        alert("Please select a rating!");
+        showCustomAlert("Please select a rating!");
         return;
     }
     upload_new_review(ratingSelect.value);

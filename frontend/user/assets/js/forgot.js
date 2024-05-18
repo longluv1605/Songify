@@ -30,11 +30,11 @@ document.addEventListener("DOMContentLoaded", function(){
     recover_button.addEventListener("click", function(){
         // console.log(userNameInput.value, newPasswordInput.value, confirmNewPasswordInput.value);
         if(userEmail.value.trim() === ''){
-            alert("Please fill all the blank spaces")
+            showCustomAlert("Please fill all the blank spaces")
             return
         }
         if(!isValidGmail(userEmail.value)){
-            alert('Invalid email syntax')
+            showCustomAlert('Invalid email syntax')
             return
         }
         sendCode(userEmail.value)

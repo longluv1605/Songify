@@ -11,7 +11,7 @@ const changePass = async(authCode, newPassword) => {
     }
     catch(error){
         if(error){
-            alert("Verified code is incorrect")
+            showCustomAlert("Verified code is incorrect")
         }
     }
 }
@@ -25,11 +25,11 @@ const recover_button = document.querySelector(".sign__btn")
 document.addEventListener("DOMContentLoaded", function (){
     recover_button.addEventListener("click", function(){
         if(Verify.value.trim() === '' || Newpass.value.trim() === '' || Confirmpass.value.trim() === ''){
-            alert("Please fill all the blank spaces")
+            showCustomAlert("Please fill all the blank spaces")
             return
         }
         if(Newpass.value.trim() != Confirmpass.value.trim()){
-            alert("New password and Confirmation password are not identical")
+            showCustomAlert("New password and Confirmation password are not identical")
             return
         }
         changePass(Verify.value, Newpass.value)

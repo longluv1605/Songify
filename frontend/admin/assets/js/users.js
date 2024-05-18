@@ -165,7 +165,7 @@ function confirmDelete() {
                 }
             )
             .then(response => {
-                alert(response.data.message);
+                showCustomAlert(response.data.message);
                 window.location.reload();
             })
             .catch(error => {
@@ -214,10 +214,10 @@ function confirmApply() {
                     headers: {Authorization: `Bearer ${token_admin}`}
                 }
             ).then(response => {
-                alert(response.data.message);
+                showCustomAlert(response.data.message);
                 window.location.reload();
             }).catch(error =>{
-                alert(error.response.data.message);
+                showCustomAlert(error.response.data.message);
             });
             lastClickedRow = null; // Đặt lại biến lastClickedRow
         }

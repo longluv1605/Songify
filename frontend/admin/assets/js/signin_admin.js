@@ -3,7 +3,7 @@ const postAccountAdmin = async (data) => {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         if(email === '' || password === ''){
-            alert('Please enter email and password');
+            showCustomAlert('Please enter email and password');
             return;
         }
         const response = await axios.post('http://localhost:8080/api/admin/login', {

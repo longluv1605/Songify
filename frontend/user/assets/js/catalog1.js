@@ -148,7 +148,7 @@ const fetchData = async (genre, label) => {
       }
   } catch (error) {
       console.error(error);
-      alert(error.message);
+      showCustomAlert(error.message);
   }
 };
 

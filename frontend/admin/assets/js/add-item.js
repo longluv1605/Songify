@@ -18,7 +18,7 @@ function postDataFilm() {
     const get_genres = document.getElementById('sign__genre');
     const selectedGenres = Array.from(get_genres.selectedOptions).map(option => option.value);
     if (get_title === '' || get_description === '' || get_release_year === '' || get_duration === '' || get_image_url === '' || get_trailer_url === '' || get_film_url === '' || get_label === '' || get_actor === '' || get_director === '' || selectedGenres.length === 0) {
-        alert('Please fill in all fields');
+        showCustomAlert('Please fill in all fields');
         return;
     };
     axios.post('http://localhost:8080/api/admin/movie',
@@ -40,7 +40,7 @@ function postDataFilm() {
         }
     ).then((response) => {
         if(response.status === 200){
-            alert(response.data.message);
+            showCustomAlert(response.data.message);
             window.location.reload();
         }
     }).catch((error) => {

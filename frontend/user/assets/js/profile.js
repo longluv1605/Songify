@@ -50,7 +50,7 @@ const fetchData = async () => {
             had_plan = true
         }
     } catch (error) {
-        alert(error.response.data.message);
+        showCustomAlert(error.response.data.message);
     }
 };
 
@@ -259,7 +259,7 @@ const changeProfile = async() => {
         console.log(response);
     }
     catch(error){
-        alert(error.response.data.message);
+        showCustomAlert(error.response.data.message);
     }
 }
 
@@ -276,11 +276,11 @@ const changePassword = async() => {
                 headers: {Authorization: `Bearer ${token}`}
             }
         )
-        alert("Password changed successfully");
+        alshowCustomAlertert("Password changed successfully");
         // window.location.reload();
     }
     catch(error){
-        alert(error.response.data.message);
+        showCustomAlert(error.response.data.message);
     }
 }
 
@@ -297,7 +297,7 @@ const purchase = async(id, payment_method) =>{
         window.location.reload();
     }
     catch(error){
-        alert(error.response.data.message);
+        showCustomAlert(error.response.data.message);
     }
 }
 
@@ -308,22 +308,22 @@ document.addEventListener("DOMContentLoaded", function(){
     fetchData();
     save_button.addEventListener("click", function(){
         if(emailInput.value.trim()== "" || firstNameInput.value.trim() == "" || lastNameInput.value.trim() == ""){
-            alert("Please fill all value");
+            showCustomAlert("Please fill all value");
             return
         }
         if(!isValidGmail(emailInput.value)){
-            alert("Incorrect gmail syntax")
+            showCustomAlert("Incorrect gmail syntax")
             return
         }
         changeProfile();
     })
     change_button.addEventListener("click", function(){
         if(oldpass.value.trim()== "" || newpass.value.trim() == "" || confirmpass.value.trim() == ""){
-            alert("Please fill all value");
+            showCustomAlert("Please fill all value");
             return
         }
         if(newpass.value.trim() != confirmpass.value.trim()){
-            alert("New password and Confirmation password are not identical")
+            showCustomAlert("New password and Confirmation password are not identical")
             return
         }
         changePassword()
@@ -333,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function(){
     })
     buy_plan.addEventListener("click",function(){
         if(had_plan){
-            alert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
+            showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
             return
         }
         let option = document.getElementById("value")
