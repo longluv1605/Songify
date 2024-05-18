@@ -98,7 +98,7 @@ class ProfileController {
 
     public getCurrPlan = async (userId: number) => {
         try {
-            const sql: string = `SELECT * FROM user_plan WHERE user_id = ?`;
+            const sql: string = `SELECT * FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = ?)`;
             const plan = await this.db.query(sql, [userId]);
 
             return plan;
@@ -109,14 +109,15 @@ class ProfileController {
 
     public getRecentRatings = async (userId: number) => {
         try {
-            const sql: string = `SELECT m.id, m.title, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, (SELECT VALUE FROM user_rating WHERE user_id = 1 AND movie_id = m.id) AS user_rating
+            const sql: string = `SELECT m.id, m.title, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, 
+            (SELECT VALUE FROM user_rating WHERE user_id = ? AND movie_id = m.id) AS user_rating
             FROM movie m
             LEFT JOIN movie_genre mg ON m.id = mg.movie_id
             LEFT JOIN user_rating r ON m.id = r.movie_id
             GROUP BY m.id HAVING m.id IN (SELECT movie_id FROM user_rating WHERE user_id = ? ORDER BY time DESC) LIMIT 50`;
 
-            const ratings = await this.db.query(sql, [userId]);
-
+            const ratings = await this.db.query(sql, [userId, userId]);
+            
             return ratings;
         } catch (err) {
             console.log(err);

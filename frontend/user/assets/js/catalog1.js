@@ -155,7 +155,8 @@ const fetchData = async (genre, label) => {
 document.addEventListener('DOMContentLoaded', function() {
   const will_like = localStorage.getItem('will_like');
   const label = localStorage.getItem('label');
-  if ((will_like === '' && label === '') || (will_like === null && label === null)) {
+  const genre = localStorage.getItem('genre')
+  if ((will_like === '' && label === ''&& genre === '') || (will_like === null && label === null || genre === null)) {
     const catalogSection = document.querySelector(".section.section--catalog .container");;
     catalog_title('Catalog');
     home_to_catalog('Catalog');

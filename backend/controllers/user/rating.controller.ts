@@ -31,6 +31,8 @@ class RatingController {
             if (rating == undefined || null) {
                 return res.status(400).json({ message: "Rating is required" });
             }
+            
+            await this.db.query("DELETE FROM user_rating WHERE user_id = ? AND movie_id = ?", [userId, movieId])
 
             const sql: string = `INSERT INTO user_rating (user_id, movie_id, value)
                                     VALUES (?, ?, ?)`;

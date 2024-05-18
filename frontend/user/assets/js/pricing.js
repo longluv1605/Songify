@@ -1,4 +1,9 @@
 const token = localStorage.getItem("token");
+const today = new Date();
+const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+let expire = ""
+let had_plan = false
+
 const getPlan = async() => {
     try{
         const response = await axios.get(`http://localhost:8080/api/plans`,
@@ -8,8 +13,12 @@ const getPlan = async() => {
         )
         console.log(response.data);
         loadPriceplans(response.data.plans);
-        findcurrentplan(response.data.currPlan.result[0].plan_id)
-
+        let expire_date = new Date(response.data.currPlan.result[0].exp_date)
+        expire = response.data.currPlan.result[0].exp_date
+        if(expire_date >= endOfToday){
+            findcurrentplan(response.data.currPlan.result[0].plan_id)
+            had_plan = true
+        }
     }  
     catch(error){
         alert(error.response.data.message);
@@ -48,8 +57,8 @@ function loadPriceplans(datas){
 
 const purchase = async(id, payment_method) =>{
     try{
-        console.log({"planId": id, "paymentMethod": payment_method})
-        console.log("buying");
+        // console.log({"planId": id, "paymentMethod": payment_method})
+        // console.log("buying");
         const response =  await axios.post(`http://localhost:8080/api/plans`,
         {"planId": id, "paymentMethod": payment_method},
         {
@@ -57,6 +66,7 @@ const purchase = async(id, payment_method) =>{
         }
         )
         console.log(response);
+        window.location.reload()
     }
     catch(error){
         console.log(error);
@@ -74,6 +84,10 @@ const buy_plan = document.querySelector(".sign__btn.sign__btn--modal")
 document.addEventListener("DOMContentLoaded", function(){
     getPlan();
     buy_plan.addEventListener("click",function(){
+        if(had_plan){
+            alert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
+            return
+        }
         let option = document.getElementById("value")
         let selected = option.value
         let selectedValueInt = parseInt(selected, 10);

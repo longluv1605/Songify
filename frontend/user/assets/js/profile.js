@@ -1,4 +1,10 @@
+let user_id = 0
 const token = localStorage.getItem('token');
+const today = new Date();
+const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+expire = ""
+let had_plan = false
+
 const fetchData = async () => {
     try {
         const response = await axios.get('http://localhost:8080/api/profile',
@@ -15,17 +21,19 @@ const fetchData = async () => {
         if(pricing_plan.length === 0){
             pricing_plan = {name: "No Pricing Plan", price: 0}
         }
-        console.log(response.data);
-        changeUserInformation(username, user_info.id, {name: "Premium", price: 19.99}, 
+        user_id = (response.data.profile.user[0].id);
+        // console.log(response.data.profile);
+        changeUserInformation(username, user_info.id, response.data.profile.plan[0].name, 
         response.data.profile.numberOfComments, response.data.profile.numberOfRatings)
 
         let recent_views = response.data.profile.recentMovies.movies.slice(0,10)
         addDataForRecentViews(recent_views);
 
         let recent_rating = response.data.profile.recentRatings.slice(0,10)
+        console.log(response.data.profile.recentRatings);
         addDataForLatestReviews(recent_rating);
 
-        changeSettingInfomation(user_info.first_name, user_info.last_name, "example@gmail.com");
+        changeSettingInfomation(user_info.first_name, user_info.last_name, user_info.email);
 
         const plan = await axios.get(`http://localhost:8080/api/plans`,
         {
@@ -34,22 +42,27 @@ const fetchData = async () => {
         )
         console.log(plan.data);
         addDataPricingPlant(plan.data.plans);
-        console.log("current plan: ", plan.data.currPlan.result[0].plan_id);
-        pricingPlantActive(plan.data.currPlan.result[0].plan_id);
+        let expire_date = new Date(plan.data.currPlan.result[0].exp_date)
+        expire = plan.data.currPlan.result[0].exp_date
+        console.log(expire);
+        if(expire_date >= endOfToday){
+            pricingPlantActive(plan.data.currPlan.result[0].plan_id);
+            had_plan = true
+        }
     } catch (error) {
         alert(error.response.data.message);
     }
 };
 
-function changeUserInformation(userName, ID, pricing, commented, reviewed) {
+function changeUserInformation(userName, ID, pricing_plan, commented, reviewed) {
     var newUserName = document.getElementById("user_name");
     newUserName.innerText = userName;
     var newUserID = document.getElementById("user_id");
     newUserID.innerText = "ID: "+ID;
     var newPricingName = document.getElementById("pricing_name_of_user");
-    newPricingName.innerText = pricing.name + " plan";
-    var newPricingPrice = document.getElementById("pricing_price_of_user");
-    newPricingPrice.innerText = "$" + pricing.price;
+    newPricingName.innerText = pricing_plan;
+    // var newPricingPrice = document.getElementById("pricing_price_of_user");
+    // newPricingPrice.innerText = "$" + pricing.price;
     var newCommented = document.getElementById("commented_of_user");
     newCommented.innerText = commented;
     var newReviewed = document.getElementById("reviewed_of_user");
@@ -164,7 +177,7 @@ function pricingPlantPremiun(name, price,resolution,duration, list, id){
     var ul = document.createElement("ul");
     ul.className = "plan__list";
     var li1 = document.createElement("li");
-    li1.textContent = duration + "days";
+    li1.textContent = duration + " days";
     ul.appendChild(li1);
     var li2 = document.createElement("li");
     li2.textContent = resolution;
@@ -233,11 +246,12 @@ function isValidGmail(email) {
 
 const changeProfile = async() => {
     try{
+        console.log(user_id);
         console.log(firstNameInput.value);
         console.log(lastNameInput.value);
         console.log(emailInput.value);
         const response = await axios.put(`http://localhost:8080/api/profile`,
-        {"firstName": firstNameInput.value, "lastName": lastNameInput.value, "email": "johndoe@gmail.com"},
+        {"firstName": firstNameInput.value, "lastName": lastNameInput.value, "email": emailInput.value},
         {
             headers: {Authorization: `Bearer ${token}`}
         }
@@ -280,8 +294,7 @@ const purchase = async(id, payment_method) =>{
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        alert("Purchase successfully");
-        // window.location.reload();
+        window.location.reload();
     }
     catch(error){
         alert(error.response.data.message);
@@ -289,6 +302,7 @@ const purchase = async(id, payment_method) =>{
 }
 
 const buy_plan = document.querySelector(".sign__btn.sign__btn--modal")
+
 
 document.addEventListener("DOMContentLoaded", function(){
     fetchData();
@@ -313,8 +327,15 @@ document.addEventListener("DOMContentLoaded", function(){
             return
         }
         changePassword()
+        oldpass.value = ""
+        newpass.value = ""
+        confirmpass.value = ""
     })
     buy_plan.addEventListener("click",function(){
+        if(had_plan){
+            alert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
+            return
+        }
         let option = document.getElementById("value")
         let selected = option.value
         let selectedValueInt = parseInt(selected, 10);

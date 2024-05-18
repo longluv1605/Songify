@@ -32,7 +32,7 @@ window.addEventListener("DOMContentLoaded", function() {
             // console.log(searchTerm);
             var value = searchTerm.value;
             if (value === "") {
-                alert("Cannot search with empty string!");
+                alert("Please type a movie first!");
                 return;
             }
             localStorage.setItem("search", value);

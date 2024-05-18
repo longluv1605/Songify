@@ -10,7 +10,9 @@ const changePass = async(authCode, newPassword) => {
         changed_successfully.style.display = "block"
     }
     catch(error){
-        console.log(error);
+        if(error){
+            alert("Verified code is incorrect")
+        }
     }
 }
 

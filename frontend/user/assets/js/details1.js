@@ -61,7 +61,7 @@ const Recommend = async(genre) => {
         }
         );
         console.log(response.data);
-        update_u_may_like(response.data.slice(0,6));
+        update_u_may_like(response.data.movies.slice(0,6));
     }
     catch(error){
         console.log(error);
@@ -375,10 +375,6 @@ function upload_new_review(rating){
 
     numberPart = parseInt(numberPart)
 
-    let review = {
-        "authorName": "Gene Graham"
-    }
-
     const reviewsList = document.querySelector(".reviews__list");
 
     // Tạo phần tử <li>
@@ -403,7 +399,11 @@ function upload_new_review(rating){
     // Tạo phần tử thời gian đăng bình luận
     const timeSpan = document.createElement("span");
     timeSpan.classList.add("reviews__time");
-    timeSpan.textContent = comment_time + ', by ' + review.authorName;
+    timeSpan.textContent = comment_time;
+
+    const userSpan = document.createElement("span")
+    userSpan.classList.add("review_user")
+    userSpan.textContent = 'by ' + username;
 
     // Tạo phần tử đánh giá
     const ratingSpan = document.createElement("span");
@@ -414,6 +414,7 @@ function upload_new_review(rating){
     authorDiv.appendChild(avatarImg);
     // authorDiv.appendChild(nameSpan);
     authorDiv.appendChild(timeSpan);
+    authorDiv.appendChild(userSpan);
     authorDiv.appendChild(ratingSpan);
 
     // Tạo phần tử chứa nội dung bình luận
