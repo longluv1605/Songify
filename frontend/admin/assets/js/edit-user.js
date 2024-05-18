@@ -154,6 +154,11 @@ const reviews = [
     }
 ]
 
+function changeAdminName(data){
+  var name = document.getElementById("add-name-of-admin");
+  name.innerText = data.first_name + " " + data.last_name;
+};
+
 function generateComments(items) {
     const catalogList = document.querySelector("#body1");
 
@@ -325,4 +330,14 @@ function generateReviews(items) {
 document.addEventListener("DOMContentLoaded", function(){
     generateComments(comments);
     generateReviews(reviews);
+    axios.get('http://localhost:8080/api/admin/profile', 
+        {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+        }
+    ).then(response => {
+        const data = response.data.data[0];
+        changeAdminName(data);
+    }).catch(error => {
+        showCustomAlert(error.response.data.message);
+    });
 })

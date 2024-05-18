@@ -30,6 +30,10 @@ function updateProfile(){
     const email = document.querySelector('.email_placeholder').value;
     const first_name = document.querySelector('.firstname_placeholder').value;
     const last_name = document.querySelector('.lastname_placeholder').value;
+    if(email === '' || first_name === '' || last_name === '' || email === undefined || first_name === undefined || last_name === undefined || email === null || first_name === null || last_name === null){
+        alert('Please enter all sections (x_x)');
+        return;
+    }
     axios.put('http://localhost:8080/api/admin/profile',
         {
             email: email,
@@ -54,6 +58,14 @@ function changePassword(){
     const oldPassword = document.querySelector('.old_password').value;
     const newPassword = document.querySelector('.new_password').value;
     const confirmPassword = document.querySelector('.confirm_new_password').value;
+    if(oldPassword === '' || newPassword === '' || confirmPassword === ''){
+        alert('Please enter all sections (x_x)');
+        return;
+    }
+    if(newPassword !== confirmPassword){
+        alert('New password and confirm password are not the same (`_´)');
+        return;
+    }
     axios.post('http://localhost:8080/api/admin/profile',
         {
             old_password: oldPassword,
@@ -64,16 +76,13 @@ function changePassword(){
         }
     ).then((response) => {
         if(response.status === 200){
-            alert('Change password successfully');
+            alert('Change password successfully (.^_^.)');
             window.location.reload();
         }
     }).catch((error) => {
         alert(error.response.data.message);
     });
-    if(newPassword !== confirmPassword){
-        alert('New password and confirm password are not the same');
-        return;
-    }
+    
 };
 
 document.addEventListener('DOMContentLoaded', function(){

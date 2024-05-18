@@ -38,5 +38,16 @@ window.addEventListener("DOMContentLoaded", function() {
             localStorage.setItem("search", value);
             dataSearch(value);    
         });
+        const button = item.querySelector("button");
+        button.addEventListener("click", function() {
+            var searchTerm = document.querySelector("input");
+            var value = searchTerm.value;
+            if (value === "") {
+                showCustomAlert("Cannot search with empty string!");
+                return;
+            }
+            localStorage.setItem("search", value);
+            dataSearch(value);
+        });
     });
 });

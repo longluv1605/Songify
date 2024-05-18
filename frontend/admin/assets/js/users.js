@@ -1,12 +1,6 @@
-var Admin_Data = {id: 12312412, firstName: "David", lastName: "Đặng"};
-
-function changeNameOfAdmin(firstName, lastName) {
-    var name = document.getElementById("add-name-of-admin");
-    name.innerText = firstName + " " + lastName;
-};
-
 function changeAdminName(data){
-    changeNameOfAdmin(data.firstName, data.lastName);
+    var name = document.getElementById("add-name-of-admin");
+    name.innerText = data.first_name + " " + data.last_name;
 };
 
 function createButtonAction(){
@@ -112,14 +106,6 @@ function createNewLine(id, email, username, plan_name, comment_count, rating_cou
     }
     td7.appendChild(div7);
     tr.appendChild(td7);
-    var td8 = document.createElement("td");
-    var div8 = document.createElement("div");
-    div8.className = "catalog__text";
-    const date = new Date(created_at);
-    const formattedTime = ('0'+date.getDate()).slice(-2)+'-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+date.getFullYear()+' '+('0'+date.getHours()).slice(-2)+':'+('0'+date.getMinutes()).slice(-2)+':'+('0'+date.getSeconds()).slice(-2);
-    div8.textContent = formattedTime;
-    td8.appendChild(div8);
-    tr.appendChild(td8);
     var td9 = document.createElement("td");
     var div9 = createButtonAction();
     td9.appendChild(div9);
@@ -240,6 +226,16 @@ function confirmApply() {
 
 document.addEventListener("DOMContentLoaded", function(){
     const total = document.getElementsByClassName('main__title-stat');
+    axios.get('http://localhost:8080/api/admin/profile', 
+        {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+        }
+    ).then(response => {
+        const data = response.data.data[0];
+        changeAdminName(data);
+    }).catch(error => {
+        showCustomAlert(error.response.data.message);
+    });
     fetchData().then((user) => {
         total[0].textContent = user.length + ' Total';
         add_data_for_user_table(user);

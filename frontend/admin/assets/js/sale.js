@@ -3,6 +3,11 @@ const display_total = document.querySelector(".main__title-stat")
 let all_transactions = []
 let total_sales = 0
 
+function changeAdminName(data){
+    var name = document.getElementById("add-name-of-admin");
+    name.innerText = data.first_name + " " + data.last_name;
+};
+
 const sale = async() => {
     try{
         const response = await axios.get(`http://localhost:8080/api/admin/sale`,
@@ -139,6 +144,16 @@ endOfMonth.setHours(23, 59, 59, 999);
 const filterSelect = document.getElementById('filter__sort');
 
 document.addEventListener('DOMContentLoaded',function(){
+    axios.get('http://localhost:8080/api/admin/profile', 
+        {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+        }
+    ).then(response => {
+        const data = response.data.data[0];
+        changeAdminName(data);
+    }).catch(error => {
+        showCustomAlert(error.response.data.message);
+    });
     sale()
     filterSelect.addEventListener("change", function(){
         let selectedValue = this.value;

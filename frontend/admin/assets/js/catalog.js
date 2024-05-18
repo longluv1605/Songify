@@ -1,12 +1,6 @@
-var Admin_Data = {id: 12312412, firstName: "David", lastName: "Đặng"};
-
-function changeNameOfAdmin(firstName, lastName) {
-    var name = document.getElementById("add-name-of-admin");
-    name.innerText = firstName + " " + lastName;
-};
-
 function changeAdminName(data){
-    changeNameOfAdmin(data.firstName, data.lastName);
+    var name = document.getElementById("add-name-of-admin");
+    name.innerText = data.first_name + " " + data.last_name;
 };
 
 function createActiveButton(){
@@ -104,15 +98,6 @@ function createLineNewItem(id, title, genres, average_rating, views, status, add
     }
     td6.appendChild(div6);
     tr.appendChild(td6);
-    var td7 = document.createElement("td");
-    var div7 = document.createElement("div");
-    div7.className = "catalog__text";
-    const date = new Date(added_at);
-    const formattedTime = ('0'+date.getDate()).slice(-2)+'-'+('0'+(date.getMonth()+1)).slice(-2)+'-'+date.getFullYear()+' '+('0'+date.getHours()).slice(-2)+':'+('0'+date.getMinutes()).slice(-2)+':'+('0'+date.getSeconds()).slice(-2);
-    div7.textContent = formattedTime;
-    div7.style = "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;";
-    td7.appendChild(div7);
-    tr.appendChild(td7);
     var td8 = document.createElement("td");
     var div8 = createActiveButton();
     td8.appendChild(div8);
@@ -234,6 +219,16 @@ const fetchData = async () => {
 
 document.addEventListener("DOMContentLoaded", function(){
     const total = document.getElementsByClassName("main__title-stat");
+    axios.get('http://localhost:8080/api/admin/profile', 
+        {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+        }
+    ).then(response => {
+        const data = response.data.data[0];
+        changeAdminName(data);
+    }).catch(error => {
+        showCustomAlert(error.response.data.message);
+    });
     fetchData().then(movies => {
         // console.log(movies);
         total[0].textContent = movies.length + ' Total';
@@ -241,5 +236,5 @@ document.addEventListener("DOMContentLoaded", function(){
         confirmDelete();
         confirmApply();
     });
-    changeAdminName(Admin_Data);
+    
 });

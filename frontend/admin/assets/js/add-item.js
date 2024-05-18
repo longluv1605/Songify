@@ -1,3 +1,8 @@
+function changeAdminName(data){
+    var name = document.getElementById("add-name-of-admin");
+    name.innerText = data.first_name + " " + data.last_name;
+};
+
 function postDataFilm() {
     const token_admin = localStorage.getItem('token_admin');
     const get_title = document.getElementById('get_title').value;
@@ -46,4 +51,14 @@ function postDataFilm() {
 document.addEventListener('DOMContentLoaded', function(){
     const publish = document.getElementById('publish_button');
     publish.addEventListener('click', postDataFilm);
+    axios.get('http://localhost:8080/api/admin/profile', 
+        {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+        }
+    ).then(response => {
+        const data = response.data.data[0];
+        changeAdminName(data);
+    }).catch(error => {
+        showCustomAlert(error.response.data.message);
+    });
 });
