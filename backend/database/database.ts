@@ -39,6 +39,15 @@ class Database {
             }
         }
     };
+
+    public close = async () => {
+        await this.pool.end();
+    };
+
+
+    public getConnection = async () => {
+        return await this.pool.getConnection();
+    };
 }
 
-export default Database;
+export default new Database();

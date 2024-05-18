@@ -10,17 +10,8 @@ CREATE TABLE IF NOT EXISTS user (
     last_name VARCHAR(50),
     email VARCHAR(100) UNIQUE,
     status VARCHAR(20) DEFAULT 'accepted',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
-CREATE TABLE IF NOT EXISTS admin (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE,
-    password VARCHAR(255),
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    email VARCHAR(100) UNIQUE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    role VARCHAR(20) DEFAULT 'user'
 );
 
 
@@ -38,8 +29,6 @@ CREATE TABLE IF NOT EXISTS movie (
     film_url TEXT,
     status VARCHAR(20) DEFAULT 'show'
 );
-
-
 
 
 CREATE TABLE IF NOT EXISTS genre (
@@ -103,8 +92,6 @@ CREATE TABLE IF NOT EXISTS user_rating (
     value INT,
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id, movie_id),
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-    FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE,
     CONSTRAINT CHK_RatingValue CHECK (value >= 1 AND value <= 10)
 );
 
