@@ -37,7 +37,7 @@ const fetchData = async () => {
         console.log("current plan: ", plan.data.currPlan.result[0].plan_id);
         pricingPlantActive(plan.data.currPlan.result[0].plan_id);
     } catch (error) {
-        console.log(error);
+        alert(error.response.data.message);
     }
 };
 
@@ -245,7 +245,7 @@ const changeProfile = async() => {
         console.log(response);
     }
     catch(error){
-        console.log(error);
+        alert(error.response.data.message);
     }
 }
 
@@ -262,10 +262,11 @@ const changePassword = async() => {
                 headers: {Authorization: `Bearer ${token}`}
             }
         )
-        console.log(response);
+        alert("Password changed successfully");
+        // window.location.reload();
     }
     catch(error){
-        console.log(error);
+        alert(error.response.data.message);
     }
 }
 
@@ -279,10 +280,11 @@ const purchase = async(id, payment_method) =>{
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(response);
+        alert("Purchase successfully");
+        // window.location.reload();
     }
     catch(error){
-        console.log(error);
+        alert(error.response.data.message);
     }
 }
 

@@ -126,7 +126,7 @@ const fetchData = async(url) => {
         );
         return response.data;
     } catch (error) {
-        console.log(error);
+        alert(error.response.data.message);
     }
 };
 

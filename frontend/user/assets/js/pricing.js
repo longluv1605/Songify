@@ -12,7 +12,7 @@ const getPlan = async() => {
 
     }  
     catch(error){
-        console.log(error);
+        alert(error.response.data.message);
     }
 };
 
