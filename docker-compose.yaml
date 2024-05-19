@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  database:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: moflix
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    healthcheck:
+      interval: 5s
+      retries: 3
+      test:
+        [
+          "CMD",
+          "healthcheck.sh",
+          "--su-mysql",
+          "--connect",
+          "--innodb_initialized"
+        ]
+      timeout: 30s
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    environment:
+      DB_HOST: 'localhost'
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: 123
+      DB_NAME: moflix
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    # Bạn có thể thêm wait-for-it hoặc dockerize để đảm bảo MariaDB đã sẵn sàng trước khi backend khởi động
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
