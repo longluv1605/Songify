@@ -1,6 +1,6 @@
 const sendCode = async (email) => {
   try {
-    console.log(email);
+    // console.log(email);
     const response = await axios.get(
       "http://localhost:8080/api/password/forgot/send_code",
       {
@@ -9,10 +9,10 @@ const sendCode = async (email) => {
         }
       }
     );
-    console.log(response);
+    // console.log(response);
     window.location.href = "http://localhost:3000/changepass";
   } catch (error) {
-    console.log("lỗi rồi", error);
+    // console.log("lỗi rồi", error);
     changed_successfully.style.display = "block";
   }
 };

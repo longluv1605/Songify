@@ -6,6 +6,8 @@ const check_out = async() => {
         });
         console.log(response);
         localStorage.setItem('token_admin', "");
+        sessionStorage.setItem('checkUserId', "");
+        sessionStorage.setItem('checkMovieId', "");
         window.location.href = 'http://localhost:3000/admin-signin';
     } catch (error) {
         console.log(error);

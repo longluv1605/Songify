@@ -11,7 +11,7 @@ const getPlan = async() => {
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(response.data);
+        // console.log(response.data);
         loadPriceplans(response.data.planDatas);
         let expire_date = new Date(response.data.userPlan[0].exp_date)
         expire = response.data.userPlan[0].exp_date
@@ -65,7 +65,7 @@ const purchase = async(id, payment_method) =>{
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(response);
+        // console.log(response);
         window.location.reload()
     }
     catch(error){

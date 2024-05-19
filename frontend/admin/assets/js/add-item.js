@@ -21,7 +21,8 @@ function postDataFilm() {
         showCustomAlert('Please fill in all fields');
         return;
     };
-    axios.post('http://localhost:8080/api/admin/movie',
+    // console.log(get_title, get_description, get_release_year, get_duration, get_image_url, get_trailer_url, get_film_url, get_label, get_actor, get_director, selectedGenres);
+    axios.post('http://localhost:8080/api/admin/movie_manage/add',
         {
             title: get_title,
             description: get_description,
@@ -30,7 +31,7 @@ function postDataFilm() {
             cover_img_url: get_image_url,
             trailer_url: get_trailer_url,
             film_url: get_film_url,
-            labels: get_label,
+            label: get_label,
             actors: get_actor,
             directors: get_director,
             genres: selectedGenres
@@ -41,7 +42,7 @@ function postDataFilm() {
     ).then((response) => {
         if(response.status === 200){
             showCustomAlert(response.data.message);
-            window.location.reload();
+            // window.location.reload();
         }
     }).catch((error) => {
         console.log(error);
@@ -51,12 +52,12 @@ function postDataFilm() {
 document.addEventListener('DOMContentLoaded', function(){
     const publish = document.getElementById('publish_button');
     publish.addEventListener('click', postDataFilm);
-    axios.get('http://localhost:8080/api/admin/profile', 
+    axios.get('http://localhost:8080/api/profile', 
         {
             headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
         }
     ).then(response => {
-        const data = response.data.data[0];
+        const data = response.data.user[0];
         changeAdminName(data);
     }).catch(error => {
         showCustomAlert(error.response.data.message);

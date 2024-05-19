@@ -124,7 +124,7 @@ const fetchData = async(url) => {
                 headers: {Authorization: `Bearer ${token}`}
             }
         );
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
         showCustomAlert(error.response.data.message);
@@ -144,7 +144,7 @@ function UpdateDataNewItemOfThisSeason() {
 function UpdateDataFilmGenres(genre, getElementById) {
     const url = `http://localhost:8080/api/filter?genre=${genre}`;
     fetchData(url).then(dataset => {
-        console.log(dataset);
+        // console.log(dataset);
         addDataFilm(dataset, getElementById);
     });
 };

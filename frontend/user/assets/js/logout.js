@@ -31,7 +31,7 @@ function check_out(){
         localStorage.setItem('label', "");
         window.location.href = 'http://localhost:3000/signin';
     }).catch(error => {
-        showCustomAlert(error.response.data.message);
+        console.log(error);
         window.location.href = 'http://localhost:3000/signin';
     });
 };

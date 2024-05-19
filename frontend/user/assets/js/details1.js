@@ -8,7 +8,7 @@ const getDetail = async (movieid) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(response.data);
+    // console.log(response.data);
     loadSkeleton();
     await updateDetails(response.data.movieData[0]);
     generateComments(response.data.comments);
@@ -35,7 +35,7 @@ const postComment = async (movieid, context) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("Comment added successfully:", response.data);
+    // console.log("Comment added successfully:", response.data);
   } catch (error) {
     console.error("Error adding comment:", error);
   }
@@ -82,7 +82,7 @@ const UpdateView = async (movieid) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(response);
+    // console.log(response);
   } catch (error) {
     console.log(error);
   }
@@ -110,13 +110,13 @@ const getprofile = async () => {
     const response = await axios.get("http://localhost:8080/api/profile", {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response.data);
+    // console.log(response.data);
     let needed = response.data.user[0];
     username = needed.first_name + " " + needed.last_name;
     if (username == 0) {
       username = "Undefined";
     }
-    console.log("username:", username);
+    // console.log("username:", username);
   } catch (error) {
     console.log(error);
   }
@@ -129,7 +129,7 @@ const add_to_wishlist = async() => {
       headers: { Authorization: `Bearer ${token}` },
     }
   )
-  console.log(response);
+  // console.log(response);
   }
   catch(error){
     console.log(error);
@@ -143,7 +143,7 @@ const delete_wishlist = async() => {
       headers: { Authorization: `Bearer ${token}` },
     }
   )
-  console.log(response);
+  // console.log(response);
   }
   catch(error){
     console.log(error);
@@ -507,7 +507,7 @@ function selectGenre() {
   // console.log(randomIndex);
   // Sử dụng chỉ số đã chọn để lấy ra thể loại ngẫu nhiên
   let randomGenre = genresArray[randomIndex];
-  console.log("Recommend genre:", randomGenre);
+  // console.log("Recommend genre:", randomGenre);
   return randomGenre;
 }
 
@@ -592,14 +592,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   watchMovie.addEventListener("click", function () {
-    console.log("watching");
+    // console.log("watching");
     // UpdateView(localStorage.getItem("movieid"));
     UpdateWatchHist(localStorage.getItem("movieid"));
   });
 
   recommended_list.forEach(function (element) {
     element.addEventListener("click", function () {
-      console.log(element.id);
+      // console.log(element.id);
       localStorage.setItem("movieid", element.id);
       window.location.href = "http://localhost:3000/details";
     });

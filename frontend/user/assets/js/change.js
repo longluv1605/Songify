@@ -6,7 +6,7 @@ const changePass = async(authCode, newPassword) => {
                 newPassword: newPassword
             }
         )
-        console.log(response);
+        // console.log(response);
         changed_successfully.style.display = "block"
     }
     catch(error){

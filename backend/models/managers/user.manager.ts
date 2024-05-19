@@ -18,11 +18,15 @@ class UserManager implements Manager {
                 SELECT u.id, u.username, u.status, u.email, u.created_at, 
                 (SELECT name FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = u.id)) AS plan_name, 
                 c.comment_count, r.rating_count
-                FROM user u
+                FROM (SELECT * FROM user WHERE role != 'admin') u
                 LEFT JOIN (SELECT user_id, COUNT(*) AS comment_count FROM comment GROUP BY user_id) c ON u.id = c.user_id
                 LEFT JOIN (SELECT user_id, COUNT(*) AS rating_count FROM user_rating GROUP BY user_id) r ON u.id = r.user_id LIMIT 30
             `;
-                const users = await Database.query(sql);
+                let users = await Database.query(sql);
+                for (let i = 0; i < users.length; i++) {
+                    users[i].comment_count = Number(users[i].comment_count);
+                    users[i].rating_count = Number(users[i].rating_count);
+                }
                 return users;
             }
 
@@ -33,8 +37,8 @@ class UserManager implements Manager {
             //     const user = await Database.query(sql, [userId]);
             //     return user;
             // }
-            sql = "SELECT id, username, first_name, last_name, email, created_at FROM user WHERE id = ?";
-            // console.log("sql", sql);
+            const secretCol = userRole !== "admin" ? "" : "status, ";
+            sql = `SELECT id, username, first_name, last_name, email, ${secretCol}created_at FROM user WHERE id = ?`;            // console.log("sql", sql);
             // Query
             const user = await Database.query(sql, [userId]);
 

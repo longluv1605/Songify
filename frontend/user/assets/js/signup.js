@@ -31,7 +31,7 @@ const createAccount = async() => {
             email: email,
             password: password
         });
-        console.log(response);
+        // console.log(response);
         // localStorage.setItem('token', response.data.token);
         localStorage.setItem('movieid', "");
         localStorage.setItem('genre', "");

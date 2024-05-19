@@ -56,7 +56,7 @@ app.get('/admin', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/user/views/signin.html'));
+  res.sendFile(path.join(__dirname + '/user/views/home.html'));
 });
 
 // Khởi động máy chủ

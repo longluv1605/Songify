@@ -12,7 +12,7 @@ const fetchData = async () => {
                 headers: {Authorization: `Bearer ${token}`}
             }
         );
-        console.log(response.data);
+        // console.log(response.data);
         let user_info = response.data.user[0];
         let username = user_info.first_name + " " + user_info.last_name;
         if(username == 0){
@@ -43,7 +43,7 @@ const fetchData = async () => {
         addDataPricingPlant(plan.data.planDatas);
         let expire_date = new Date(plan.data.userPlan[0].exp_date)
         expire = plan.data.userPlan[0].exp_date
-        console.log(expire);
+        // console.log(expire);
         if(expire_date >= endOfToday){
             pricingPlantActive(plan.data.userPlan[0].id);
             had_plan = true
@@ -203,7 +203,7 @@ function pricingPlantPremiun(name, price,resolution,duration, list, id){
     var span_of_button = document.createElement("span");
     span_of_button.textContent = "Choose plan";
     plan_id = "plan" + id
-    console.log(plan_id);
+    // console.log(plan_id);
     span_of_button.setAttribute("id", plan_id);
     button.appendChild(span_of_button);
     div1.appendChild(button);
@@ -245,17 +245,17 @@ function isValidGmail(email) {
 
 const changeProfile = async() => {
     try{
-        console.log(user_id);
-        console.log(firstNameInput.value);
-        console.log(lastNameInput.value);
-        console.log(emailInput.value);
+        // console.log(user_id);
+        // console.log(firstNameInput.value);
+        // console.log(lastNameInput.value);
+        // console.log(emailInput.value);
         const response = await axios.put(`http://localhost:8080/api/profile`,
         {"firstName": firstNameInput.value, "lastName": lastNameInput.value, "email": emailInput.value},
         {
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(response);
+        // console.log(response);
         showCustomAlert("Profile changed successfully")
     }
     catch(error){
@@ -286,8 +286,8 @@ const changePassword = async() => {
 
 const purchase = async(id, payment_method) =>{
     try{
-        console.log({"planId": id, "paymentMethod": payment_method})
-        console.log("buying");
+        // console.log({"planId": id, "paymentMethod": payment_method})
+        // console.log("buying");
         const response =  await axios.post(`http://localhost:8080/api/plans`,
         {"planId": id, "paymentMethod": payment_method},
         {
@@ -333,6 +333,9 @@ document.addEventListener("DOMContentLoaded", function(){
     })
     buy_plan.addEventListener("click",function(){
         if(had_plan){
+            var modal = document.getElementById("plan-modal");
+            var bootstrapModal = bootstrap.Modal.getInstance(modal);
+            bootstrapModal.hide();
             showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
             return
         }

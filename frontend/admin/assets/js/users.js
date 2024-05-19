@@ -18,9 +18,9 @@ function createButtonAction(){
     svg_of_button1.appendChild(path_of_svg_button1);
     button1.appendChild(svg_of_button1);
     div.appendChild(button1);
-    var a = document.createElement("a");
-    a.href = "/admin-edit-user";
-    a.className = "catalog__btn catalog__btn--edit";
+    var a = document.createElement("button");
+    a.type = "button";
+    a.className = "catalog__btn catalog__btn--edit editButton";
     var svg_of_a = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg_of_a.setAttribute("viewBox", "0 0 24 24");
     var path_of_svg_a = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -124,12 +124,12 @@ function add_data_for_user_table(dataset){
 const fetchData = async () => {
     try {
         const token_admin = localStorage.getItem('token_admin');
-        const response = await axios.get('http://localhost:8080/api/admin/user',
+        const response = await axios.get('http://localhost:8080/api/admin/user_manage/get',
             {
                 headers: {Authorization: `Bearer ${token_admin}`}
             }
         )
-        return response.data.users;
+        return response.data;
     } catch (error) {
         console.log(error);
     }
@@ -159,17 +159,17 @@ function confirmDelete() {
             var cellsToEdit = lastClickedRow.getElementsByTagName('td');
             var cellToEdit = cellsToEdit[0];
             var id = cellToEdit.textContent;
-            axios.delete(`http://localhost:8080/api/admin/user?userId=${id}`,
+            axios.delete(`http://localhost:8080/api/admin/user_manage/delete/${id}`,
                 {
                     headers: {Authorization: `Bearer ${token_admin}`}
                 }
             )
             .then(response => {
-                showCustomAlert(response.data.message);
-                window.location.reload();
+                showCustomAlert("Delete successfully (.^_^.)");
+                // window.location.reload();
             })
             .catch(error => {
-                console.log(error);
+                console.log("Delete failed (T_T)");
             });
             // Xóa hàng được click trước đó
             lastClickedRow.parentNode.removeChild(lastClickedRow);
@@ -196,51 +196,72 @@ function confirmApply() {
         // Kiểm tra xem có hàng được click trước đó không
         if (lastClickedRow) {
             var cellsToEdit = lastClickedRow.getElementsByTagName('td');
-            var cellToEdit = cellsToEdit[5];
+            var cellToEdit = cellsToEdit[6];
             // Chỉnh sửa giá trị của cột
-            if (cellToEdit.textContent == "BANNED") {
-                // cellToEdit.className = "catalog__text catalog__text--green";
-                cellToEdit.textContent = "ACCEPTED";
-            } else if (cellToEdit.textContent == "ACCEPTED") {
-                // cellToEdit.className = "catalog__text catalog__text--red";
-                cellToEdit.textContent = "BANNED";
+            // console.log(cellToEdit);
+            var cellToEdit2 = cellToEdit.querySelector('div');
+            // console.log(cellToEdit2);
+            if (cellToEdit2.textContent == "BANNED") {
+                cellToEdit2.className = "catalog__text catalog__text--green";
+                cellToEdit2.textContent = "ACCEPTED";
+            } else if (cellToEdit2.textContent == "ACCEPTED") {
+                cellToEdit2.className = "catalog__text catalog__text--red";
+                cellToEdit2.textContent = "BANNED";
             }
             const id = cellsToEdit[0].textContent;
-            axios.put(`http://localhost:8080/api/admin/user?userId=${id}`,   
+            axios.put(`http://localhost:8080/api/admin/user_manage/change_status/${id}`,   
                 {
-                    status: cellToEdit.textContent.toLowerCase()
+                    status: cellToEdit2.textContent.toLowerCase()
                 },
                 {
                     headers: {Authorization: `Bearer ${token_admin}`}
                 }
             ).then(response => {
-                showCustomAlert(response.data.message);
-                window.location.reload();
+                showCustomAlert("Apply successfully (.^_^.)");
+                // window.location.reload();
             }).catch(error =>{
-                showCustomAlert(error.response.data.message);
+                showCustomAlert("Apply failed (T_T)");
             });
             lastClickedRow = null; // Đặt lại biến lastClickedRow
         }
     });
 };
 
+function editButton(){
+    const editButton = document.querySelectorAll('.editButton');
+    // console.log(editButton);
+    editButton.forEach(function(button){
+        button.addEventListener('click', function(){
+            var lastClickedRow = button.parentElement.parentElement.parentElement;
+            if (lastClickedRow) {
+                var cellsToEdit = lastClickedRow.getElementsByTagName('td');
+                var cellToEdit = cellsToEdit[0];
+                var cellToEdit2 = cellToEdit.querySelector('div');
+                var id = cellToEdit2.textContent;
+                sessionStorage.setItem('checkUserId', id);
+                window.location.href = "http://localhost:3000/admin-edit-user";
+            }
+        });
+    });
+};
+
 document.addEventListener("DOMContentLoaded", function(){
     const total = document.getElementsByClassName('main__title-stat');
-    axios.get('http://localhost:8080/api/admin/profile', 
+    axios.get('http://localhost:8080/api/profile', 
         {
             headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
         }
     ).then(response => {
-        const data = response.data.data[0];
+        const data = response.data.user[0];
         changeAdminName(data);
     }).catch(error => {
-        showCustomAlert(error.response.data.message);
+        showCustomAlert("Please login again!");
     });
     fetchData().then((user) => {
         total[0].textContent = user.length + ' Total';
         add_data_for_user_table(user);
         confirmApply();
         confirmDelete();
+        editButton();
     });
-    changeAdminName(Admin_Data);
 });
