@@ -35,6 +35,7 @@ app.use('/profile', express.static(path.join(__dirname+ '/user/views/profile.htm
 app.use('/signin', express.static(path.join(__dirname+ '/user/views/signin.html')));
 app.use('/signup', express.static(path.join(__dirname+ '/user/views/signup.html')));
 app.use('/changepass', express.static(path.join(__dirname+ '/user/views/changepass.html')));
+app.use('/favorite-movies', express.static(path.join(__dirname+ '/user/views/love_movie.html')));
 
 // views of admin
 app.use('/admin-catalog', express.static(path.join(__dirname+ '/admin/views/catalog.html')));

@@ -144,6 +144,31 @@ function updateDetails(jsonData) {
   id.setAttribute("id", jsonData.id);
   //Update title
   title.textContent = jsonData.title;
+  let button = document.createElement('button');
+  button.id = 'check-heart-button';
+  let img = document.createElement('img');
+  img.src = 'img/covers/iconsheart.png'
+  img.id = 'check-heart-hover';
+  img.style.width = '35px';
+  img.style.height = 'auto';
+  img.addEventListener('mouseover', function(){
+    img.src = 'img/covers/iconsheart-hover.png';
+  });
+  img.addEventListener('mouseout', function(){
+    img.src = 'img/covers/iconsheart.png';
+  });
+  button.appendChild(img);
+  button.addEventListener('click', function(){
+    if(img.src === 'img/covers/iconsheart.png'){
+        img.src = 'img/covers/iconsheart-hover.png';
+    }else{
+        img.src = 'img/covers/iconsheart.png';
+    }
+  });
+  button.style.width = '35px';
+  button.style.height = 'auto';
+  button.style.marginLeft = '20px';
+  title.appendChild(button);
   // Update cover image src
   itemCoverImg.src =  jsonData.cover_img_url
 
