@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from flixgo.volkovdesign.com/admin-edit-user.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css_admin/bootstrap.min.css">
+	<link rel="stylesheet" href="css_admin/slimselect.css">
+	<link rel="stylesheet" href="css_admin/admin.css">
+	<link rel="stylesheet" href="css_admin/alert.css">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="icon_admin/icon.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="icon_admin/icon.png">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+	<!-- header -->
+	<header class="header">
+		<div class="header__content">
+			<!-- header logo -->
+			<a href="/admin-catalog" class="header__logo">
+				<img src="img_admin/logo.png" alt="">
+			</a>
+			<!-- end header logo -->
+
+			<!-- header menu btn -->
+			<button class="header__btn" type="button">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<!-- end header menu btn -->
+		</div>
+	</header>
+	<!-- end header -->
+
+	<!-- sidebar -->
+	<div class="sidebar">
+		<!-- sidebar logo -->
+		<a href="/admin-catalog" class="sidebar__logo">
+			<img src="img_admin/logo.svg" alt="">
+		</a>
+		<!-- end sidebar logo -->
+		
+		<!-- sidebar user -->
+		<div class="sidebar__user">
+			<div class="sidebar__user-img">
+				<a href="/admin-profile">
+                    <img src="img_admin/user.svg" alt="">
+                </a>
+			</div>
+
+			<div class="sidebar__user-title">
+				<span>Admin</span>
+				<p id="add-name-of-admin"></p>
+			</div>
+
+			<button id="logout_admin" class="sidebar__user-btn" type="button">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path></svg>
+			</button>
+		</div>
+		<!-- end sidebar user -->
+
+		<!-- sidebar nav -->
+		<ul class="sidebar__nav">
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-catalog" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2a1,1,0,0,0-1,1V5H18V3a1,1,0,0,0-2,0V4H8V3A1,1,0,0,0,6,3V5H4V3A1,1,0,0,0,2,3V21a1,1,0,0,0,2,0V19H6v2a1,1,0,0,0,2,0V20h8v1a1,1,0,0,0,2,0V19h2v2a1,1,0,0,0,2,0V3A1,1,0,0,0,21,2ZM6,17H4V15H6Zm0-4H4V11H6ZM6,9H4V7H6Zm10,9H8V13h8Zm0-7H8V6h8Zm4,6H18V15h2Zm0-4H18V11h2Zm0-4H18V7h2Z"/></svg> Movies</a>
+			</li>
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-users" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/></svg> Users</a>
+			</li>
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-sales" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.61,19.19A7,7,0,0,0,17.87,8.62,8,8,0,1,0,3.68,14.91L2.29,16.29a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,18H8.69A7,7,0,0,0,15,22h6a1,1,0,0,0,.92-.62,1,1,0,0,0-.21-1.09ZM8,15a6.63,6.63,0,0,0,.08,1H5.41l.35-.34a1,1,0,0,0,0-1.42A5.93,5.93,0,0,1,4,10a6,6,0,0,1,6-6,5.94,5.94,0,0,1,5.65,4c-.22,0-.43,0-.65,0A7,7,0,0,0,8,15ZM18.54,20l.05.05H15a5,5,0,1,1,3.54-1.46,1,1,0,0,0-.3.7A1,1,0,0,0,18.54,20Z"/></svg> Sales</a>
+			</li>
+			
+			<li class="sidebar__nav-item">
+				<a href="/admin-add-item" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.32.32,0,0,0-.09,0A.88.88,0,0,0,14.05,2H10A3,3,0,0,0,7,5V6H6A3,3,0,0,0,3,9V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V18h1a3,3,0,0,0,3-3V9S21,9,21,8.94ZM15,5.41,17.59,8H16a1,1,0,0,1-1-1ZM15,19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V9A1,1,0,0,1,6,8H7v7a3,3,0,0,0,3,3h5Zm4-4a1,1,0,0,1-1,1H10a1,1,0,0,1-1-1V5a1,1,0,0,1,1-1h3V7a3,3,0,0,0,3,3h3Z"/></svg> Add Movies</a>
+			</li>
+		</ul>
+		<!-- end sidebar nav -->
+		
+		<!-- sidebar copyright -->
+		<div class="sidebar__copyright">Moflix, 2024. <br>Create by Long, Nam, Hiếu, Minh.</div>
+		<!-- end sidebar copyright -->
+	</div>
+	<!-- end sidebar -->
+
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Edit user</h2>
+					</div>
+				</div>
+				<!-- end main title -->
+
+				<!-- profile -->
+				<div class="col-12">
+					<div class="profile__content">
+						<!-- profile user -->
+						<div class="profile__user">
+							<div class="profile__avatar">
+								<img src="img_admin/user.svg" alt="">
+							</div>
+							<!-- or red -->
+							<div id="change_color" class="">
+								<h3></h3>
+								<span id="changeUserId"></span>
+							</div>
+						</div>
+						<!-- end profile user -->
+
+						<!-- profile tabs nav -->
+						<ul class="nav nav-tabs profile__tabs" id="profile__tabs" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button id="1-tab" class="active" data-bs-toggle="tab" data-bs-target="#tab-1" type="button" role="tab" aria-controls="tab-1" aria-selected="true">Profile</button>
+							</li>
+						</ul>
+						<!-- end profile tabs nav -->
+
+						<!-- profile btns -->
+						<div class="profile__actions">
+							<button id="statusButton" type="button" data-bs-toggle="modal" class="profile__action profile__action--banned" data-bs-target="#modal-status3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,13a1,1,0,0,0-1,1v3a1,1,0,0,0,2,0V14A1,1,0,0,0,12,13Zm5-4V7A5,5,0,0,0,7,7V9a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V12A3,3,0,0,0,17,9ZM9,7a3,3,0,0,1,6,0V9H9Zm9,12a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H17a1,1,0,0,1,1,1Z"/></svg></button>
+							<button id="deleteButton" type="button" data-bs-toggle="modal" class="profile__action profile__action--delete" data-bs-target="#modal-delete3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"/></svg></button>
+						</div>
+						<!-- end profile btns -->
+					</div>
+				</div>
+				<!-- end profile -->
+
+				<!-- content tabs -->
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab" tabindex="0">
+						<div class="col-12">
+							<div class="row">
+								<!-- details form -->
+								<div class="col-12">
+									<form action="#" class="sign__form sign__form--profile">
+										<div class="row">
+											<div class="col-12">
+												<h4 class="sign__title">Profile details</h4>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label">Username</label>
+													<p id="username" class="user-info changeUserName">User1234</p>
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="email2">Email</label>
+													<p id="username" class="user-info changeEmail">email@email.com</p>
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="firstname">First Name</label>
+													<p id="username" class="user-info changeFirstName">John</p>
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+												<div class="sign__group">
+													<label class="sign__label" for="lastname">Last Name</label>
+													<p id="username" class="user-info changeLastName">Doe</p>
+												</div>
+											</div>
+
+											<div class="col-12 col-md-6 col-lg-12 col-xl-12">
+												<div class="sign__group">
+													<label class="sign__label" for="subscription">Subscription</label>
+													<select class="sign__select" id="subscription">
+														<option value="1">Starter</option>
+														<option value="2">Premium</option>
+														<option value="3">Ultimate</option>
+														<option value="4">Cinematic</option>
+													</select>
+												</div>
+
+												<div class="col-12">
+													<button id="save_button" class="sign__btn sign__btn--small" type="button"><span>Save</span></button>
+												</div>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- end details form -->
+							</div>
+						</div>	
+					</div>
+				</div>
+				<!-- end content tabs -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+	
+
+	<!-- status modal -->
+	<div class="modal fade" id="modal-status3" tabindex="-1" aria-labelledby="modal-status3" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal__content">
+					<form action="#" class="modal__form">
+						<h4 class="modal__title">Status change</h4>
+
+						<p class="modal__text">Are you sure about immediately change status?</p>
+
+						<div class="modal__btns">
+							<button id="ApplyButton" class="modal__btn modal__btn--apply" type="button" data-bs-dismiss="modal"><span>Apply</span></button>
+							<button class="modal__btn modal__btn--dismiss" type="button" data-bs-dismiss="modal" aria-label="Close"><span>Dismiss</span></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end status modal -->
+	
+	<!-- delete modal -->
+	<div class="modal fade" id="modal-delete3" tabindex="-1" aria-labelledby="modal-delete3" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal__content">
+					<form action="#" class="modal__form">
+						<h4 class="modal__title">User delete</h4>
+
+						<p class="modal__text">Are you sure to permanently delete this user?</p>
+
+						<div class="modal__btns">
+							<button class="modal__btn modal__btn--apply" type="button"><span>Delete</span></button>
+							<button class="modal__btn modal__btn--dismiss" type="button" data-bs-dismiss="modal" aria-label="Close"><span>Dismiss</span></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end delete modal -->
+
+	<button tabindex="-1" style="display: none;" onclick="showCustomAlert('This is a custom alert message!')">Show Custom Alert</button>
+
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close-btn" onclick="closeCustomAlert()">&times;</span>
+            <h4 id="custom-alert-message"></h4>
+            <button id="custom-alert-ok-button" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+	<!-- JS -->
+	<script src="js_admin/bootstrap.bundle.min.js"></script>
+	<script src="js_admin/smooth-scrollbar.js"></script>
+	<script src="js_admin/slimselect.min.js"></script>
+	<script src="js_admin/admin.js"></script>
+	<script src="js_admin/logout_admin.js"></script>
+	<script src="js_admin/alert_interface.js"></script>
+	<script src="js_admin/edit-user.js"></script>
+</body>
+
+<!-- Mirrored from flixgo.volkovdesign.com/admin-edit-user.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+</html>

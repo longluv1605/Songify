@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from flixgo.volkovdesign.com/admin-/admin-users by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css_admin/bootstrap.min.css">
+	<link rel="stylesheet" href="css_admin/slimselect.css">
+	<link rel="stylesheet" href="css_admin/admin.css">
+	<link rel="stylesheet" href="css_admin/alert.css">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="icon_admin/icon.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="icon_admin/favicon-32x32.png">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+	<!-- header -->
+	<header class="header">
+		<div class="header__content">
+			<!-- header logo -->
+			<a href="/admin-catalog" class="header__logo">
+				<img src="img_admin/logo.png" alt="">
+			</a>
+			<!-- end header logo -->
+
+			<!-- header menu btn -->
+			<button class="header__btn" type="button">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<!-- end header menu btn -->
+		</div>
+	</header>
+	<!-- end header -->
+
+	<!-- sidebar -->
+	<div class="sidebar">
+		<!-- sidebar logo -->
+		<a href="/admin-catalog" class="sidebar__logo">
+			<img src="img_admin/logo.svg" alt="">
+		</a>
+		<!-- end sidebar logo -->
+		
+		<!-- sidebar user -->
+		<div class="sidebar__user">
+			<div class="sidebar__user-img">
+				<a href="/admin-profile">
+                    <img src="img_admin/user.svg" alt="">
+                </a>
+			</div>
+
+			<div class="sidebar__user-title">
+				<span>Admin</span>
+				<p id="add-name-of-admin"></p>
+			</div>
+
+			<button id="logout_admin" class="sidebar__user-btn" type="button">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path></svg>
+			</button>
+		</div>
+		<!-- end sidebar user -->
+
+		<!-- sidebar nav -->
+		<ul class="sidebar__nav">
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-catalog" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2a1,1,0,0,0-1,1V5H18V3a1,1,0,0,0-2,0V4H8V3A1,1,0,0,0,6,3V5H4V3A1,1,0,0,0,2,3V21a1,1,0,0,0,2,0V19H6v2a1,1,0,0,0,2,0V20h8v1a1,1,0,0,0,2,0V19h2v2a1,1,0,0,0,2,0V3A1,1,0,0,0,21,2ZM6,17H4V15H6Zm0-4H4V11H6ZM6,9H4V7H6Zm10,9H8V13h8Zm0-7H8V6h8Zm4,6H18V15h2Zm0-4H18V11h2Zm0-4H18V7h2Z"/></svg> Movies</a>
+			</li>
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-users" class="sidebar__nav-link sidebar__nav-link--active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/></svg> Users</a>
+			</li>
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-sales" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.61,19.19A7,7,0,0,0,17.87,8.62,8,8,0,1,0,3.68,14.91L2.29,16.29a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,18H8.69A7,7,0,0,0,15,22h6a1,1,0,0,0,.92-.62,1,1,0,0,0-.21-1.09ZM8,15a6.63,6.63,0,0,0,.08,1H5.41l.35-.34a1,1,0,0,0,0-1.42A5.93,5.93,0,0,1,4,10a6,6,0,0,1,6-6,5.94,5.94,0,0,1,5.65,4c-.22,0-.43,0-.65,0A7,7,0,0,0,8,15ZM18.54,20l.05.05H15a5,5,0,1,1,3.54-1.46,1,1,0,0,0-.3.7A1,1,0,0,0,18.54,20Z"/></svg> Sales</a>
+			</li>
+			
+			<li class="sidebar__nav-item">
+				<a href="/admin-add-item" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.32.32,0,0,0-.09,0A.88.88,0,0,0,14.05,2H10A3,3,0,0,0,7,5V6H6A3,3,0,0,0,3,9V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V18h1a3,3,0,0,0,3-3V9S21,9,21,8.94ZM15,5.41,17.59,8H16a1,1,0,0,1-1-1ZM15,19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V9A1,1,0,0,1,6,8H7v7a3,3,0,0,0,3,3h5Zm4-4a1,1,0,0,1-1,1H10a1,1,0,0,1-1-1V5a1,1,0,0,1,1-1h3V7a3,3,0,0,0,3,3h3Z"/></svg> Add Movies</a>
+			</li>
+		</ul>
+		<!-- end sidebar nav -->
+		
+		<!-- sidebar copyright -->
+		<div class="sidebar__copyright">Moflix, 2024. <br>Create by Long, Nam, Hiếu, Minh.</div>
+		<!-- end sidebar copyright -->
+	</div>
+	<!-- end sidebar -->
+
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Users</h2>
+
+						<span class="main__title-stat"></span>
+
+						<div class="main__title-wrap">
+							<!-- <select class="filter__select" name="sort" id="filter__sort">
+								<option value="0">Date created</option>
+								<option value="1">Pricing plan</option>
+								<option value="2">Status</option>
+							</select> -->
+
+							<!-- search -->
+							<form action="#" class="main__title-form">
+								<input type="text" placeholder="Find user..">
+								<button type="button">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg>
+								</button>
+							</form>
+							<!-- end search -->
+						</div>
+					</div>
+				</div>
+				<!-- end main title -->
+
+				<!-- users -->
+				<div class="col-12">
+					<div class="catalog catalog--1">
+						<table class="catalog__table">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>BASIC INFO</th>
+									<th>USERNAME</th>
+									<th>PRICING PLAN</th>
+									<th>COMMENTS</th>
+									<th>REVIEWS</th>
+									<th>STATUS</th>
+									<th>ACTIONS</th>
+								</tr>
+							</thead>
+
+							<tbody id="add-data-for-user-table">
+								<!-- Thêm data bằng js -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- end users -->
+
+				<!-- paginator -->
+				
+				<!-- <div class="col-12">
+					<div class="main__paginator">
+						<span class="main__paginator-pages">Showing 10 of 3702</span>
+
+						<ul class="main__paginator-list">
+							<li>
+								<a href="#">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,11H9.41l3.3-3.29a1,1,0,1,0-1.42-1.42l-5,5a1,1,0,0,0-.21.33,1,1,0,0,0,0,.76,1,1,0,0,0,.21.33l5,5a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L9.41,13H17a1,1,0,0,0,0-2Z"/></svg>
+									<span>Prev</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>Next</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.92,11.62a1,1,0,0,0-.21-.33l-5-5a1,1,0,0,0-1.42,1.42L14.59,11H7a1,1,0,0,0,0,2h7.59l-3.3,3.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l5-5a1,1,0,0,0,.21-.33A1,1,0,0,0,17.92,11.62Z"/></svg>
+								</a>
+							</li>
+						</ul>
+
+						<ul class="paginator">
+							<li class="paginator__item paginator__item--prev">
+								<a href="#"><svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M8.5,12.8l5.7,5.6c0.4,0.4,1,0.4,1.4,0c0,0,0,0,0,0c0.4-0.4,0.4-1,0-1.4l-4.9-5l4.9-5c0.4-0.4,0.4-1,0-1.4c-0.2-0.2-0.4-0.3-0.7-0.3c-0.3,0-0.5,0.1-0.7,0.3l-5.7,5.6C8.1,11.7,8.1,12.3,8.5,12.8C8.5,12.7,8.5,12.7,8.5,12.8z"/></svg></a>
+							</li>
+							<li class="paginator__item"><a href="#">1</a></li>
+							<li class="paginator__item paginator__item--active"><a href="#">2</a></li>
+							<li class="paginator__item"><a href="#">3</a></li>
+							<li class="paginator__item"><a href="#">4</a></li>
+							<li class="paginator__item"><span>...</span></li>
+							<li class="paginator__item"><a href="#">29</a></li>
+							<li class="paginator__item"><a href="#">30</a></li>
+							<li class="paginator__item paginator__item--next">
+								<a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.54,11.29,9.88,5.64a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.41l4.95,5L8.46,17a1,1,0,0,0,0,1.41,1,1,0,0,0,.71.3,1,1,0,0,0,.71-.3l5.66-5.65A1,1,0,0,0,15.54,11.29Z"/></svg></a>
+							</li>
+						</ul>
+					</div>
+				</div> -->
+				<!-- end paginator -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+
+	<!-- status modal -->
+	<div class="modal fade" id="modal-status" tabindex="-1" aria-labelledby="modal-status" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal__content">
+					<form action="#" class="modal__form">
+						<h4 class="modal__title">Status change</h4>
+
+						<p class="modal__text">Are you sure about immediately change status?</p>
+
+						<div class="modal__btns">
+							<button id="applyButton" class="modal__btn modal__btn--apply" type="button" data-bs-dismiss="modal"><span>Apply</span></button>
+							<button class="modal__btn modal__btn--dismiss" type="button" data-bs-dismiss="modal" aria-label="Close"><span>Dismiss</span></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end status modal -->
+
+	<!-- delete modal -->
+	<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal__content">
+					<form action="#" class="modal__form">
+						<h4 class="modal__title">User delete</h4>
+
+						<p class="modal__text">Are you sure to permanently delete this user?</p>
+
+						<div class="modal__btns">
+							<button id="deleteButton" class="modal__btn modal__btn--apply" type="button" data-bs-dismiss="modal"><span>Delete</span></button>
+							<button class="modal__btn modal__btn--dismiss" type="button" data-bs-dismiss="modal" aria-label="Close"><span>Dismiss</span></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end delete modal -->
+
+	<button tabindex="-1" style="display: none;" onclick="showCustomAlert('This is a custom alert message!')">Show Custom Alert</button>
+
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close-btn" onclick="closeCustomAlert()">&times;</span>
+            <h4 id="custom-alert-message"></h4>
+            <button id="custom-alert-ok-button" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+	<!-- JS -->
+	<script src="js_admin/bootstrap.bundle.min.js"></script>
+	<script src="js_admin/smooth-scrollbar.js"></script>
+	<script src="js_admin/slimselect.min.js"></script>
+	<script src="js_admin/users.js"></script>
+	<script src="js_admin/logout_admin.js"></script>
+	<script src="js_admin/alert_interface.js"></script>
+	<script src="js_admin/admin.js"></script>
+</body>
+
+<!-- Mirrored from flixgo.volkovdesign.com/admin-/admin-users by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+</html>

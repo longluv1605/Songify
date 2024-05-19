@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from flixgo.volkovdesign.com/main//profile by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:18:27 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/splide.min.css">
+	<link rel="stylesheet" href="css/slimselect.css">
+	<link rel="stylesheet" href="css/plyr.css">
+	<link rel="stylesheet" href="css/photoswipe.css">
+	<link rel="stylesheet" href="css/default-skin.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/alert.css">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="icon/icon.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="icon/icon.png">
+
+	<meta name="description" content="Online Movies, TV Shows & Cinema HTML Template">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+	<!-- header -->
+	<header class="header">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="header__content">
+						<!-- header logo -->
+						<a href="/home" class="header__logo">
+							<img src="img/logo.png" alt="">
+						</a>
+						<!-- end header logo -->
+
+						<!-- header categories -->
+						<div class="header__categories">
+							<button class="header__categories-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<span></span>
+								<span></span>
+							</button>
+
+							<div class="dropdown-menu header__dropdown-menu header__dropdown-menu--categories">
+								<ul class="header__categories-list">
+									<li class="set_genre"><a href="#">Action</a></li>
+									<li class="set_genre"><a href="#">Adventure</a></li>
+									<li class="set_genre"><a href="#">Animation</a></li>
+									<li class="set_genre"><a href="#">Comedy</a></li>
+									<li class="set_genre"><a href="#">Crime</a></li>
+								</ul>
+								<ul class="header__categories-list">
+									<li class="set_genre"><a href="#">Documentary</a></li>
+									<li class="set_genre"><a href="#">Drama</a></li>
+									<li class="set_genre"><a href="#">Family</a></li>
+									<li class="set_genre"><a href="#">Fantasy</a></li>
+									<li class="set_genre"><a href="#">History</a></li>
+								</ul>
+								<ul class="header__categories-list">
+									<li class="set_genre"><a href="#">Horror</a></li>
+									<li class="set_genre"><a href="#">Music</a></li>
+									<li class="set_genre"><a href="#">Mystery</a></li>
+									<li class="set_genre"><a href="#">Romance</a></li>
+									<li class="set_genre"><a href="#">Science Fiction</a></li>
+								</ul>
+								<ul class="header__categories-list">
+									<li class="set_genre"><a href="#">Thriller</a></li>
+									<li class="set_genre"><a href="#">TV Movie</a></li>
+									<li class="set_genre"><a href="#">War</a></li>
+									<li class="set_genre"><a href="#">Western</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- end header categories -->
+
+						<!-- header nav -->
+						<ul class="header__nav">
+							<!-- dropdown -->
+							<li class="header__nav-item">
+								<a class="header__nav-link" href="/home">Home</a>
+							</li>
+							
+							<!-- end dropdown -->
+
+							<li class="header__nav-item">
+								<a href="/pricing" class="header__nav-link">Pricing plans</a>
+							</li>
+
+							<!-- dropdown -->
+							<li class="header__nav-item">	
+								<a class="header__nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a>
+
+								<ul class="dropdown-menu header__dropdown-menu">
+									<li><a href="/about">About us</a></li>
+									<li><a href="/profile">Profile</a></li>
+									<li><a href="/contacts">Contacts</a></li>
+									<li><a href="/favorite-movies">Favourite Movies</a></li>
+								</ul>
+							</li>
+							<!-- end dropdown -->
+
+							<li class="header__nav-item">
+								<a id="logout" class="header__nav-link" href="#">Log out</a>
+							</li>
+						</ul>
+
+						<!-- header actions -->
+						<div class="header__actions">
+							<form class="header__search submitSearch">
+								<input type="text" placeholder="Search">
+								<button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg></button>
+							</form>
+
+							<div class="header__language">
+								<a class="header__nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">EN <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a>
+
+								<ul class="dropdown-menu header__dropdown-menu header__dropdown-menu--lang">
+									<li><a href="#">English</a></li>
+									<li><a href="#">Spanish</a></li>
+									<li><a href="#">French</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- end header actions -->
+
+						<!-- header menu btn -->
+						<button class="header__btn" type="button">
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+						<!-- end header menu btn -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- end header -->
+
+	<!-- mobile menu -->
+	<div class="menu">
+		<!-- menu search -->
+		<form class="menu__search submitSearch">
+			<input type="text" placeholder="Search">
+			<button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg></button>
+		</form>
+		<!-- end menu search -->
+
+		<!-- menu nav -->
+		<ul class="menu__nav">
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link" href="/home" aria-expanded="false">Home</a>
+			</li>
+			<!-- end dropdown -->
+
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catalog <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a>
+
+				<ul class="dropdown-menu header__dropdown-menu list_menu">
+					<li class="set_genre"><a href="#">Action</a></li>
+					<li class="set_genre"><a href="#">Adventure</a></li>
+					<li class="set_genre"><a href="#">Animation</a></li>
+					<li class="set_genre"><a href="#">Comedy</a></li>
+					<li class="set_genre"><a href="#">Crime</a></li>
+					<li class="set_genre"><a href="#">Documentary</a></li>
+					<li class="set_genre"><a href="#">Drama</a></li>
+					<li class="set_genre"><a href="#">Family</a></li>
+					<li class="set_genre"><a href="#">Fantasy</a></li>
+					<li class="set_genre"><a href="#">History</a></li>
+					<li class="set_genre"><a href="#">Horror</a></li>
+					<li class="set_genre"><a href="#">Music</a></li>
+					<li class="set_genre"><a href="#">Mystery</a></li>
+					<li class="set_genre"><a href="#">Romance</a></li>
+					<li class="set_genre"><a href="#">Science Fiction</a></li>
+					<li class="set_genre"><a href="#">Thriller</a></li>
+					<li class="set_genre"><a href="#">TV Movie</a></li>
+					<li class="set_genre"><a href="#">War</a></li>
+					<li class="set_genre"><a href="#">Western</a></li>
+				</ul>
+			</li>
+			<!-- end dropdown -->
+
+			<li class="menu__nav-item">
+				<a href="/pricing" class="menu__nav-link">Pricing plans</a>
+			</li>
+
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a>
+
+				<ul class="dropdown-menu menu__dropdown-menu">
+					<li><a href="/about">About us</a></li>
+					<li><a href="/profile">Profile</a></li>
+					<li><a href="/contacts">Contacts</a></li>
+				</ul>
+			</li>
+			<!-- end dropdown -->
+
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a id="logout" class="header__nav-link" href="#">Log out</a>
+			</li>
+			<!-- end dropdown -->
+		</ul>
+		<!-- end menu nav -->
+	</div>
+	<!-- end header -->
+
+	<!-- mobile menu -->
+	<div class="menu">
+		<!-- menu search -->
+		<form action="#" class="menu__search">
+			<input type="text" placeholder="Search">
+			<button type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg></button>
+		</form>
+		<!-- end menu search -->
+
+		<!-- menu nav -->
+		<ul class="menu__nav">
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link" href="/home" aria-expanded="false">Home</a>
+			</li>
+			<!-- end dropdown -->
+
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catalog <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a>
+
+				<ul class="dropdown-menu menu__dropdown-menu">
+					<li><a href="/catalog">Catalog Grid</a></li>
+					<li><a href="/catalog">Catalog List</a></li>
+					<li><a href="/details">Details Movie</a></li>
+					<li><a href="/details">Details TV Series</a></li>
+				</ul>
+			</li>
+			<!-- end dropdown -->
+
+			<li class="menu__nav-item">
+				<a href="/pricing" class="menu__nav-link">Pricing plans</a>
+			</li>
+
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59A1,1,0,0,0,17,9.17Z"/></svg></a>
+
+				<ul class="dropdown-menu menu__dropdown-menu">
+					<li><a href="/about">About us</a></li>
+					<li><a href="/profile">Profile</a></li>
+					<li><a href="/contacts">Contacts</a></li>
+				</ul>
+			</li>
+			<!-- end dropdown -->
+
+			<!-- dropdown -->
+			<li class="menu__nav-item">
+				<a class="menu__nav-link menu__nav-link--more" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,10a2,2,0,1,0,2,2A2,2,0,0,0,12,10ZM5,10a2,2,0,1,0,2,2A2,2,0,0,0,5,10Zm14,0a2,2,0,1,0,2,2A2,2,0,0,0,19,10Z"/></svg>
+				</a>
+
+				<ul class="dropdown-menu menu__dropdown-menu">
+					<li><a href="/signin">Sign In</a></li>
+					<li><a href="/signup">Sign Up</a></li>
+					<li><a href="/forgot">Forgot password</a></li>
+				</ul>
+			</li>
+			<!-- end dropdown -->
+		</ul>
+		<!-- end menu nav -->
+	</div>
+	<!-- end mobile menu -->
+
+	<!-- page title -->
+	<section class="section section--first section--bg" data-bg="img/bg/section__bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section__wrap">
+						<!-- section title -->
+						<h1 class="section__title section__title--head">My Profile</h1>
+						<!-- end section title -->
+
+						<!-- breadcrumbs -->
+						<ul class="breadcrumbs">
+							<li class="breadcrumbs__item"><a href="/home">Home</a></li>
+							<li class="breadcrumbs__item breadcrumbs__item--active">Profile</li>
+						</ul>
+						<!-- end breadcrumbs -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end page title -->
+
+	<!-- content -->
+	<div class="content">
+		<!-- profile -->
+		<div class="profile">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="profile__content">
+							<div class="profile__user">
+								<div class="profile__avatar">
+									<img src="img/user.svg" alt="">
+								</div>
+								<div class="profile__meta">
+									<h3 id="user_name"></h3>
+									<span id="user_id"></span>
+								</div>
+							</div>
+							<div>
+
+							</div>
+							<!-- content tabs nav -->
+							<ul class="nav nav-tabs content__tabs content__tabs--profile" id="content__tabs" role="tablist">
+								<li class="nav-item" role="presentation">
+									<button id="1-tab" class="active" data-bs-toggle="tab" data-bs-target="#tab-1" type="button" role="tab" aria-controls="tab-1" aria-selected="true">Profile</button>
+								</li>
+
+								<li class="nav-item" role="presentation">
+									<button id="2-tab" data-bs-toggle="tab" data-bs-target="#tab-2" type="button" role="tab" aria-controls="tab-2" aria-selected="false">Subscription</button>
+								</li>
+
+								<li class="nav-item" role="presentation">
+									<button id="3-tab" data-bs-toggle="tab" data-bs-target="#tab-3" type="button" role="tab" aria-controls="tab-3" aria-selected="false">Settings</button>
+								</li>
+							</ul>
+							<!-- end content tabs nav -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end profile -->
+
+		<div class="container">
+			<!-- content tabs -->
+			<div class="tab-content">
+				<div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab" tabindex="0">
+					<div class="row">
+						<!-- stats -->
+						<div class="col-12 col-sm-6 col-xl-4">
+							<div class="stats">
+								<span id="pricing_name_of_user" class="shiny-text"></span>
+								<img src="img/credit-card.svg" alt="">
+							</div>
+						</div>
+						<!-- end stats -->
+
+						<!-- stats -->
+						<div class="col-12 col-sm-6 col-xl-4">
+							<div class="stats">
+								<span>Your comments</span>
+								<p id="commented_of_user"></p>
+								<img src="img/comments.svg" alt="">
+							</div>
+						</div>
+						<!-- end stats -->
+
+						<!-- stats -->
+						<div class="col-12 col-sm-6 col-xl-4">
+							<div class="stats">
+								<span>Your reviews</span>
+								<p id="reviewed_of_user"></p>
+								<img src="img/star-half-alt.svg" alt="">
+							</div>
+						</div>
+						<!-- end stats -->
+
+						<!-- dashbox -->
+						<div class="col-12 col-xl-6">
+							<div class="dashbox">
+								<div class="dashbox__title">
+									<h3><img src="img/film.svg" alt="">Recent Views</h3>
+
+
+								</div>
+
+								<div class="dashbox__table-wrap dashbox__table-wrap--1">
+									<table class="dashbox__table">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>TITLE</th>
+												<th>CATEGORY</th>
+												<th>RATING</th>
+											</tr>
+										</thead>
+										<tbody id="add-data-for-recent-views">
+											<!-- Thêm data bằng js -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- end dashbox -->
+
+						<!-- dashbox -->
+						<div class="col-12 col-xl-6">
+							<div class="dashbox">
+								<div class="dashbox__title">
+									<h3><img src="img/star-half-alt.svg" alt="">Latest reviews</h3>
+								</div>
+
+								<div class="dashbox__table-wrap dashbox__table-wrap--2">
+									<table class="dashbox__table">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>ITEM</th>
+												<th>AVERAGE_RATING</th>
+												<th>RATING</th>
+											</tr>
+										</thead>
+										<tbody id="add-data-for-latest-reviews">
+											<!-- Thêm data bằng js -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- end dashbox -->
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab" tabindex="0">
+					<div class="row" id="add-data-pricing-plant">
+						<!-- active price plan -->
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="3-tab" tabindex="0">
+					<div class="row">
+						<!-- details form -->
+						<div class="col-12 col-lg-6">
+							<form action="#" class="sign__form sign__form--profile">
+								<div class="row">
+									<div class="col-12">
+										<h4 class="sign__title">Profile details</h4>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="sign__group">
+											<label class="sign__label" for="email">Email</label>
+											<input id="email2" type="text" name="email" class="sign__input" placeholder="">
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="sign__group">
+											<label class="sign__label" for="firstname">First Name</label>
+											<input id="firstname" type="text" name="firstname" class="sign__input" placeholder="">
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="sign__group">
+											<label class="sign__label" for="lastname">Last Name</label>
+											<input id="lastname" type="text" name="lastname" class="sign__input" placeholder="">
+										</div>
+									</div>
+
+									<div class="col-12">
+										<button class="sign__btn sign__btn--small" type="button" id="save_button"><span>Save</span></button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- end details form -->
+
+						<!-- password form -->
+						<div class="col-12 col-lg-6">
+							<form action="#" class="sign__form sign__form--profile">
+								<div class="row">
+									<div class="col-12">
+										<h4 class="sign__title">Change password</h4>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="sign__group">
+											<label class="sign__label" for="oldpass">Old Password</label>
+											<input id="oldpass" type="password" name="oldpass" class="sign__input">
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="sign__group">
+											<label class="sign__label" for="newpass">New Password</label>
+											<input id="newpass" type="password" name="newpass" class="sign__input">
+										</div>
+									</div>
+
+									<div class="col-12 col-md-6 col-lg-12 col-xl-6">
+										<div class="sign__group">
+											<label class="sign__label" for="confirmpass">Confirm New Password</label>
+											<input id="confirmpass" type="password" name="confirmpass" class="sign__input">
+										</div>
+									</div>
+
+									<div class="col-12">
+										<button class="sign__btn sign__btn--small" type="button" id="change_button"><span>Change</span></button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!-- end password form -->
+					</div>
+				</div>
+			</div>
+			<!-- end content tabs -->
+		</div>
+	</div>
+	<!-- end content -->
+
+	<!-- plan modal -->
+	<div class="modal fade" id="plan-modal" tabindex="-1" aria-labelledby="plan-modal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal__content">
+					<button class="modal__close" type="button" data-bs-dismiss="modal" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.41,12l6.3-6.29a1,1,0,1,0-1.42-1.42L12,10.59,5.71,4.29A1,1,0,0,0,4.29,5.71L10.59,12l-6.3,6.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l6.29,6.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"/></svg></button>
+
+					<form action="#" class="modal__form">
+						<h4 class="modal__title">Select plan</h4>
+
+						<div class="sign__group">
+							<label class="sign__label" for="value">Choose plan:</label>
+							<select class="sign__select" name="value" id="value">
+								<option value="2">Premium - $19.99</option>
+								<option value="3">Ulimate - $29.99</option>
+								<option value="4">Cinematic - $39.99</option>
+							</select>
+
+							<span class="sign__text">You can spend money from your account on the renewal of the connected packages, or to order cars on our website.</span>
+						</div>
+
+						<div class="sign__group">
+							<label class="sign__label">Payment method:</label>
+
+							<ul class="sign__radio">
+								<li>
+									<input id="type1" type="radio" name="type" checked="">
+									<label for="type1">Credit Card</label>
+								</li>
+								<li>
+									<input id="type2" type="radio" name="type" checked="">
+									<label for="type2">Debit Card</label>
+								</li>
+								<li>
+									<input id="type3" type="radio" name="type">
+									<label for="type3">Paypal</label>
+								</li>
+								<li>
+									<input id="type4" type="radio" name="type">
+									<label for="type4">Bank Transfer</label>
+								</li>
+							</ul>
+						</div>
+
+						<button type="button" class="sign__btn sign__btn--modal">
+							<span>Proceed</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end plan modal -->
+
+	<button tabindex="-1" style="display: none;" onclick="showCustomAlert('This is a custom alert message!')">Show Custom Alert</button>
+
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close-btn" onclick="closeCustomAlert()">&times;</span>
+            <h4 id="custom-alert-message"></h4>
+            <button id="custom-alert-ok-button" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+	<!-- JS -->
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/splide.min.js"></script>
+	<script src="js/smooth-scrollbar.js"></script>
+	<script src="js/slimselect.min.js"></script>
+	<script src="js/plyr.min.js"></script>
+	<script src="js/photoswipe.min.js"></script>
+	<script src="js/photoswipe-ui-default.min.js"></script>
+	<script src="js/profile.js"></script>
+	<script src="js/logout.js"></script>
+	<script src="js/search.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/listGenre.js"></script>
+	<script src="js/alert_interface.js"></script>
+</body>
+
+<!-- Mirrored from flixgo.volkovdesign.com/main//profile by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:18:29 GMT -->
+</html>

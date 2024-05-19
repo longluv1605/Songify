@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from flixgo.volkovdesign.com/admin-add-item.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css_admin/bootstrap.min.css">
+	<link rel="stylesheet" href="css_admin/slimselect.css">
+	<link rel="stylesheet" href="css_admin/admin.css">
+	<link rel="stylesheet" href="css_admin/alert.css">
+
+	<!-- Favicons -->
+	<link rel="icon" type="image/png" href="icon_admin/icon.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="icon_admin/icon.png">
+
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Dmitry Volkov">
+	<title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+	<!-- header -->
+	<header class="header">
+		<div class="header__content">
+			<!-- header logo -->
+			<a href="/admin-catalog" class="header__logo">
+				<img src="img_admin/logo.png" alt="">
+			</a>
+			<!-- end header logo -->
+
+			<!-- header menu btn -->
+			<button class="header__btn" type="button">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<!-- end header menu btn -->
+		</div>
+	</header>
+	<!-- end header -->
+
+	<!-- sidebar -->
+	<div class="sidebar">
+		<!-- sidebar logo -->
+		<a href="/admin-catalog" class="sidebar__logo">
+			<img src="img_admin/logo.svg" alt="">
+		</a>
+		<!-- end sidebar logo -->
+		
+		<!-- sidebar user -->
+		<div class="sidebar__user">
+			<div class="sidebar__user-img">
+				<a href="/admin-profile">
+                    <img src="img_admin/user.svg" alt="">
+                </a>
+			</div>
+
+			<div class="sidebar__user-title">
+				<span>Admin</span>
+				<p id="add-name-of-admin"></p>
+			</div>
+
+			<button id="logout_admin" class="sidebar__user-btn" type="button">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4,12a1,1,0,0,0,1,1h7.59l-2.3,2.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l4-4a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-4-4a1,1,0,1,0-1.42,1.42L12.59,11H5A1,1,0,0,0,4,12ZM17,2H7A3,3,0,0,0,4,5V8A1,1,0,0,0,6,8V5A1,1,0,0,1,7,4H17a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V16a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Z"></path></svg>
+			</button>
+		</div>
+		<!-- end sidebar user -->
+
+		<!-- sidebar nav -->
+		<ul class="sidebar__nav">
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-catalog" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,2a1,1,0,0,0-1,1V5H18V3a1,1,0,0,0-2,0V4H8V3A1,1,0,0,0,6,3V5H4V3A1,1,0,0,0,2,3V21a1,1,0,0,0,2,0V19H6v2a1,1,0,0,0,2,0V20h8v1a1,1,0,0,0,2,0V19h2v2a1,1,0,0,0,2,0V3A1,1,0,0,0,21,2ZM6,17H4V15H6Zm0-4H4V11H6ZM6,9H4V7H6Zm10,9H8V13h8Zm0-7H8V6h8Zm4,6H18V15h2Zm0-4H18V11h2Zm0-4H18V7h2Z"/></svg> Movies</a>
+			</li>
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-users" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/></svg> Users</a>
+			</li>
+
+			<li class="sidebar__nav-item">
+				<a href="/admin-sales" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.61,19.19A7,7,0,0,0,17.87,8.62,8,8,0,1,0,3.68,14.91L2.29,16.29a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,18H8.69A7,7,0,0,0,15,22h6a1,1,0,0,0,.92-.62,1,1,0,0,0-.21-1.09ZM8,15a6.63,6.63,0,0,0,.08,1H5.41l.35-.34a1,1,0,0,0,0-1.42A5.93,5.93,0,0,1,4,10a6,6,0,0,1,6-6,5.94,5.94,0,0,1,5.65,4c-.22,0-.43,0-.65,0A7,7,0,0,0,8,15ZM18.54,20l.05.05H15a5,5,0,1,1,3.54-1.46,1,1,0,0,0-.3.7A1,1,0,0,0,18.54,20Z"/></svg> Sales</a>
+			</li>
+		</ul>
+		<!-- end sidebar nav -->
+		
+		<!-- sidebar copyright -->
+		<div class="sidebar__copyright">Moflix, 2024. <br>Create by Long, Nam, Hiếu, Minh.</div>
+		<!-- end sidebar copyright -->
+	</div>
+	<!-- end sidebar -->
+
+	<!-- main content -->
+	<main class="main">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- main title -->
+				<div class="col-12">
+					<div class="main__title">
+						<h2>Add New Movies</h2>
+					</div>
+				</div>
+				<!-- end main title -->
+
+				<!-- form -->
+				<div class="col-12">
+					<form action="#" class="sign__form sign__form--add">
+						<div class="row">
+							<div class="col-12 col-xl-7">
+								<div class="row">
+									<div class="col-12">
+										<div class="sign__group">
+											<input type="text" class="sign__input" id="get_title" placeholder="Title">
+										</div>
+									</div>
+
+									<div class="col-12">
+										<div class="sign__group">
+											<textarea type="text" name="text" class="sign__textarea" id="get_description" placeholder="Description"></textarea>
+										</div>
+									</div>
+
+									<!-- <div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<div class="sign__gallery">
+												<label id="gallery1" for="sign__gallery-upload">Upload cover (240x340)</label>
+												<input data-name="#gallery1" id="sign__gallery-upload" name="gallery" class="sign__gallery-upload" type="file" accept=".png, .jpg, .jpeg" multiple="">
+											</div>
+										</div>
+									</div> -->
+
+									<div class="col-12 col-xl-12">
+										<div class="sign__group">
+											<input type="text" class="sign__input" id="get_image_url" placeholder="Cover image url">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-xl-5">
+								<div class="row">
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<select class="sign__selectjs get_label" id="sign__quality">
+												<option value="All Labels">All Labels</option>
+												<option value="G">G</option>
+												<option value="NC-17">NC-17</option>
+												<option value="NR">NR</option>
+												<option value="PG">PG</option>
+												<option value="PG-13">PG-13</option>
+												<option value="R">R</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<input type="number" class="sign__input" id="get_release_year" placeholder="Release Year">
+										</div>
+									</div>
+
+									<div class="col-12">
+										<div class="sign__group">
+											<select class="sign__selectjs" id="sign__genre" multiple>
+												<option value="Action">Action</option>
+												<option value="Adventure">Adventure</option>
+												<option value="Animation">Animation</option>
+												<option value="Comedy">Comedy</option>
+												<option value="Crime">Crime</option>
+												<option value="Documentary">Documentary</option>
+												<option value="Drama">Drama</option>
+												<option value="Family">Family</option>
+												<option value="Fantasy">Fantasy</option>
+												<option value="History">History</option>
+												<option value="Horror">Horror</option>
+												<option value="Music">Music</option>
+												<option value="Mystery">Mystery</option>
+												<option value="Romance">Romance</option>
+												<option value="Science Fiction">Science Fiction</option>
+												<option value="Thriller">Thriller</option>
+												<option value="TV Movie">TV Movie</option>
+												<option value="War">War</option>
+												<option value="Western">Western</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<input type="number" class="sign__input" id="get_duration" placeholder="Duration (minutes)">
+										</div>
+									</div>
+
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<input type="text" class="sign__input" id="get_director" placeholder="Director">
+										</div>
+									</div>
+
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<input type="text" class="sign__input" id="get_trailer_url" placeholder="Trailer url">
+										</div>
+									</div>
+
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<input type="text" class="sign__input" id="get_film_url" placeholder="Film url">
+										</div>
+									</div>
+
+									
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="sign__group">
+									<input type="text" class="sign__input" id="get_actor" placeholder="Actor">
+								</div>
+							</div>
+
+							<!-- <div class="col-12">
+								<div class="collapse show multi-collapse">
+									<div class="sign__video">
+										<label id="movie1" for="sign__video-upload">Upload video</label>
+										<input data-name="#movie1" id="sign__video-upload" name="movie" class="sign__video-upload" type="file" accept="video/mp4,video/x-m4v,video/*">
+									</div>
+								</div>
+							</div> -->
+
+							<div class="col-12">
+								<button id="publish_button" type="button" class="sign__btn sign__btn--small"><span>Publish</span></button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- end form -->
+			</div>
+		</div>
+	</main>
+	<!-- end main content -->
+
+	<button tabindex="-1" style="display: none;" onclick="showCustomAlert('This is a custom alert message!')">Show Custom Alert</button>
+
+    <div id="custom-alert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="close-btn" onclick="closeCustomAlert()">&times;</span>
+            <h4 id="custom-alert-message"></h4>
+            <button id="custom-alert-ok-button" onclick="closeCustomAlert()">OK</button>
+        </div>
+    </div>
+
+	<!-- JS -->
+	<script src="js_admin/bootstrap.bundle.min.js"></script>
+	<script src="js_admin/smooth-scrollbar.js"></script>
+	<script src="js_admin/slimselect.min.js"></script>
+	<script src="js_admin/logout_admin.js"></script>
+	<script src="js_admin/admin.js"></script>
+	<script src="js_admin/alert_interface.js"></script>
+	<script src="js_admin/add-item.js"></script>
+</body>
+
+<!-- Mirrored from flixgo.volkovdesign.com/admin-add-item.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+</html>
