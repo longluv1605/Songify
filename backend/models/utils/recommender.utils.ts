@@ -78,6 +78,52 @@ class Recommender {
             };
         }
     };
+
+    public getFavoriteMovies = async (input: { [key: string]: any }) => {
+        try {
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            if (movieId) {
+                const sql: string = `SELECT * FROM user_favorite WHERE user_id = ? AND movie_id = ?;`;
+                const favorite = await Database.query(sql, [userId, movieId]);
+                return favorite;
+            }
+
+            const sql: string = `SELECT * FROM user_favorite WHERE user_id = ?;`;
+            const favorite = await Database.query(sql, [userId]);
+            return favorite;
+        } catch (err) {
+            console.log("Error recommending favorite movies:", err);
+            throw {
+                message: "Error recommending favorite movies",
+                error: err,
+            };
+        }
+    };
+
+    public getWatchlist = async (input: { [key: string]: any }) => {
+        try {
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            if (movieId) {
+                const sql: string = `SELECT * FROM user_watchlist WHERE user_id = ? AND movie_id = ?;`;
+                const watchlist = await Database.query(sql, [userId, movieId]);
+                return watchlist;
+            }
+
+            const sql: string = `SELECT * FROM user_watchlist WHERE user_id = ?;`;
+            const watchlist = await Database.query(sql, [userId]);
+            return watchlist;
+        } catch (err) {
+            console.log("Error recommending watchlist movies:", err);
+            throw {
+                message: "Error recommending watchlist movies",
+                error: err,
+            };
+        }
+    }
 }
 
 export default Recommender;
