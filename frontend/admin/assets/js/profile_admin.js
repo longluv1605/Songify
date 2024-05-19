@@ -1,12 +1,12 @@
 const fetchData = async () => {
     try {
         const token_admin = localStorage.getItem('token_admin');
-        const response = await axios.get('http://localhost:8080/api/admin/profile',
+        const response = await axios.get('http://localhost:8080/api/profile',
             {
                 headers: {Authorization: `Bearer ${token_admin}`}
             }
         );
-        return response.data.data[0];
+        return response.data.user[0];
     } catch (error) {
         console.log(error);
     }
@@ -34,20 +34,20 @@ function updateProfile(){
         showCustomAlert('Please enter all sections (x_x)');
         return;
     }
-    axios.put('http://localhost:8080/api/admin/profile',
+    axios.put('http://localhost:8080/api/profile',
         {
-            email: email,
-            first_name: first_name,
-            last_name: last_name
+            firstName: first_name,
+            lastName: last_name,
+            email: email
         },
         {
             headers: {Authorization: `Bearer ${token_admin}`}
         }
     ).then((response) => {
-        if(response.status === 200){
-            showCustomAlert('Update profile successfully');
-            window.location.reload();
-        }
+        // showCustomAlert('Update profile successfully');
+        // if(response.status === 200){
+        window.location.reload();
+        // }
     }).catch((error) => {
         console.log(error);
     });
@@ -66,21 +66,19 @@ function changePassword(){
         showCustomAlert('New password and confirm password are not the same (`_´)');
         return;
     }
-    axios.post('http://localhost:8080/api/admin/profile',
+    axios.post('http://localhost:8080/api/password/change',
         {
-            old_password: oldPassword,
-            new_password: newPassword
+            oldPassword: oldPassword,
+            newPassword: newPassword
         },
         {
             headers: {Authorization: `Bearer ${token_admin}`}
         }
     ).then((response) => {
-        if(response.status === 200){
-            showCustomAlert('Change password successfully (.^_^.)');
-            window.location.reload();
-        }
+        showCustomAlert('Change password successfully (.^_^.)');
+        // window.location.reload();
     }).catch((error) => {
-        showCustomAlert(error.response.data.message);
+        showCustomAlert("Old password is incorrect (x_x)");
     });
     
 };

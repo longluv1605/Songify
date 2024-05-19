@@ -99,7 +99,7 @@ const UpdateWatchHist = async (movieid) => {
     );
     // console.log(response);
   } catch (error) {
-    console.log(error);
+    console.log("<<<<<",error);
   }
 };
 
@@ -132,7 +132,7 @@ const add_to_wishlist = async() => {
   // console.log(response);
   }
   catch(error){
-    console.log(error);
+    console.log(">>>>>>>>>>>>>>..",error);
   }
 }
 
@@ -146,7 +146,7 @@ const delete_wishlist = async() => {
   // console.log(response);
   }
   catch(error){
-    console.log(error);
+    console.log("????",error);
   }
 }
 

@@ -280,16 +280,16 @@ const changePassword = async() => {
         // window.location.reload();
     }
     catch(error){
-        showCustomAlert(error.response.data.message);
+        showCustomAlert("Old password is incorrect");
     }
 }
 
 const purchase = async(id, payment_method) =>{
     try{
-        // console.log({"planId": id, "paymentMethod": payment_method})
+        console.log({"planId": id, "paymentMethod": payment_method})
         // console.log("buying");
-        const response =  await axios.post(`http://localhost:8080/api/plans`,
-        {"planId": id, "paymentMethod": payment_method},
+        const response =  await axios.post(`http://localhost:8080/api/plans/buy/${id}`,
+        {"paymentMethod": payment_method},
         {
             headers: {Authorization: `Bearer ${token}`}
         }
@@ -332,13 +332,13 @@ document.addEventListener("DOMContentLoaded", function(){
         confirmpass.value = ""
     })
     buy_plan.addEventListener("click",function(){
-        if(had_plan){
-            var modal = document.getElementById("plan-modal");
-            var bootstrapModal = bootstrap.Modal.getInstance(modal);
-            bootstrapModal.hide();
-            showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
-            return
-        }
+        // if(had_plan){
+        //     var modal = document.getElementById("plan-modal");
+        //     var bootstrapModal = bootstrap.Modal.getInstance(modal);
+        //     bootstrapModal.hide();
+        //     showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
+        //     return
+        // }
         let option = document.getElementById("value")
         let selected = option.value
         let selectedValueInt = parseInt(selected, 10);

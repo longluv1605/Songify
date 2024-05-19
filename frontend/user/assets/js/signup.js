@@ -26,10 +26,10 @@ const createAccount = async() => {
         }
         const response = await axios.post('http://localhost:8080/api/signup', {
             username : username,
-            firstName: firstname,
-            lastName: lastname,
+            password: password,
             email: email,
-            password: password
+            firstName: firstname,
+            lastName: lastname
         });
         // console.log(response);
         // localStorage.setItem('token', response.data.token);
