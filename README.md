@@ -32,3 +32,5 @@ Tạo file `.env` theo mẫu `.env.example`
 -   `npm run frontend`: Khởi chạy FE.
 -   `npm run dev`: Khởi chạy FE và BE.
 
+## Báo cáo
+1. Video demo sản phẩm tại [đây](https://youtu.be/Mqgsmuj0PNk?si=t6pUTKKYlrAq9J65).
