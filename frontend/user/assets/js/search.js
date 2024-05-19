@@ -1,25 +1,22 @@
-// const dataSearch = async (searchValue) => {
-//     try {
-//         const token = localStorage.getItem('token');
-//         const response = await axios.get(`http://localhost:8080/api/search/${searchValue}`, {
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         });
-//         console.log("searched" ,response.data);
-//         if (response.data.length === 0) {
-//             throw new Error("No movies for this search!");
-//         }
-//         const genres = response.data[0].genres;
-//         const genre = genres.split(', ');
-//         localStorage.setItem('will_like', genre[0]);
-//         localStorage.setItem('genre', genre[0]);
-//         localStorage.setItem('movieid', response.data[0].id);
-//         window.location.href = "http://localhost:3000/catalog";
-//     } catch (error) {
-//         // window.location.href = "http://localhost:3000/catalog";
-//     }
-// };
+const dataSearch = async (searchValue) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:8080/api/search/${searchValue}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        console.log(response.data);
+        const genres = response.data[0].genres;
+        const genre = genres.split(', ');
+        localStorage.setItem('will_like', genre[0]);
+        localStorage.setItem('genre', genre[0]);
+        localStorage.setItem('movieid', response.data[0].id);
+        window.location.href = "http://localhost:3000/catalog";
+    } catch (error) {
+        window.location.href = "http://localhost:3000/catalog";
+    }
+};
 
 // Load giá trị của placeholder từ Local Storage khi trang được load
 window.addEventListener("DOMContentLoaded", function() {

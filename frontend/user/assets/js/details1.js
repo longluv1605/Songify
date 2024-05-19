@@ -17,7 +17,7 @@ const getDetail = async (movieid) => {
       let changed = document.querySelector('#check-heart-button img')
       changed.setAttribute("src", "img/covers/iconsheart-hover.png");
     }
-    if (response.data.your_rating[0].length != 0) {
+    if (response.data.your_rating.length != 0) {
       upload_new_review(response.data.your_rating[0].value + " stars");
     }
   } catch (error) {

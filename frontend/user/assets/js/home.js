@@ -157,7 +157,7 @@ function UpdateDataFilmGenres(genre, getElementById) {
 // };
 
 function selectGenre(){
-    const catalog = ['Action', 'Adventure', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'];
+    const catalog = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'];
     let randomIndex = Math.floor(Math.random() * catalog.length);
     let randomGenre = catalog[randomIndex];
     // console.log(randomGenre);

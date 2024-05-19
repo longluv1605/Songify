@@ -15,7 +15,7 @@ class Filter {
                 ml.label, 
                 mv.views
             FROM 
-                movie m
+                (SELECT * FROM movie WHERE status = 'show') m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 
@@ -56,7 +56,7 @@ class Filter {
                 ml.label, 
                 mv.views
             FROM 
-                movie m
+                (SELECT * FROM movie WHERE status = 'show') m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 
@@ -98,7 +98,7 @@ class Filter {
                 ml.label, 
                 mv.views
             FROM 
-                movie m
+                (SELECT * FROM movie WHERE status = 'show') m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 

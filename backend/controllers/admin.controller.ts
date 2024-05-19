@@ -436,7 +436,7 @@ class AdminController extends UserController {
                 });
                 return;
             }
-            const sales = await SaleManager.getDatas({});
+            const sales = await SaleManager.getDatas({userRole});
             res.status(200).json(sales);
         } catch (err) {
             console.log("Error getting Sales:", err);

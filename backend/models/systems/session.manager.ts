@@ -16,11 +16,11 @@ class SessionManager {
             // Init sql
             const verifySql = `
                 SELECT * FROM user
-                WHERE username = ? AND password = ?;
+                WHERE (username = ? OR email = ?) AND password = ?;
             `;
 
             // Query
-            const user = await Database.query(verifySql, [username, password]);
+            const user = await Database.query(verifySql, [username, username, password]);
 
             // console.log("user:", user);
 

@@ -56,7 +56,7 @@ function movieInfomation(){
         get_trailer_url.placeholder = data.trailer_url;
         get_film_url.placeholder = data.film_url;
         get_actor.placeholder = data.actors;
-        // console.log(data);
+        console.log(data);
     }).catch(error => {
         console.log(error.response.data.message);
     });
@@ -100,7 +100,7 @@ function editMovie(){
     ).then(response => {
         if(response.status === 200){
             showCustomAlert("Edit movie successfully (.^_^.)");
-            // window.location.href = "http://localhost:3000/admin-catalog";
+            // window.location.reload();
         }
     }).catch(error => {
         showCustomAlert("Edit movie failed (T_T)");

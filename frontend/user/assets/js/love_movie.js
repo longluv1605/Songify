@@ -8,6 +8,7 @@ const wish_list = async() => {
         }
         )
         // console.log(response.data);
+        addDataFilm(response.data, "wishlist")
     }
     catch(error){
         console.log(error);

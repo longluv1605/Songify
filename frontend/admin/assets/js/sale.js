@@ -10,15 +10,15 @@ function changeAdminName(data){
 
 const sale = async() => {
     try{
-        const response = await axios.get(`http://localhost:8080/api/admin/sale`,
+        const response = await axios.get(`http://localhost:8080/api/admin/sale_manage/get`,
         {
             headers: {Authorization: `Bearer ${admin_token}`}
         }
         )
-        // console.log(response.data.data);
-        generateSales(response.data.data)
+        // console.log(response.data);
+        generateSales(response.data)
         display_total.textContent = total_sales.toFixed(2) + "$"
-        all_transactions = response.data.data
+        all_transactions = response.data
     }
     catch(error){
         console.log(error);
@@ -144,12 +144,12 @@ endOfMonth.setHours(23, 59, 59, 999);
 const filterSelect = document.getElementById('filter__sort');
 
 document.addEventListener('DOMContentLoaded',function(){
-    axios.get('http://localhost:8080/api/admin/profile', 
+    axios.get('http://localhost:8080/api/profile', 
         {
             headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
         }
     ).then(response => {
-        const data = response.data.data[0];
+        const data = response.data.user[0];
         changeAdminName(data);
     }).catch(error => {
         showCustomAlert(error.response.data.message);
@@ -159,22 +159,22 @@ document.addEventListener('DOMContentLoaded',function(){
         let selectedValue = this.value;
         if(selectedValue == 0){
             display_total.textContent = total_sales.toFixed(2) + "$"
-            // console.log("changed option");
+            console.log("changed option");
         }
         else if(selectedValue == 1){
             let sales = calculateRevenue(all_transactions, startOfToday, endOfToday)
             display_total.textContent = sales.toFixed(2) + "$"
-            // console.log("changed option");
+            console.log("changed option");
         }
         else if(selectedValue == 2){
             let sales = calculateRevenue(all_transactions, startOfWeek, endOfWeek)
             display_total.textContent = sales.toFixed(2) + "$"
-            // console.log("changed option");
+            console.log("changed option");
         }
         else{
             let sales = calculateRevenue(all_transactions, startOfMonth, endOfMonth)
             display_total.textContent = sales.toFixed(2) + "$"
-            // console.log("changed option");
+            console.log("changed option");
         }
     })
 })
