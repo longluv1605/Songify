@@ -12,25 +12,25 @@ const fetchData = async () => {
                 headers: {Authorization: `Bearer ${token}`}
             }
         );
-        let user_info = response.data.profile.user[0];
+        console.log(response.data);
+        let user_info = response.data.user[0];
         let username = user_info.first_name + " " + user_info.last_name;
         if(username == 0){
             username = "Undefined";
         }
-        let pricing_plan = response.data.profile.plan
+        let pricing_plan = response.data.plan
         if(pricing_plan.length === 0){
             pricing_plan = {name: "No Pricing Plan", price: 0}
         }
-        user_id = (response.data.profile.user[0].id);
-        // console.log(response.data.profile);
-        changeUserInformation(username, user_info.id, response.data.profile.plan[0].name, 
-        response.data.profile.numberOfComments, response.data.profile.numberOfRatings)
+        user_id = (response.data.user[0].id);
+        changeUserInformation(username, user_info.id, response.data.plan[0].name, 
+        response.data.numberOfComments, response.data.numberOfRatings)
 
-        let recent_views = response.data.profile.recentMovies.movies.slice(0,10)
+        let recent_views = response.data.recentMovies.slice(0,10)
         addDataForRecentViews(recent_views);
 
-        let recent_rating = response.data.profile.recentRatings.slice(0,10)
-        console.log(response.data.profile.recentRatings);
+        let recent_rating = response.data.recentRatings.slice(0,10)
+        // console.log(response.data.recentRatings);
         addDataForLatestReviews(recent_rating);
 
         changeSettingInfomation(user_info.first_name, user_info.last_name, user_info.email);
@@ -40,13 +40,12 @@ const fetchData = async () => {
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(plan.data);
-        addDataPricingPlant(plan.data.plans);
-        let expire_date = new Date(plan.data.currPlan.result[0].exp_date)
-        expire = plan.data.currPlan.result[0].exp_date
+        addDataPricingPlant(plan.data.planDatas);
+        let expire_date = new Date(plan.data.userPlan[0].exp_date)
+        expire = plan.data.userPlan[0].exp_date
         console.log(expire);
         if(expire_date >= endOfToday){
-            pricingPlantActive(plan.data.currPlan.result[0].plan_id);
+            pricingPlantActive(plan.data.userPlan[0].id);
             had_plan = true
         }
     } catch (error) {
@@ -145,7 +144,7 @@ function newLineOfLatestReviews(id, item, author, rating){
 function addDataForLatestReviews(dataset){
     var newList = document.getElementById("add-data-for-latest-reviews");
     dataset.forEach(function(data){
-        var list = newLineOfLatestReviews(data.id, data.title, data.average_rating, data.user_rating);
+        var list = newLineOfLatestReviews(data.movie_id, data.movie_title, data.avg_rating, data.value);
         newList.appendChild(list);
     });
 };
@@ -257,6 +256,7 @@ const changeProfile = async() => {
         }
         )
         console.log(response);
+        showCustomAlert("Profile changed successfully")
     }
     catch(error){
         showCustomAlert(error.response.data.message);
@@ -270,13 +270,13 @@ const confirmpass = document.getElementById("confirmpass");
 
 const changePassword = async() => {
     try{
-        const response = await axios.put(`http://localhost:8080/api/password`,
+        const response = await axios.post(`http://localhost:8080/api/password/change`,
             {"oldPassword": oldpass.value, "newPassword": newpass.value},
             {
                 headers: {Authorization: `Bearer ${token}`}
             }
         )
-        alshowCustomAlertert("Password changed successfully");
+        showCustomAlert("Password changed successfully");
         // window.location.reload();
     }
     catch(error){

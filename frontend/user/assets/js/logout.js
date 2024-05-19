@@ -19,7 +19,8 @@
 
 function check_out(){
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:8080/api/logout', {
+    axios.post('http://localhost:8080/api/signout', null,
+    {
         headers: {Authorization: `Bearer ${token}`}
     }).then(response => {
         localStorage.setItem('token', "");

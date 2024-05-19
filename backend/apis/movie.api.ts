@@ -68,7 +68,7 @@ class MovieAPI implements API {
         );
 
         this.router.post(
-            this.path + "/rate",
+            this.path + "/rate/:movieId",
             authenticateToken,
             UserController.rateMovie
         );

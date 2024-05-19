@@ -7,11 +7,12 @@ const postAccount = async() => {
             alert('Please enter email and password');
             return;
         }
-        const response = await axios.post('http://localhost:8080/api/login', {
+        const response = await axios.post('http://localhost:8080/api/signin', {
             username: email,
             password: password
         });
         // console.log(response);
+        localStorage.setItem('token_admin', "")
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('movieid', "");
         localStorage.setItem('genre', "");

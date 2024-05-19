@@ -16,8 +16,12 @@ class PlanManager implements Manager {
             // Get by user id
             const userId = input.userId;
             if (userId) {
-                const sql = "SELECT * FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = ?)";
-                const plans = await Database.query(sql, [userId]);
+                const sql = `
+                    SELECT *, (SELECT exp_date FROM user_plan WHERE user_id = ?) as exp_date
+                    FROM pricing_plan
+                    WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = ?)
+                `;
+                const plans = await Database.query(sql, [userId, userId]);
                 return plans;
             }
 

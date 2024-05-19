@@ -2,7 +2,7 @@ import Database from "../../database/database";
 import { Manager } from "../../interfaces/interfaces"
 
 class CommentManager implements Manager {
-    public getDatas = async (input: {[key: string]: any}) => {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
             const commentId = input.commentId;
             const movieId = input.movieId;
@@ -18,36 +18,110 @@ class CommentManager implements Manager {
 
             // Get comments by commentId
             if (commentId) {
-                const sql = "SELECT * FROM comment WHERE id = ?";
+                const sql = `
+                    SELECT 
+                        cmt.date, 
+                        cmt.detail, 
+                        u.first_name, 
+                        u.last_name
+                    FROM 
+                        comment cmt
+                    LEFT JOIN 
+                        user u ON cmt.user_id = u.id
+                    WHERE 
+                        cmt.id = ?
+                    ORDER BY 
+                        cmt.date DESC 
+                    LIMIT 10;
+                    `;
                 const comments = await Database.query(sql, [commentId]);
                 return comments;
             }
 
             // Get comments by commentId and userId
             if (commentId && userId) {
-                const sql = "SELECT * FROM comment WHERE id = ? AND user_id = ?";
+                const sql = `
+                    SELECT 
+                        cmt.date, 
+                        cmt.detail, 
+                        u.first_name, 
+                        u.last_name
+                    FROM 
+                        comment cmt
+                    LEFT JOIN 
+                        user u ON cmt.user_id = u.id
+                    WHERE 
+                        cmt.id = ? AND cmt.user_id = ?
+                    ORDER BY 
+                        cmt.date DESC 
+                    LIMIT 10;
+                    `;
                 const comments = await Database.query(sql, [commentId, userId]);
                 return comments;
             }
 
             // Get comments by movieId
             if (movieId && !userId) {
-                const sql = "SELECT * FROM comment WHERE movie_id = ? LIMIT 10";
+                const sql = `
+                    SELECT 
+                        cmt.date, 
+                        cmt.detail, 
+                        u.first_name, 
+                        u.last_name
+                    FROM 
+                        comment cmt
+                    LEFT JOIN 
+                        user u ON cmt.user_id = u.id
+                    WHERE 
+                        cmt.movie_id = ?
+                    ORDER BY 
+                        cmt.date DESC 
+                    LIMIT 10;
+                    `;
                 const comments = await Database.query(sql, [movieId]);
                 return comments;
             }
 
             // Get comments by user_id
             if (!movieId && userId) {
-                const sql = "SELECT * FROM comment WHERE user_id = ? LIMIT 10";
+                const sql = `
+                    SELECT 
+                        cmt.date, 
+                        cmt.detail, 
+                        u.first_name, 
+                        u.last_name
+                    FROM 
+                        comment cmt
+                    LEFT JOIN 
+                        user u ON cmt.user_id = u.id
+                    WHERE 
+                        cmt.user_id = ?
+                    ORDER BY 
+                        cmt.date DESC 
+                    LIMIT 10;
+                    `;
                 const comments = await Database.query(sql, [userId]);
                 return comments;
             }
 
             // Get comments by movieId and user_id
-            const sql =
-                "SELECT * FROM comment WHERE movie_id = ? AND user_id = ? LIMIT 10";
-            const comments = await Database.query(sql, [movieId, userId]);
+            const sql = `
+                SELECT 
+                    cmt.date, 
+                    cmt.detail, 
+                    u.first_name, 
+                    u.last_name
+                FROM 
+                    comment cmt
+                LEFT JOIN 
+                    user u ON cmt.user_id = u.id
+                WHERE 
+                    cmt.movie_id = ? AND cmt.user_id = ?
+                ORDER BY 
+                    cmt.date DESC 
+                LIMIT 10;
+                `;
+                const comments = await Database.query(sql, [movieId, userId]);
             return comments;
         } catch (err) {
             console.log("Error getting comments:", err);
@@ -58,14 +132,14 @@ class CommentManager implements Manager {
     public addData = async (input: { [key: string]: any }) => {
         try {
             const movieId = input.movieId;
-            const user_id = input.user_id;
+            const userId = input.userId;
             const detail = input.detail;
 
             const insertCommentSql = `
-                INSERT INTO comments (movieId, user_id, detail)
-                VALUES (?, ?, ?, ?);
+                INSERT INTO comment (movie_id, user_id, detail)
+                VALUES (?, ?, ?);
             `;
-            await Database.query(insertCommentSql, [movieId, user_id, detail]);
+            await Database.query(insertCommentSql, [movieId, userId, detail]);
             return { message: "Add comment successfully" };
         } catch (err) {
             console.log("Error adding comment:", err);
@@ -90,7 +164,7 @@ class CommentManager implements Manager {
             }
 
             const updateCommentSql = `
-                UPDATE comments
+                UPDATE comment
                 SET detail = ?
                 WHERE id = ?;
             `;

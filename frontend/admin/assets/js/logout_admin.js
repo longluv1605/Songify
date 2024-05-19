@@ -1,7 +1,7 @@
 const check_out = async() => {
     try {
         const token = localStorage.getItem('token_admin');
-        const response = await axios.get('http://localhost:8080/api/admin/logout', {
+        const response = await axios.post('http://localhost:8080/api/signout', null,{
             headers: {Authorization: `Bearer ${token}`}
         });
         console.log(response);

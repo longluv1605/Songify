@@ -31,6 +31,7 @@ class MovieManager implements Manager {
     public getDatas = async (input: { [key: string]: any } = {}) => {
         try {
             const userRole = input.userRole;
+            const userId = input.userId;
 
             let sql: string;
             if (input.movieId && userRole === "admin") {

@@ -1,19 +1,20 @@
 const dataSearch = async (searchValue) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:8080/api/search?string=${searchValue}`, {
+        const response = await axios.get(`http://localhost:8080/api/search/${searchValue}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        const genres = response.data.movies[0].genres;
+        console.log(response.data);
+        const genres = response.data[0].genres;
         const genre = genres.split(', ');
         localStorage.setItem('will_like', genre[0]);
         localStorage.setItem('genre', genre[0]);
-        localStorage.setItem('movieid', response.data.movies[0].id);
+        localStorage.setItem('movieid', response.data[0].id);
         window.location.href = "http://localhost:3000/catalog";
     } catch (error) {
-        window.location.href = "http://localhost:3000/catalog";
+        // window.location.href = "http://localhost:3000/catalog";
     }
 };
 

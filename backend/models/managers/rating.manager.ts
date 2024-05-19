@@ -9,15 +9,27 @@ class RatingManager implements Manager {
             const userId = input.userId;
 
             if (movieId && userId) {
-                sql = "SELECT * FROM user_rating WHERE movie_id = ? AND user_id = ?";
-                const ratings = await Database.query(sql, [movieId, userId]);
+                sql =` 
+                    SELECT *,
+                    (SELECT title FROM movie WHERE id = movie_id) AS movie_title,
+                    (SELECT ROUND(AVG(value), 1) FROM user_rating WHERE movie_id = ?) AS avg_rating
+                    FROM user_rating WHERE movie_id = ? AND user_id = ?
+                    ORDER BY TIME DESC;
+                `;
+                const ratings = await Database.query(sql, [movieId, movieId, userId]);
                 return ratings;
             } else if (movieId) {
-                sql = "SELECT * FROM user_rating WHERE movie_id = ?";
-                const ratings = await Database.query(sql, [movieId]);
+                sql = "SELECT first_name, last_name, (SELECT value FROM user_rating WHERE user_id = id and movie_id = ?) FROM user WHERE id IN (SELECT user_id FROM user_rating WHERE movie_id = ?)";
+                const ratings = await Database.query(sql, [movieId, movieId]);
                 return ratings;
             } else if (userId) {
-                sql = "SELECT * FROM user_rating WHERE user_id = ?";
+                sql =` 
+                    SELECT *,
+                    (SELECT title FROM movie WHERE id = movie_id) AS movie_title,
+                    (SELECT ROUND(AVG(value), 1) FROM user_rating WHERE movie_id = movie_id) AS avg_rating
+                    FROM user_rating WHERE user_id = ?
+                    ORDER BY TIME DESC;
+                `;
                 const ratings = await Database.query(sql, [userId]);
                 return ratings;
             }

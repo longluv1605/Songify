@@ -24,7 +24,7 @@ const createAccount = async() => {
             alert('Invalid email syntax')
             return
         }
-        const response = await axios.post('http://localhost:8080/api/register', {
+        const response = await axios.post('http://localhost:8080/api/signup', {
             username : username,
             firstName: firstname,
             lastName: lastname,

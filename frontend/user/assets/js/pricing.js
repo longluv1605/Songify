@@ -12,11 +12,11 @@ const getPlan = async() => {
         }
         )
         console.log(response.data);
-        loadPriceplans(response.data.plans);
-        let expire_date = new Date(response.data.currPlan.result[0].exp_date)
-        expire = response.data.currPlan.result[0].exp_date
+        loadPriceplans(response.data.planDatas);
+        let expire_date = new Date(response.data.userPlan[0].exp_date)
+        expire = response.data.userPlan[0].exp_date
         if(expire_date >= endOfToday){
-            findcurrentplan(response.data.currPlan.result[0].plan_id)
+            findcurrentplan(response.data.userPlan[0].id)
             had_plan = true
         }
     }  
