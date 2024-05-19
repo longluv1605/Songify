@@ -6,8 +6,8 @@ class PasswordRestorer {
 
     public sendAuthCode = async (req: Request, res: Response) => {
         try {
-            const email = req.body.email;
-            // console.log(email);
+            const email: string = req.query.email as string;
+            console.log(email);
             if (!email) {
                 throw new Error("Email not found");
             }
