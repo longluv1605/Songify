@@ -1,4 +1,4 @@
-# Bài tập lớn - Web nhạc - Songify
+# Moflix - Nền tảng xem phim online.
 
 ## Thông tin nhóm: Nhóm 99.
 
@@ -31,4 +31,4 @@ Tạo file `.env` theo mẫu `.env.example`
 -   `npm run backend`: Khởi chạy BE.
 -   `npm run frontend`: Khởi chạy FE.
 -   `npm run dev`: Khởi chạy FE và BE.
-    
+
