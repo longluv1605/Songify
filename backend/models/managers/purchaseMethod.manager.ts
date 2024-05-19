@@ -1,7 +1,8 @@
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces";
 
-class PurchaseMethodManager {
-    public getPurchaseMethods = async () => {
+class PurchaseMethodManager implements Manager {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
             const sql = "SELECT name FROM purchase_method";
             const purchaseMethods = await Database.query(sql);
@@ -12,8 +13,16 @@ class PurchaseMethodManager {
         }
     };
 
-    public addPurchaseMethod = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const name = input.name;
             const insertPurchaseMethodSql = `
                 INSERT INTO purchase_method (name)
@@ -30,8 +39,16 @@ class PurchaseMethodManager {
         }
     };
 
-    public updatePurchaseMethod = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const name = input.name;
             const description = input.description;
 
@@ -51,8 +68,16 @@ class PurchaseMethodManager {
         }
     };
 
-    public deletePurchaseMethod = async (input: { [key: string]: any }) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const name = input.name;
 
             const deletePurchaseMethodSql = `
@@ -71,4 +96,4 @@ class PurchaseMethodManager {
     };
 }
 
-export default PurchaseMethodManager;
+export default new PurchaseMethodManager();

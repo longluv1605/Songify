@@ -1,8 +1,24 @@
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces";
 
-class SaleManager {
-    public getSales = async (input: { [key: string]: any }) => {
+class SaleManager implements Manager {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
+            const userId = input.userId;
+            if (userId) {
+                const sql = "SELECT * FROM sale WHERE username = (SELECT username FROM user WHERE id = ?)";
+                const sales = await Database.query(sql, [userId]);
+                return sales;
+            }
+
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to get all genre",
+                };
+            }
+
             const sql = "SELECT * FROM sale ORDER BY purchase_date, id DESC LIMIT 10";
             const sales = await Database.query(sql);
             return sales;
@@ -12,7 +28,7 @@ class SaleManager {
         }
     };
 
-    public addSale = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
             const userId = input.userId;
             const planId = input.planId;
@@ -37,10 +53,6 @@ class SaleManager {
             };
         }
     };
-
-    public updateSale = async (input: { [key: string]: any }) => {};
-
-    public deleteSale = async (input: { [key: string]: any }) => {};
 }
 
 export default new SaleManager();

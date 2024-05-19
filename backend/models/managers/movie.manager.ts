@@ -2,8 +2,9 @@ import Database from "../../database/database";
 import Searcher from "../utils/searcher.utils";
 import Filter from "../utils/filter.util";
 import Recommender from "../utils/recommender.utils";
+import { Manager } from "../../interfaces/interfaces";
 
-class MovieManager {
+class MovieManager implements Manager {
     private seacher: any;
     private filter: any;
     private recommneder: any;
@@ -27,23 +28,125 @@ class MovieManager {
     };
 
     // TODO: Implement the GET metho
-    public getMovies = async (input: { [key: string]: any } = {}) => {
+    public getDatas = async (input: { [key: string]: any } = {}) => {
         try {
+            const userRole = input.userRole;
+
             let sql: string;
-            if (input.movieId) {
-                sql = `SELECT m.*, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, ml.label_name as label, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
-                FROM movie m
-                LEFT JOIN movie_label ml ON m.id = ml.movie_id
-                LEFT JOIN movie_genre mg ON m.id = mg.movie_id
-                LEFT JOIN user_rating r ON m.id = r.movie_id
-                GROUP BY m.id HAVING m.id = ${input.movieId}`;
+            if (input.movieId && userRole === "admin") {
+                sql = `
+                SELECT 
+                    m.*, 
+                    (SELECT 
+                        GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') 
+                    FROM 
+                        movie_genre mg 
+                    WHERE 
+                        mg.movie_id = m.id
+                    ) AS genres, 
+                    (SELECT 
+                        ROUND(AVG(r.value), 1) 
+                    FROM 
+                        user_rating r 
+                    WHERE 
+                        r.movie_id = m.id
+                    ) AS average_rating, 
+                    (SELECT 
+                        ml.label_name 
+                    FROM 
+                        movie_label ml 
+                    WHERE 
+                        ml.movie_id = m.id
+                    ) AS label, 
+                    (SELECT 
+                        mv.view 
+                    FROM 
+                        movie_view mv 
+                    WHERE 
+                        mv.movie_id = m.id
+                    ) AS views
+                FROM 
+                    movie m
+                WHERE 
+                    m.id = ${input.movieId}
+                `;
+            } else if (input.movieId && userRole !== "admin") {
+                sql = `
+                SELECT m.id, m.title, m.description, m.release_year, m.duration, m.cover_img_url, m.trailer_url, m.film_url, m.actors, m.directors,
+                    (SELECT 
+                        GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') 
+                    FROM 
+                        movie_genre mg 
+                    WHERE 
+                        mg.movie_id = m.id
+                    ) AS genres, 
+                    (SELECT 
+                        ROUND(AVG(r.value), 1) 
+                    FROM 
+                        user_rating r 
+                    WHERE 
+                        r.movie_id = m.id
+                    ) AS average_rating, 
+                    (SELECT 
+                        ml.label_name 
+                    FROM 
+                        movie_label ml 
+                    WHERE 
+                        ml.movie_id = m.id
+                    ) AS label, 
+                    (SELECT 
+                        mv.view 
+                    FROM 
+                        movie_view mv 
+                    WHERE 
+                        mv.movie_id = m.id
+                    ) AS views
+                FROM 
+                    movie m
+                WHERE 
+                    m.id = ${input.movieId}
+                `;
             } else {
-                sql = `SELECT m.id, m.title, m.added_at, m.status, GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') AS genres, ROUND(AVG(r.value), 1) AS average_rating, ml.label_name as label, (SELECT view FROM movie_view WHERE movie_id = m.id) AS views
-                FROM movie m
-                LEFT JOIN movie_label ml ON m.id = ml.movie_id
-                LEFT JOIN movie_genre mg ON m.id = mg.movie_id
-                LEFT JOIN user_rating r ON m.id = r.movie_id
-                GROUP BY m.id ORDER BY m.added_at desc LIMIT 30`;
+                sql = `
+                SELECT 
+                    m.id, 
+                    m.title, 
+                    m.added_at, 
+                    m.status, 
+                    (SELECT 
+                        GROUP_CONCAT(DISTINCT mg.genre_name ORDER BY mg.genre_name SEPARATOR ', ') 
+                    FROM 
+                        movie_genre mg 
+                    WHERE 
+                        mg.movie_id = m.id
+                    ) AS genres, 
+                    (SELECT 
+                        ROUND(AVG(r.value), 1) 
+                    FROM 
+                        user_rating r 
+                    WHERE 
+                        r.movie_id = m.id
+                    ) AS average_rating, 
+                    (SELECT 
+                        ml.label_name 
+                    FROM 
+                        movie_label ml 
+                    WHERE 
+                        ml.movie_id = m.id
+                    ) AS label, 
+                    (SELECT 
+                        mv.view 
+                    FROM 
+                        movie_view mv 
+                    WHERE 
+                        mv.movie_id = m.id
+                    ) AS views
+                FROM 
+                    movie m
+                ORDER BY 
+                    m.added_at DESC 
+                LIMIT 30;
+                `;
             }
 
             const movies = await Database.query(sql);
@@ -57,8 +160,16 @@ class MovieManager {
         }
     };
 
-    public addMovie = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             // Get data from input
             const title = input.title;
             const description = input.description;
@@ -122,8 +233,16 @@ class MovieManager {
         }
     };
 
-    public updateMovie = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             // Get data from input
             const movieId = input.movieId;
             const title = input.title;
@@ -191,8 +310,16 @@ class MovieManager {
         }
     };
 
-    public deleteMovie = async (input: { [key: string]: any }) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const movieId = input.movieId;
 
             // Init sql
@@ -212,6 +339,14 @@ class MovieManager {
 
     public changeStatus = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const movieId = input.movieId;
 
             // Get current status
@@ -236,7 +371,7 @@ class MovieManager {
                 error: err,
             };
         }
-    }
+    };
 }
 
 export default new MovieManager();

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from "interfaces/authenticatedRequest";
+import { AuthenticatedRequest } from "../interfaces/interfaces";
 import SessionManager from "../models/systems/session.manager";
 import PasswordRestorer from "../models/systems/verifier.manager";
 import MovieManager from "../models/managers/movie.manager";
@@ -9,6 +9,7 @@ import PlanManager from "../models/managers/plan.manager";
 import CommentManager from "../models/managers/comment.manager";
 import RatingManager from "../models/managers/rating.manager";
 import UserManager from "../models/managers/user.manager";
+import PurchaseMethodManager from "../models/managers/purchaseMethod.manager";
 
 class UserController {
     public signIn = async (req: Request, res: Response) => {
@@ -71,7 +72,7 @@ class UserController {
                 return;
             }
 
-            const result = await UserManager.addUser({
+            const result = await UserManager.addData({
                 username,
                 password,
                 email,
@@ -109,8 +110,8 @@ class UserController {
                     userId
                 );
 
-            const genres = await GenreManager.getGenres();
-            const labels = await LabelManager.getLabels();
+            const genres = await GenreManager.getDatas({});
+            const labels = await LabelManager.getDatas({});
             res.status(200).json({ newMovies, recentMovies, genres, labels });
         } catch (err) {
             res.status(500).json({
@@ -132,10 +133,12 @@ class UserController {
             }
 
             // console.log("Getting plan data for user:", userId);
-
-            const planData = await PlanManager.getPlans({});
-            const userPlan = await PlanManager.getUserPlan({ userId });
-            res.status(200).json({ planData, userPlan });
+            const paymentMethods = await PurchaseMethodManager.getDatas({
+                userId,
+            });
+            const planDatas = await PlanManager.getDatas({});
+            const userPlan = await PlanManager.getDatas({ userId });
+            res.status(200).json({ planDatas, userPlan, paymentMethods });
         } catch (err) {
             res.status(500).json({
                 message: "Error getting plan data",
@@ -147,11 +150,19 @@ class UserController {
     public getMovieData = async (req: AuthenticatedRequest, res: Response) => {
         try {
             const userId = parseInt(req.userId as string);
+            const userRole = req.role;
             const movieId = parseInt(req.params.movieId as string);
 
             if (!userId) {
                 res.status(400).json({
                     message: "Missing userId",
+                });
+                return;
+            }
+
+            if (!userRole) {
+                res.status(400).json({
+                    message: "Missing userRole",
                 });
                 return;
             }
@@ -163,9 +174,12 @@ class UserController {
                 return;
             }
 
-            const movieData = await MovieManager.getMovies({ movieId });
-            const comments = await CommentManager.getComments({ movieId });
-            const yourRating = await RatingManager.getRatings({
+            const movieData = await MovieManager.getDatas({
+                movieId,
+                userRole,
+            });
+            const comments = await CommentManager.getDatas({ movieId });
+            const yourRating = await RatingManager.getDatas({
                 movieId,
                 userId,
             });
@@ -294,6 +308,249 @@ class UserController {
         }
     };
 
+    public addMovieToFavorite = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
+        try {
+            const userId = parseInt(req.userId as string);
+            const movieId = parseInt(req.params.movieId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            if (!movieId) {
+                res.status(400).json({
+                    message: "Missing movieId",
+                });
+                return;
+            }
+
+            await UserManager.addMovieToFavorite({ userId, movieId });
+            res.status(200).json({
+                message: "Add movie to favorite successfully",
+            });
+        } catch (err) {
+            console.log("Error adding movie to favorite:", err);
+            res.status(500).json({
+                message: "Error adding movie to favorite",
+                error: err,
+            });
+        }
+    };
+
+    public deleteMovieFromFavorite = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
+        try {
+            const userId = parseInt(req.userId as string);
+            const movieId = parseInt(req.params.movieId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            if (!movieId) {
+                res.status(400).json({
+                    message: "Missing movieId",
+                });
+                return;
+            }
+
+            await UserManager.deleteMovieFromFavorite({ userId, movieId });
+            res.status(200).json({
+                message: "Remove movie from favorite successfully",
+            });
+        } catch (err) {
+            console.log("Error removing movie from favorite:", err);
+            res.status(500).json({
+                message: "Error removing movie from favorite",
+                error: err,
+            });
+        }
+    };
+
+    public getFavoriteMovies = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
+        try {
+            const userId = parseInt(req.userId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            const favoriteMovies =
+                await MovieManager.getRecommender().getFavoriteMovies({
+                    userId,
+                });
+            res.status(200).json(favoriteMovies);
+        } catch (err) {
+            console.log("Error getting favorite movies:", err);
+            res.status(500).json({
+                message: "Error getting favorite movies",
+                error: err,
+            });
+        }
+    };
+
+    public getRecentlyViewedMovies = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
+        try {
+            const userId = parseInt(req.userId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            const recentlyViewedMovies =
+                await MovieManager.getRecommender().getRecentlyViewedMovies({
+                    userId,
+                });
+            res.status(200).json(recentlyViewedMovies);
+        } catch (err) {
+            console.log("Error getting recently viewed movies:", err);
+            res.status(500).json({
+                message: "Error getting recently viewed movies",
+                error: err,
+            });
+        }
+    };
+
+    public deleteRecentlyViewedMovie = async (
+        req: AuthenticatedRequest,
+        res: Response
+    ) => {
+        try {
+            const userId = parseInt(req.userId as string);
+            const movieId = parseInt(req.params.movieId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            if (!movieId) {
+                res.status(400).json({
+                    message: "Missing movieId",
+                });
+                return;
+            }
+
+            await UserManager.deleteMovieFromHistory({ userId, movieId });
+            res.status(200).json({
+                message: "Remove movie from history successfully",
+            });
+        } catch (err) {
+            console.log("Error removing movie from history:", err);
+            res.status(500).json({
+                message: "Error removing movie from history",
+                error: err,
+            });
+        }
+    };
+
+    public addMovieToWatchlist = async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const userId = parseInt(req.userId as string);
+            const movieId = parseInt(req.params.movieId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            if (!movieId) {
+                res.status(400).json({
+                    message: "Missing movieId",
+                });
+                return;
+            }
+
+            await UserManager.addMovieToWatchlist({ userId, movieId });
+            res.status(200).json({ message: "Add movie to watchlist successfully" });
+        } catch (err) {
+            console.log("Error adding movie to watchlist:", err);
+            res.status(500).json({
+                message: "Error adding movie to watchlist",
+                error: err,
+            });
+        }
+    }
+
+    public deleteMovieFromWatchlist = async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const userId = parseInt(req.userId as string);
+            const movieId = parseInt(req.params.movieId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            if (!movieId) {
+                res.status(400).json({
+                    message: "Missing movieId",
+                });
+                return;
+            }
+
+            await UserManager.deleteMovieFromWatchlist({ userId, movieId });
+            res.status(200).json({ message: "Remove movie from watchlist successfully" });
+        } catch (err) {
+            console.log("Error removing movie from watchlist:", err);
+            res.status(500).json({
+                message: "Error removing movie from watchlist",
+                error: err,
+            });
+        }
+    }
+
+    public getWatchlist = async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const userId = parseInt(req.userId as string);
+
+            if (!userId) {
+                res.status(400).json({
+                    message: "Missing userId",
+                });
+                return;
+            }
+
+            const watchlist = await MovieManager.getRecommender().getWatchlist({ userId });
+            res.status(200).json(watchlist);
+        } catch (err) {
+            console.log("Error getting watchlist:", err);
+            res.status(500).json({
+                message: "Error getting watchlist",
+                error: err,
+            });
+        }
+    }
+
     public writeComment = async (req: AuthenticatedRequest, res: Response) => {
         try {
             const userId = parseInt(req.userId as string);
@@ -321,7 +578,7 @@ class UserController {
                 return;
             }
 
-            await CommentManager.addComment({ userId, movieId, detail });
+            await CommentManager.addData({ userId, movieId, detail });
             res.status(200).json({ message: "Write comment successfully" });
         } catch (err) {
             console.log("Error writing comment:", err);
@@ -361,7 +618,7 @@ class UserController {
                 return;
             }
 
-            await RatingManager.addRating({ userId, movieId, rating });
+            await RatingManager.addData({ userId, movieId, rating });
             res.status(200).json({ message: "Rate movie successfully" });
         } catch (err) {
             console.log("Error rating movie:", err);
@@ -467,14 +724,26 @@ class UserController {
                 return;
             }
 
-            const user = await UserManager.getUsers({ userId });
+            const user = await UserManager.getDatas({
+                userId,
+                userRole: req.role,
+            });
+            // console.log("User:", user);
+
             const recentMovies =
                 await MovieManager.getRecommender().getRecentlyViewedMovies({
                     userId,
                 });
-            const plan = await PlanManager.getUserPlan({ userId });
-            let recentRatings = await RatingManager.getRatings({ userId });
-            let recentComments = await CommentManager.getComments({ userId });
+            // console.log("Recent movies:", recentMovies);
+
+            const plan = await PlanManager.getDatas({ userId });
+            // console.log("Plan:", plan);
+
+            let recentRatings = await RatingManager.getDatas({ userId });
+            // console.log("Recent ratings:", recentRatings);
+
+            let recentComments = await CommentManager.getDatas({ userId });
+            // console.log("Recent comments:", recentComments);
 
             const numberOfRatings = recentRatings.length;
             const numberOfComments = recentComments.length;
@@ -484,6 +753,7 @@ class UserController {
 
             res.status(200).json({
                 user,
+                plan,
                 recentMovies,
                 recentComments,
                 recentRatings,
@@ -511,13 +781,13 @@ class UserController {
 
             // TODO: verify input
 
-            const oldInfo = await UserManager.getUsers({ userId });
+            const oldInfo = await UserManager.getDatas({ userId });
 
             const firstName = req.body.firstName || oldInfo[0].first_name;
             const lastName = req.body.lastName || oldInfo[0].last_name;
             const email = req.body.email || oldInfo[0].email;
 
-            await UserManager.updateUser({
+            await UserManager.getDatas({
                 userId,
                 firstName,
                 lastName,

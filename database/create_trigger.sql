@@ -24,8 +24,10 @@ CREATE TRIGGER  IF NOT EXISTS create_user_plan
 AFTER INSERT ON user
 FOR EACH ROW
 BEGIN
-    INSERT INTO user_plan (user_id, plan_id)
-    VALUES (NEW.id, 1);
+    IF NEW.role = 'user' THEN
+        INSERT INTO user_plan (user_id, plan_id)
+        VALUES (NEW.id, 1);
+    END IF;
 END//
 
 -- Trigger for create sale when create user_purchase

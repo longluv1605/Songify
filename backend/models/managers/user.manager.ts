@@ -1,26 +1,44 @@
-import e from "express";
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces";
 
-class UserManager {
+class UserManager implements Manager {
     // TODO: Implement the GET method
-    public getUsers = async (input: { [key: string]: any }) => {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
             // Get data from input
             const userId = input.userId;
 
-            if (!userId) {
-                let sql =
-                    "SELECT id, username, first_name, last_name, email, status FROM user LIMIT 20";
+            // console.log("userId", userId);
+            // console.log("userRole", userRole);
+
+            if (!userId && userRole === "admin") {
+                const sql: string = `
+                SELECT u.id, u.username, u.status, u.email, u.created_at, 
+                (SELECT name FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = u.id)) AS plan_name, 
+                c.comment_count, r.rating_count
+                FROM user u
+                LEFT JOIN (SELECT user_id, COUNT(*) AS comment_count FROM comment GROUP BY user_id) c ON u.id = c.user_id
+                LEFT JOIN (SELECT user_id, COUNT(*) AS rating_count FROM user_rating GROUP BY user_id) r ON u.id = r.user_id LIMIT 30
+            `;
                 const users = await Database.query(sql);
                 return users;
             }
 
             // Init sql
-            let sql =
-                "SELECT id, username, first_name, last_name, email FROM user WHERE id = ?";
-
+            let sql: string;
+            // if (userRole === "admin") {
+            //     sql = "SELECT * FROM user WHERE id = ?";
+            //     const user = await Database.query(sql, [userId]);
+            //     return user;
+            // }
+            sql = "SELECT id, username, first_name, last_name, email, created_at FROM user WHERE id = ?";
+            // console.log("sql", sql);
             // Query
             const user = await Database.query(sql, [userId]);
+
+            // console.log("user", user);
             return user;
         } catch (err) {
             console.log("Error getting User by id:", err);
@@ -31,7 +49,7 @@ class UserManager {
         }
     };
 
-    public addUser = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
             // Get data from input
             const username = input.username;
@@ -65,7 +83,7 @@ class UserManager {
         }
     };
 
-    public updateUser = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
             // Get data from input
             const userId = input.userId;
@@ -98,35 +116,25 @@ class UserManager {
         }
     };
 
-    public changeStatus = async (input: { [key: string]: any }) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
+
             // Get data from input
             const userId = input.userId;
 
-            let status = await Database.query(
-                "SELECT status FROM user WHERE id = ?",
-                [userId]
-            );
-            if (status.length === 0) {
-                throw new Error("User not found");
-            }
-
-            status = status[0].status === "accepted" ? "banned" : "accepted";
-
             // Init sql
-            const changeStatusSql = `
-                UPDATE user
-                SET status = ?
-                WHERE id = ?;
+            const deleteUserSql = `
+            DELETE FROM user
+            WHERE id = ?;
             `;
 
             // Query
-            await Database.query(changeStatusSql, [status, userId]);
-            return { message: "Change status successfully" };
+            await Database.query(deleteUserSql, [userId]);
+            return { message: "Delete User successfully" };
         } catch (err) {
-            console.log("Error changing status:", err);
+            console.log("Error deleting User:", err);
             throw {
-                message: "Error changing status",
+                message: "Error deleting User",
                 error: err,
             };
         }
@@ -134,6 +142,14 @@ class UserManager {
 
     public changePlan = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to change other user's plan",
+                };
+            }
+
             const userId = input.userId;
             const planId = input.planId;
 
@@ -152,24 +168,43 @@ class UserManager {
         }
     };
 
-    public deleteUser = async (input: { [key: string]: any }) => {
+    public changeStatus = async (input: { [key: string]: any }) => {
         try {
+            
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to change other user's status",};
+            }
+
             // Get data from input
             const userId = input.userId;
 
+            let status = await Database.query(
+                "SELECT status FROM user WHERE id = ?",
+                [userId]
+            );
+            if (status.length === 0) {
+                throw new Error("User not found");
+            }
+
+            status = status[0].status === "accepted" ? "banned" : "accepted";
+
             // Init sql
-            const deleteUserSql = `
-                DELETE FROM user
-                WHERE id = ?;
-            `;
+            const changeStatusSql = `
+                    UPDATE user
+                    SET status = ?
+                    WHERE id = ?;
+                `;
 
             // Query
-            await Database.query(deleteUserSql, [userId]);
-            return { message: "Delete User successfully" };
+            await Database.query(changeStatusSql, [status, userId]);
+            return { message: "Change status successfully" };
         } catch (err) {
-            console.log("Error deleting User:", err);
+            console.log("Error changing status:", err);
             throw {
-                message: "Error deleting User",
+                message: "Error changing status",
                 error: err,
             };
         }
@@ -242,6 +277,145 @@ class UserManager {
             console.log("Error adding movie to history:", err);
             throw {
                 message: "Error adding movie to history",
+                error: err,
+            };
+        }
+    };
+
+    // TODO: Implement the DELETE method for user history, user_favorite, user_watchlist
+    public deleteMovieFromHistory = async (input: { [key: string]: any }) => {
+        try {
+            // Get data from input
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            // Init sql
+            const deleteHistorySql = `
+                DELETE FROM user_history
+                WHERE user_id = ? AND movie_id = ?;
+            `;
+
+            // Query
+            await Database.query(deleteHistorySql, [userId, movieId]);
+            return { message: "Delete movie from history successfully" };
+        } catch (err) {
+            console.log("Error deleting movie from history:", err);
+            throw {
+                message: "Error deleting movie from history",
+                error: err,
+            };
+        }
+    }
+
+    public addMovieToFavorite = async (input: { [key: string]: any }) => {
+        try {
+            // Get data from input
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            if (!userId || !movieId) {
+                throw new Error("Missing userId or movieId");
+            }
+
+            await Database.query(
+                "DELETE FROM user_favorite WHERE user_id = ? AND movie_id = ?",
+                [userId, movieId]
+            );
+
+            // Init sql
+            const insertFavoriteSql = `
+                INSERT INTO user_favorite (user_id, movie_id)
+                VALUES (?, ?);
+            `;
+
+            // Query
+            await Database.query(insertFavoriteSql, [userId, movieId]);
+            return { message: "Add movie to favorite successfully" };
+        } catch (err) {
+            console.log("Error adding movie to favorite:", err);
+            throw {
+                message: "Error adding movie to favorite",
+                error: err,
+            };
+        }
+    };
+
+    public deleteMovieFromFavorite = async (input: { [key: string]: any }) => {
+        try {
+            // Get data from input
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            // Init sql
+            const deleteFavoriteSql = `
+                DELETE FROM user_favorite
+                WHERE user_id = ? AND movie_id = ?;
+            `;
+
+            // Query
+            await Database.query(deleteFavoriteSql, [userId, movieId]);
+            return { message: "Delete movie from favorite successfully" };
+        } catch (err) {
+            console.log("Error deleting movie from favorite:", err);
+            throw {
+                message: "Error deleting movie from favorite",
+                error: err,
+            };
+        }
+    };
+
+    public addMovieToWatchlist = async (input: { [key: string]: any }) => {
+        try {
+            // Get data from input
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            if (!userId || !movieId) {
+                throw new Error("Missing userId or movieId");
+            }
+
+            await Database.query(
+                "DELETE FROM user_watchlist WHERE user_id = ? AND movie_id = ?",
+                [userId, movieId]
+            );
+
+            // Init sql
+            const insertWatchlistSql = `
+                INSERT INTO user_watchlist (user_id, movie_id)
+                VALUES (?, ?);
+            `;
+
+            // Query
+            await Database.query(insertWatchlistSql, [userId, movieId]);
+            return { message: "Add movie to watchlist successfully" };
+        } catch (err) {
+            console.log("Error adding movie to watchlist:", err);
+            throw {
+                message: "Error adding movie to watchlist",
+                error: err,
+            };
+        }
+    };
+
+    public deleteMovieFromWatchlist = async (input: { [key: string]: any }) => {
+        try {
+            // Get data from input
+            const userId = input.userId;
+            const movieId = input.movieId;
+
+            // Init sql
+            const deleteWatchlistSql = `
+                DELETE FROM user_watchlist
+                WHERE user_id = ? AND movie_id = ?;
+            `;
+
+            // Query
+            await Database.query(deleteWatchlistSql, [userId, movieId]);
+            return { message: "Delete movie from watchlist successfully" };
+        } catch (err) {
+            console.log("Error deleting movie from watchlist:", err);
+            throw {
+                message: "Error deleting movie from watchlist",
                 error: err,
             };
         }

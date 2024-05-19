@@ -10,6 +10,9 @@ class SessionManager {
             const username = input.username;
             const password = input.password;
 
+            // console.log("username:", username);
+            // console.log("password:", password);
+
             // Init sql
             const verifySql = `
                 SELECT * FROM user
@@ -19,9 +22,17 @@ class SessionManager {
             // Query
             const user = await Database.query(verifySql, [username, password]);
 
+            // console.log("user:", user);
+
             if (user.length === 0) {
                 throw {
                     message: "Username or password is incorrect",
+                };
+            }
+
+            if (user[0].status === "banned") {
+                throw {
+                    message: "User is banned",
                 };
             }
 
@@ -40,6 +51,9 @@ class SessionManager {
             // Get data from input
             const username = input.username;
             const password = input.password;
+
+            // console.log("username:", username);
+            // console.log("password:", password);
 
             const user = await this.verify({ username, password });
 

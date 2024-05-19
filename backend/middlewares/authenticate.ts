@@ -1,7 +1,7 @@
 import { Response, NextFunction } from "express";
 import jwt, { Secret } from "jsonwebtoken";
 import dotenv from "dotenv";
-import { AuthenticatedRequest } from "../interfaces/authenticatedRequest";
+import { AuthenticatedRequest } from "../interfaces/interfaces";
 import SessionManager from "../models/systems/session.manager";
 
 dotenv.config();

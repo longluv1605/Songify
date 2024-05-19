@@ -1,7 +1,8 @@
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces";
 
-class RatingManager {
-    public getRatings = async (input: { [key: string]: any }) => {
+class RatingManager implements Manager {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
             let sql: string;
             const movieId = input.movieId;
@@ -30,13 +31,13 @@ class RatingManager {
         }
     };
 
-    public addRating = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
             const movieId = input.movieId;
             const userId = input.userId;
             const rating = input.rating;
 
-            await this.deleteRating({ movieId: movieId, userId: userId });
+            await this.deleteData({ movieId: movieId, userId: userId });
 
             // console.log("res", res);
 
@@ -55,7 +56,7 @@ class RatingManager {
         }
     };
 
-    public updateRating = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
             const movieId = input.movieId;
             const userId = input.userId;
@@ -79,7 +80,7 @@ class RatingManager {
         }
     };
 
-    public deleteRating = async (input: { [key: string]: any }) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
             const movieId = input.movieId;
             const userId = input.userId;

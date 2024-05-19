@@ -1,6 +1,6 @@
 import { UserController } from "./user.controller";
 import { Request, Response } from "express";
-import { AuthenticatedRequest } from "../interfaces/authenticatedRequest";
+import { AuthenticatedRequest } from "../interfaces/interfaces";
 import MovieManager from "../models/managers/movie.manager";
 import GenreManager from "../models/managers/genre.manager";
 import LabelManager from "../models/managers/label.manager";
@@ -13,7 +13,14 @@ import SaleManager from "../models/managers/sale.manager";
 class AdminController extends UserController {
     public getUsers = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const users = await UserManager.getUsers({});
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
+            const users = await UserManager.getDatas({});
             res.status(200).json(users);
         } catch (err) {
             console.log("Error getting Users:", err);
@@ -29,6 +36,13 @@ class AdminController extends UserController {
         res: Response
     ) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const userId = req.params.userId;
             await UserManager.changeStatus({ userId });
             res.status(200).json({
@@ -45,8 +59,15 @@ class AdminController extends UserController {
 
     public deleteUser = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const userId = req.params.userId;
-            await UserManager.deleteUser({ userId });
+            await UserManager.deleteData({ userId });
             res.status(200).json({ message: "Delete User successfully" });
         } catch (err) {
             console.log("Error deleting User:", err);
@@ -62,6 +83,13 @@ class AdminController extends UserController {
         res: Response
     ) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const userId = req.params.userId;
             const planId = req.body.planId;
 
@@ -79,7 +107,14 @@ class AdminController extends UserController {
 
     public getMovies = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const movies = await MovieManager.getMovies({});
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
+            const movies = await MovieManager.getDatas({});
             res.status(200).json(movies);
         } catch (err) {
             console.log("Error getting Movies:", err);
@@ -95,6 +130,13 @@ class AdminController extends UserController {
         res: Response
     ) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const movieId = req.params.movieId;
             await MovieManager.changeStatus({ movieId });
             res.status(200).json({
@@ -111,8 +153,15 @@ class AdminController extends UserController {
 
     public deleteMovie = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const movieId = req.params.movieId;
-            await MovieManager.deleteMovie({ movieId });
+            await MovieManager.deleteData({ movieId });
             res.status(200).json({ message: "Delete movie successfully" });
         } catch (err) {
             console.log("Error deleting movie:", err);
@@ -128,13 +177,20 @@ class AdminController extends UserController {
         res: Response
     ) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const movieId = parseInt(req.params.movieId as string);
 
             if (!movieId) {
                 throw new Error("Movie not found");
             }
 
-            let data = await MovieManager.getMovies({ movieId });
+            let data = await MovieManager.getDatas({ movieId });
             if (data.length === 0) {
                 res.status(300).json({ message: "Movie not found" });
             } else {
@@ -172,7 +228,7 @@ class AdminController extends UserController {
                     throw new Error("Invalid data. Please check again.");
                 }
 
-                await MovieManager.updateMovie({
+                await MovieManager.updateData({
                     movieId,
                     title,
                     description,
@@ -199,6 +255,13 @@ class AdminController extends UserController {
 
     public addMovie = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const title: string = req.body.title;
             const description: string = req.body.description;
             const release_year: number = req.body.release_year;
@@ -224,7 +287,7 @@ class AdminController extends UserController {
                 throw new Error("Invalid data. Please check again.");
             }
 
-            await MovieManager.addMovie({
+            await MovieManager.addData({
                 title,
                 description,
                 release_year,
@@ -248,6 +311,13 @@ class AdminController extends UserController {
 
     public addPlan = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const name: string = req.body.name;
             const price: number = req.body.price;
             const duration: number = req.body.duration;
@@ -258,7 +328,7 @@ class AdminController extends UserController {
                 throw new Error("Invalid data. Please check again.");
             }
 
-            await PlanManager.addPlan({
+            await PlanManager.addData({
                 name,
                 price,
                 duration,
@@ -278,6 +348,13 @@ class AdminController extends UserController {
 
     public updatePlan = async (req: AuthenticatedRequest, res: Response) => {
         try {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
             const id: number = parseInt(req.params.planId as string);
             const name: string = req.body.name;
             const price: number = req.body.price;
@@ -296,7 +373,7 @@ class AdminController extends UserController {
                 throw new Error("Invalid data. Please check again.");
             }
 
-            await PlanManager.updatePlan({
+            await PlanManager.updateData({
                 id,
                 name,
                 price,
@@ -317,12 +394,19 @@ class AdminController extends UserController {
 
     public deletePlan = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const id: number = parseInt(req.params.planId as string);
-            if (!id) {
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
+            const planId: number = parseInt(req.params.planId as string);
+            if (!planId) {
                 throw new Error("No plan found");
             }
 
-            await PlanManager.deletePlan(id);
+            await PlanManager.deleteData({planId});
 
             res.status(200).json({ message: "Delete plan successfully" });
         } catch (err) {
@@ -336,7 +420,14 @@ class AdminController extends UserController {
 
     public getSales = async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const sales = await SaleManager.getSales({});
+            const userRole = req.role;
+            if (userRole !== "admin") {
+                res.status(403).json({
+                    message: "You are not allowed to access this resource",
+                });
+                return;
+            }
+            const sales = await SaleManager.getDatas({});
             res.status(200).json(sales);
         } catch (err) {
             console.log("Error getting Sales:", err);
@@ -345,8 +436,7 @@ class AdminController extends UserController {
                 error: err,
             });
         }
-    
-    }
+    };
 }
 
 export default new AdminController();

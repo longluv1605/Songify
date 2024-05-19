@@ -15,7 +15,11 @@ class ProfileAPI implements API {
             authenticateToken,
             UserController.getProfile
         );
-        this.router.put(this.path, authenticateToken, UserController.updateProfile);
+        this.router.put(
+            this.path,
+            authenticateToken,
+            UserController.updateProfile
+        );
     }
 }
 

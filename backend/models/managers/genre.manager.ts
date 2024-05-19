@@ -1,7 +1,8 @@
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces"
 
-class GenreManager {
-    public getGenres = async () => {
+class GenreManager implements Manager {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
             const sql = "SELECT * FROM genre";
             const genres = await Database.query(sql);
@@ -12,8 +13,16 @@ class GenreManager {
         }
     }
 
-    public addGenre = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const genreName = input.genreName;
 
             const insertGenreSql = `
@@ -31,8 +40,16 @@ class GenreManager {
         }
     };
 
-    public updateGenre = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const genreName = input.genreName;
             const newGenreName = input.newGenreName;
 
@@ -52,8 +69,17 @@ class GenreManager {
         }
     };
 
-    public deleteGenre = async (genreName: string) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
+            const genreName = input.genreName;
             const deleteGenreSql = `
                 DELETE FROM genre
                 WHERE name = ?;

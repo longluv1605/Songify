@@ -1,7 +1,8 @@
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces"
 
-class LabelManager {
-    public getLabels = async () => {
+class LabelManager implements Manager {
+    public getDatas = async (input: { [key: string]: any }) => {
         try {
             const sql = "SELECT * FROM label";
             const labels = await Database.query(sql);
@@ -12,8 +13,16 @@ class LabelManager {
         }
     }
 
-    public addLabel = async (input: { [key: string]: any }) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const labelName = input.labelName;
             const description = input.description;
 
@@ -32,8 +41,16 @@ class LabelManager {
         }
     };
 
-    public updateLabel = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const labelName = input.labelName;
             const newLabelName = input.newLabelName;
             const newDescription = input.newDescription;
@@ -54,8 +71,17 @@ class LabelManager {
         }
     };
 
-    public deleteLabel = async (labelName: string) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
+            const labelName = input.labelName;
             const deleteLabelSql = `
                 DELETE FROM label
                 WHERE name = ?;

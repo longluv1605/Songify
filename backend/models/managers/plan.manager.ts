@@ -1,40 +1,49 @@
 import Database from "../../database/database";
+import { Manager } from "../../interfaces/interfaces";
 
-class PlanManager {
+class PlanManager implements Manager {
     // TODO: Implement the GET method
-    public getPlans = async (input: {[key: string]: any}) => {
+    public getDatas = async (input: {[key: string]: any}) => {
         try {
-            const id = input.id;
-            if (id !== "all") {
+            // Get by plan id
+            const planId = input.planId;
+            if (planId) {
                 const sql = "SELECT * FROM pricing_plan WHERE id = ?";
-                const plans = await Database.query(sql, [id]);
+                const plans = await Database.query(sql, [planId]);
                 return plans;
             }
+
+            // Get by user id
+            const userId = input.userId;
+            if (userId) {
+                const sql = "SELECT * FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = ?)";
+                const plans = await Database.query(sql, [userId]);
+                return plans;
+            }
+
+            // Get all plans
             const sql = "SELECT * FROM pricing_plan";
             const plans = await Database.query(sql);
             return plans;
         } catch (err) {
             console.log("Error getting plans:", err);
-            throw err;
+            throw {
+                message: "Error getting plans",
+                error: err,
+            };
         }
     };
 
-    public getUserPlan = async (input: {[key: string]: any}) => {
+    public addData = async (input: { [key: string]: any }) => {
         try {
-            const userId = input.userId;
+            const userRole = input.userRole;
 
-            const sql = "SELECT * FROM pricing_plan WHERE id = (SELECT plan_id FROM user_plan WHERE user_id = ?)";
-            const plans = await Database.query(sql, [userId]);
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
 
-            return plans;
-        } catch (err) {
-            console.log("Error getting user plan:", err);
-            throw err;
-        }
-    };
-
-    public addPlan = async (input: { [key: string]: any }) => {
-        try {
             const name = input.name;
             const price = input.price;
             const duration = input.duration;
@@ -62,8 +71,16 @@ class PlanManager {
         }
     };
 
-    public updatePlan = async (input: { [key: string]: any }) => {
+    public updateData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
             const id = input.id;
             const planName = input.planName;
             const price = input.price;
@@ -94,10 +111,19 @@ class PlanManager {
         }
     };
 
-    public deletePlan = async (id: number) => {
+    public deleteData = async (input: { [key: string]: any }) => {
         try {
+            const userRole = input.userRole;
+
+            if (!userRole || userRole !== "admin") {
+                throw {
+                    message: "You are not authorized to add genre",
+                };
+            }
+
+            const planId = input.planId;
             const deletePlanSql = `DELETE FROM pricing_plan WHERE id = ?`;
-            await Database.query(deletePlanSql, [id]);
+            await Database.query(deletePlanSql, [planId]);
             return { message: "Delete plan successfully" };
         } catch (err) {
             console.log("Error deleting plan:", err);
