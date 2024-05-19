@@ -15,7 +15,7 @@ const sale = async() => {
             headers: {Authorization: `Bearer ${admin_token}`}
         }
         )
-        console.log(response.data.data);
+        // console.log(response.data.data);
         generateSales(response.data.data)
         display_total.textContent = total_sales.toFixed(2) + "$"
         all_transactions = response.data.data
@@ -159,22 +159,22 @@ document.addEventListener('DOMContentLoaded',function(){
         let selectedValue = this.value;
         if(selectedValue == 0){
             display_total.textContent = total_sales.toFixed(2) + "$"
-            console.log("changed option");
+            // console.log("changed option");
         }
         else if(selectedValue == 1){
             let sales = calculateRevenue(all_transactions, startOfToday, endOfToday)
             display_total.textContent = sales.toFixed(2) + "$"
-            console.log("changed option");
+            // console.log("changed option");
         }
         else if(selectedValue == 2){
             let sales = calculateRevenue(all_transactions, startOfWeek, endOfWeek)
             display_total.textContent = sales.toFixed(2) + "$"
-            console.log("changed option");
+            // console.log("changed option");
         }
         else{
             let sales = calculateRevenue(all_transactions, startOfMonth, endOfMonth)
             display_total.textContent = sales.toFixed(2) + "$"
-            console.log("changed option");
+            // console.log("changed option");
         }
     })
 })
