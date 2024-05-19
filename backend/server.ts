@@ -1,46 +1,32 @@
-import {
-    FilterAPI,
-    HomeAPI,
-    SearchAPI,
-    MovieAPI,
-    PlanAPI,
-    ProfileAPI,
-    LoginAPI,
-    RegisterAPI,
-    CommentAPI,
-    RatingAPI,
-    PasswordAPI,
-    LogoutAPI,
-    ForgotPasswordAPI,
-    AdminLoginAPI,
-    AdminLogoutAPI,
-    AdminMovieAPI,
-    AdminUserAPI,
-    AdminProfileAPI,
-    AdminSaleAPI,
-} from "./apis/apis";
 import App from "./app";
+import SignInAPI from "./apis/signin.api";
+import SignOutAPI from "./apis/signout.api";
+import SignUpAPI from "./apis/signup.api";
+import HomeAPI from "./apis/home.api";
+import PlanAPI from "./apis/plan.api";
+import MovieAPI from "./apis/movie.api";
+import SearchAPI from "./apis/search.api";
+import FilterAPI from "./apis/filter.api";
+import PasswordAPI from "./apis/password.api";
+import ProfileAPI from "./apis/profile.api";
+import UserManageAPI from "./apis/admin/user_manage.api";
+import MovieManageAPI from "./apis/admin/movie_manage.api";
+import SaleManageAPI from "./apis/admin/sale_manage.api";
 
 const apis = [
-    new HomeAPI(),
-    new FilterAPI(),
-    new SearchAPI(),
-    new MovieAPI(),
-    new PlanAPI(),
-    new ProfileAPI(),
-    new LoginAPI(),
-    new RegisterAPI(),
-    new CommentAPI(),
-    new RatingAPI(),
-    new PasswordAPI(),
-    new LogoutAPI(),
-    new ForgotPasswordAPI(),
-    new AdminLoginAPI(),
-    new AdminLogoutAPI(),
-    new AdminMovieAPI(),
-    new AdminUserAPI(),
-    new AdminProfileAPI(),
-    new AdminSaleAPI(),
+    SignInAPI,
+    SignOutAPI,
+    SignUpAPI,
+    HomeAPI,
+    PlanAPI,
+    MovieAPI,
+    SearchAPI,
+    FilterAPI,
+    PasswordAPI,
+    ProfileAPI,
+    UserManageAPI,
+    MovieManageAPI,
+    SaleManageAPI,
 ];
 
 const app = new App(apis);

@@ -1,8 +1,8 @@
 import { Response, NextFunction } from "express";
 import jwt, { Secret } from "jsonwebtoken";
 import dotenv from "dotenv";
-import { AuthenticatedRequest } from "../interfaces/authenticatedRequest";
-import LogoutController from "../controllers/user/logout.controller";
+import { AuthenticatedRequest } from "../interfaces/interfaces";
+import SessionManager from "../models/systems/session.manager";
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ const authenticateToken = (
     const token = authHeader && authHeader.split(" ")[1];
     if (token == null) return res.sendStatus(401); // Unauthorized
 
-    if (isBlacklisted(token)) {
+    if (SessionManager.isBlacklisted(token)) {
         return res.sendStatus(403); // Forbidden
     }
 
@@ -30,9 +30,5 @@ const authenticateToken = (
         next();
     });
 };
-
-function isBlacklisted(token: string): boolean {
-    return LogoutController.blacklist.includes(token);
-}
 
 export default authenticateToken;
