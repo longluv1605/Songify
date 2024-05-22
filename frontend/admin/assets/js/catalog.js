@@ -18,9 +18,11 @@ function createActiveButton(){
     svg_of_button1.appendChild(path_of_svg_button1);
     button1.appendChild(svg_of_button1);
     div.appendChild(button1);
-    var a2 = document.createElement("a");
-    a2.href = "/admin-edit-item";
-    a2.className = "catalog__btn catalog__btn--edit";
+    var a2 = document.createElement("button");
+    a2.type = "button";
+    // a2.className = "editButton";
+    // a2.href = "/admin-edit-item";
+    a2.className = "catalog__btn catalog__btn--edit editButton";
     var svg_of_a2 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg_of_a2.setAttribute("viewBox", "0 0 24 24");
     var path_of_svg_a2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -91,7 +93,7 @@ function createLineNewItem(id, title, genres, average_rating, views, status, add
     var td6 = document.createElement("td");
     var div6 = document.createElement("div");
     div6.textContent = status.toUpperCase();
-    if (status === "hidden") {
+    if (status === "hide") {
         div6.className = "catalog__text catalog__text--red";
     } else if (status === "show") {
         div6.className = "catalog__text catalog__text--green";
@@ -137,15 +139,16 @@ function confirmDelete() {
         if (lastClickedRow) {
             var cellsToEdit = lastClickedRow.getElementsByTagName('td');
             var cellToEdit = cellsToEdit[0];
-            var id = cellToEdit.textContent;
-            axios.delete(`http://localhost:8080/api/admin/movie?movieId=${id}`,
+            var cellToEdit2 = cellToEdit.querySelector('div');
+            var id = cellToEdit2.textContent;
+            axios.delete(`http://localhost:8080/api/admin/movie_manage/delete/${id}`,
                 {
                     headers: {Authorization: `Bearer ${token_admin}`}
                 }
             )
             .then(response => {
                 showCustomAlert(response.data.message);
-                window.location.reload();
+                // window.location.reload();
             })
             .catch(error => {
                 console.log(error);
@@ -176,25 +179,26 @@ function confirmApply() {
         if (lastClickedRow) {
             var cellsToEdit = lastClickedRow.getElementsByTagName('td');
             var cellToEdit = cellsToEdit[5];
+            var cellToEdit2 = cellToEdit.querySelector('div');
             // Chỉnh sửa giá trị của cột
-            if (cellToEdit.textContent == "HIDDEN") {
-                // cellToEdit.className = "catalog__text catalog__text--green";
-                cellToEdit.textContent = "SHOW";
+            if (cellToEdit.textContent == "HIDE") {
+                cellToEdit2.className = "catalog__text catalog__text--green";
+                cellToEdit2.textContent = "SHOW";
             } else if (cellToEdit.textContent == "SHOW") {
-                // cellToEdit.className = "catalog__text catalog__text--red";
-                cellToEdit.textContent = "HIDDEN";
+                cellToEdit2.className = "catalog__text catalog__text--red";
+                cellToEdit2.textContent = "HIDE";
             }
             const id = cellsToEdit[0].textContent;
-            axios.put(`http://localhost:8080/api/admin/movie?movieId=${id}`,     // ĐỢI LONG CHỈNH
+            axios.put(`http://localhost:8080/api/admin/movie_manage/change_status/${id}`,    
                 {
-                    status: cellToEdit.textContent.toLowerCase()
+                    status: cellToEdit2.textContent.toLowerCase()
                 },
                 {
                     headers: {Authorization: `Bearer ${token_admin}`}
                 }
             ).then(response => {
                 showCustomAlert(response.data.message);
-                window.location.reload();
+                // window.location.reload();
             }).catch(error =>{
                 showCustomAlert(error.response.data.message);
             });
@@ -206,25 +210,45 @@ function confirmApply() {
 const fetchData = async () => {
     try {
         const token_admin = localStorage.getItem('token_admin');
-        const response = await axios.get('http://localhost:8080/api/admin/movie',
+        const response = await axios.get('http://localhost:8080/api/admin/movie_manage/get',
             {
                 headers : {Authorization: `Bearer ${token_admin}`}
             }
         );
-        return response.data.movies;
+        // console.log(response.data);
+        return response.data;
     } catch (error) {
         console.log(error);
     }
 };
 
+function editButton(){
+    const editButton = document.querySelectorAll('.editButton');
+    // console.log(editButton);
+    editButton.forEach(function(button){
+        button.addEventListener('click', function(){
+            var lastClickedRow = button.parentElement.parentElement.parentElement;
+            if (lastClickedRow) {
+                var cellsToEdit = lastClickedRow.getElementsByTagName('td');
+                var cellToEdit = cellsToEdit[0];
+                var cellToEdit2 = cellToEdit.querySelector('div');
+                var id = cellToEdit2.textContent;
+                sessionStorage.setItem('checkMovieId', id);
+                window.location.href = "http://localhost:3000/admin-edit-item";
+            }
+        });
+    });
+};
+
 document.addEventListener("DOMContentLoaded", function(){
     const total = document.getElementsByClassName("main__title-stat");
-    axios.get('http://localhost:8080/api/admin/profile', 
+    axios.get('http://localhost:8080/api/profile', 
         {
             headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
         }
     ).then(response => {
-        const data = response.data.data[0];
+        // console.log(response.data);
+        const data = response.data.user[0];
         changeAdminName(data);
     }).catch(error => {
         showCustomAlert(error.response.data.message);
@@ -235,6 +259,8 @@ document.addEventListener("DOMContentLoaded", function(){
         add_data_for_table_items(movies);
         confirmDelete();
         confirmApply();
+        editButton();
     });
+
     
 });

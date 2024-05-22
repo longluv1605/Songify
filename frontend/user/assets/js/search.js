@@ -14,16 +14,12 @@ const dataSearch = async (searchValue) => {
         localStorage.setItem('movieid', response.data[0].id);
         window.location.href = "http://localhost:3000/catalog";
     } catch (error) {
-        // window.location.href = "http://localhost:3000/catalog";
+        window.location.href = "http://localhost:3000/catalog";
     }
 };
 
 // Load giá trị của placeholder từ Local Storage khi trang được load
 window.addEventListener("DOMContentLoaded", function() {
-    // var savedPlaceholder = localStorage.getItem("search");
-    // if (savedPlaceholder) {
-    //     document.getElementById("submitSearch").querySelector('input').placeholder = savedPlaceholder;
-    // }
     document.querySelectorAll(".submitSearch").forEach((item) => {
         item.addEventListener("submit", function(event) {
             event.preventDefault();
@@ -37,7 +33,7 @@ window.addEventListener("DOMContentLoaded", function() {
                 return;
             }
             localStorage.setItem("search", value);
-            dataSearch(value);    
+            window.location.href = "http://localhost:3000/catalog";    
         });
         const button = item.querySelector("button");
         button.addEventListener("click", function() {
@@ -48,7 +44,7 @@ window.addEventListener("DOMContentLoaded", function() {
                 return;
             }
             localStorage.setItem("search", value);
-            dataSearch(value);
+            window.location.href = "http://localhost:3000/catalog";    
         });
     });
 });

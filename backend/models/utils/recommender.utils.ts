@@ -13,7 +13,7 @@ class Recommender {
                 ml.label, 
                 mv.views
             FROM 
-                movie m
+                (SELECT * FROM movie WHERE status = 'show') m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 
@@ -53,7 +53,7 @@ class Recommender {
                 ml.label, 
                 mv.views
             FROM 
-                (SELECT * FROM movie WHERE id IN (SELECT movie_id FROM user_history WHERE user_id = 3 ORDER BY date DESC)) m
+                (SELECT * FROM (SELECT * FROM movie WHERE status = 'show') AS sm WHERE sm.id IN (SELECT movie_id FROM user_history WHERE user_id = ? ORDER BY date DESC)) m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 
@@ -95,7 +95,7 @@ class Recommender {
                     ml.label, 
                     mv.views
                 FROM 
-                    (SELECT * FROM movie WHERE id IN (SELECT movie_id FROM user_favorite WHERE user_id = ? AND movie_id = ?)) m
+                    (SELECT * FROM (SELECT * FROM movie WHERE status = 'show') AS sm WHERE sm.id IN (SELECT movie_id FROM user_favorite WHERE user_id = ? AND movie_id = ?)) m
                 LEFT JOIN 
                     (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
                 LEFT JOIN 
@@ -111,6 +111,7 @@ class Recommender {
                 return favorite;
             }
 
+
             const sql: string = `
             SELECT 
                 m.id, 
@@ -121,7 +122,7 @@ class Recommender {
                 ml.label, 
                 mv.views
             FROM 
-                (SELECT * FROM movie WHERE id IN (SELECT movie_id FROM user_favorite WHERE user_id = ?)) m
+                (SELECT * FROM (SELECT * FROM movie WHERE status = 'show') AS sm WHERE sm.id IN (SELECT movie_id FROM user_favorite WHERE user_id = ?)) m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 

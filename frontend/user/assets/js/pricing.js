@@ -11,7 +11,7 @@ const getPlan = async() => {
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(response.data);
+        // console.log(response.data);
         loadPriceplans(response.data.planDatas);
         let expire_date = new Date(response.data.userPlan[0].exp_date)
         expire = response.data.userPlan[0].exp_date
@@ -65,7 +65,7 @@ const purchase = async(id, payment_method) =>{
             headers: {Authorization: `Bearer ${token}`}
         }
         )
-        console.log(response);
+        // console.log(response);
         window.location.reload()
     }
     catch(error){
@@ -84,13 +84,13 @@ const buy_plan = document.querySelector(".sign__btn.sign__btn--modal")
 document.addEventListener("DOMContentLoaded", function(){
     getPlan();
     buy_plan.addEventListener("click",function(){
-        if(had_plan){
-            var modal = document.getElementById("plan-modal");
-            var bootstrapModal = bootstrap.Modal.getInstance(modal);
-            bootstrapModal.hide();
-            showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
-            return
-        }
+        // if(had_plan){
+        //     var modal = document.getElementById("plan-modal");
+        //     var bootstrapModal = bootstrap.Modal.getInstance(modal);
+        //     bootstrapModal.hide();
+        //     showCustomAlert("Your plan has not expired yet! Expire date is: " + expire.slice(0,10))
+        //     return
+        // }
         let option = document.getElementById("value")
         let selected = option.value
         let selectedValueInt = parseInt(selected, 10);

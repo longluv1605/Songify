@@ -20,7 +20,7 @@ class AdminController extends UserController {
                 });
                 return;
             }
-            const users = await UserManager.getDatas({});
+            const users = await UserManager.getDatas({userRole});
             res.status(200).json(users);
         } catch (err) {
             console.log("Error getting Users:", err);
@@ -44,7 +44,7 @@ class AdminController extends UserController {
                 return;
             }
             const userId = req.params.userId;
-            await UserManager.changeStatus({ userId });
+            await UserManager.changeStatus({ userId , userRole});
             res.status(200).json({
                 message: "Change User status successfully",
             });
@@ -93,7 +93,7 @@ class AdminController extends UserController {
             const userId = req.params.userId;
             const planId = req.body.planId;
 
-            await UserManager.changePlan({ userId, planId });
+            await UserManager.changePlan({ userId, planId , userRole});
 
             res.status(200).json({ message: "Change User plan successfully" });
         } catch (err) {
@@ -138,7 +138,7 @@ class AdminController extends UserController {
                 return;
             }
             const movieId = req.params.movieId;
-            await MovieManager.changeStatus({ movieId });
+            await MovieManager.changeStatus({ movieId , userRole});
             res.status(200).json({
                 message: "Change movie status successfully",
             });
@@ -161,7 +161,7 @@ class AdminController extends UserController {
                 return;
             }
             const movieId = req.params.movieId;
-            await MovieManager.deleteData({ movieId });
+            await MovieManager.deleteData({ movieId , userRole});
             res.status(200).json({ message: "Delete movie successfully" });
         } catch (err) {
             console.log("Error deleting movie:", err);
@@ -241,6 +241,7 @@ class AdminController extends UserController {
                     directors,
                     label,
                     genres,
+                    userRole
                 });
                 res.status(200).json({ message: "Update movie successfully" });
             }
@@ -270,8 +271,11 @@ class AdminController extends UserController {
             const trailer_url: string = req.body.trailer_url;
             const film_url: string = req.body.film_url;
             const label: string = req.body.label;
+            const actors: string = req.body.actors;
+            const directors: string = req.body.directors;
             const genres: any = req.body.genres;
-
+            console.log(title, description, release_year, duration, cover_img_url, trailer_url, film_url, label, actors, directors, genres);
+            
             if (
                 !title ||
                 !description ||
@@ -281,6 +285,8 @@ class AdminController extends UserController {
                 !trailer_url ||
                 !film_url ||
                 !label ||
+                !actors ||
+                !directors ||
                 !genres ||
                 genres.length === 0
             ) {
@@ -296,7 +302,10 @@ class AdminController extends UserController {
                 trailer_url,
                 film_url,
                 label,
+                actors,
+                directors,
                 genres,
+                userRole
             });
 
             res.status(200).json({ message: "Add movie successfully" });
@@ -427,7 +436,7 @@ class AdminController extends UserController {
                 });
                 return;
             }
-            const sales = await SaleManager.getDatas({});
+            const sales = await SaleManager.getDatas({userRole});
             res.status(200).json(sales);
         } catch (err) {
             console.log("Error getting Sales:", err);

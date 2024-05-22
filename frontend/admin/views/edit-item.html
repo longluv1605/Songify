@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from flixgo.volkovdesign.com/admin-/admin-add-item by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+<!-- Mirrored from flixgo.volkovdesign.com/admin-add-item.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,8 +13,8 @@
 	<link rel="stylesheet" href="css_admin/alert.css">
 
 	<!-- Favicons -->
-	<link rel="icon" type="image/png" href="icon_admin/favicon-32x32.png" sizes="32x32">
-	<link rel="apple-touch-icon" href="icon_admin/favicon-32x32.png">
+	<link rel="icon" type="image/png" href="icon_admin/icon.png" sizes="32x32">
+	<link rel="apple-touch-icon" href="icon_admin/icon.png">
 
 	<meta name="description" content="">
 	<meta name="keywords" content="">
@@ -29,7 +29,7 @@
 		<div class="header__content">
 			<!-- header logo -->
 			<a href="/admin-catalog" class="header__logo">
-				<img src="img_admin/logo.svg" alt="">
+				<img src="img_admin/logo.png" alt="">
 			</a>
 			<!-- end header logo -->
 
@@ -85,10 +85,6 @@
 			<li class="sidebar__nav-item">
 				<a href="/admin-sales" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.61,19.19A7,7,0,0,0,17.87,8.62,8,8,0,1,0,3.68,14.91L2.29,16.29a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,18H8.69A7,7,0,0,0,15,22h6a1,1,0,0,0,.92-.62,1,1,0,0,0-.21-1.09ZM8,15a6.63,6.63,0,0,0,.08,1H5.41l.35-.34a1,1,0,0,0,0-1.42A5.93,5.93,0,0,1,4,10a6,6,0,0,1,6-6,5.94,5.94,0,0,1,5.65,4c-.22,0-.43,0-.65,0A7,7,0,0,0,8,15ZM18.54,20l.05.05H15a5,5,0,1,1,3.54-1.46,1,1,0,0,0-.3.7A1,1,0,0,0,18.54,20Z"/></svg> Sales</a>
 			</li>
-			
-			<li class="sidebar__nav-item">
-				<a href="/admin-add-item" class="sidebar__nav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19.32.32,0,0,0-.09,0A.88.88,0,0,0,14.05,2H10A3,3,0,0,0,7,5V6H6A3,3,0,0,0,3,9V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V18h1a3,3,0,0,0,3-3V9S21,9,21,8.94ZM15,5.41,17.59,8H16a1,1,0,0,1-1-1ZM15,19a1,1,0,0,1-1,1H6a1,1,0,0,1-1-1V9A1,1,0,0,1,6,8H7v7a3,3,0,0,0,3,3h5Zm4-4a1,1,0,0,1-1,1H10a1,1,0,0,1-1-1V5a1,1,0,0,1,1-1h3V7a3,3,0,0,0,3,3h3Z"/></svg> Add Movies</a>
-			</li>
 		</ul>
 		<!-- end sidebar nav -->
 		
@@ -105,7 +101,7 @@
 				<!-- main title -->
 				<div class="col-12">
 					<div class="main__title">
-						<h2>Edit item</h2>
+						<h2>Edit Movie</h2>
 					</div>
 				</div>
 				<!-- end main title -->
@@ -118,13 +114,13 @@
 								<div class="row">
 									<div class="col-12">
 										<div class="sign__group">
-											<input type="text" class="sign__input" placeholder="Title">
+											<input type="text" class="sign__input" id="get_title" placeholder="">
 										</div>
 									</div>
 
 									<div class="col-12">
 										<div class="sign__group">
-											<textarea id="text" name="text" class="sign__textarea" placeholder="Description"></textarea>
+											<textarea type="text" name="text" class="sign__textarea" id="get_description" placeholder=""></textarea>
 										</div>
 									</div>
 
@@ -139,7 +135,7 @@
 
 									<div class="col-12 col-xl-12">
 										<div class="sign__group">
-											<input type="text" class="sign__input" placeholder="Link to the background">
+											<input type="text" class="sign__input" id="get_image_url" placeholder="">
 										</div>
 									</div>
 								</div>
@@ -149,16 +145,21 @@
 								<div class="row">
 									<div class="col-12 col-xl-6">
 										<div class="sign__group">
-											<select class="sign__selectjs" id="sign__quality">
-												<option value="FullHD">FullHD</option>
-												<option value="HD">HD</option>
+											<select class="sign__selectjs get_label" id="sign__quality">
+												<option value="All Labels">All Labels</option>
+												<option value="G">G</option>
+												<option value="NC-17">NC-17</option>
+												<option value="NR">NR</option>
+												<option value="PG">PG</option>
+												<option value="PG-13">PG-13</option>
+												<option value="R">R</option>
 											</select>
 										</div>
 									</div>
 
 									<div class="col-12 col-xl-6">
 										<div class="sign__group">
-											<input type="text" class="sign__input" placeholder="Age">
+											<input type="number" class="sign__input" id="get_release_year" placeholder="">
 										</div>
 									</div>
 
@@ -166,298 +167,62 @@
 										<div class="sign__group">
 											<select class="sign__selectjs" id="sign__genre" multiple>
 												<option value="Action">Action</option>
+												<option value="Adventure">Adventure</option>
 												<option value="Animation">Animation</option>
 												<option value="Comedy">Comedy</option>
 												<option value="Crime">Crime</option>
+												<option value="Documentary">Documentary</option>
 												<option value="Drama">Drama</option>
+												<option value="Family">Family</option>
 												<option value="Fantasy">Fantasy</option>
-												<option value="Historical">Historical</option>
+												<option value="History">History</option>
 												<option value="Horror">Horror</option>
+												<option value="Music">Music</option>
+												<option value="Mystery">Mystery</option>
 												<option value="Romance">Romance</option>
-												<option value="Science-fiction">Science-fiction</option>
+												<option value="Science Fiction">Science Fiction</option>
 												<option value="Thriller">Thriller</option>
+												<option value="TV Movie">TV Movie</option>
+												<option value="War">War</option>
 												<option value="Western">Western</option>
-												<option value="Otheer">Otheer</option>
 											</select>
 										</div>
 									</div>
 
 									<div class="col-12 col-xl-6">
 										<div class="sign__group">
-											<input type="text" class="sign__input" placeholder="Running time">
+											<input type="number" class="sign__input" id="get_duration" placeholder="">
 										</div>
 									</div>
 
 									<div class="col-12 col-xl-6">
 										<div class="sign__group">
-											<input type="text" class="sign__input" placeholder="Premiere date">
+											<input type="text" class="sign__input" id="get_director" placeholder="">
 										</div>
 									</div>
 
-									<div class="col-12">
+									<div class="col-12 col-xl-6">
 										<div class="sign__group">
-											<select class="sign__selectjs" id="sign__country" multiple>
-												<option value="Afghanistan">Afghanistan</option>
-												<option value="Åland Islands">Åland Islands</option>
-												<option value="Albania">Albania</option>
-												<option value="Algeria">Algeria</option>
-												<option value="American Samoa">American Samoa</option>
-												<option value="Andorra">Andorra</option>
-												<option value="Angola">Angola</option>
-												<option value="Anguilla">Anguilla</option>
-												<option value="Antarctica">Antarctica</option>
-												<option value="Antigua and Barbuda">Antigua and Barbuda</option>
-												<option value="Argentina">Argentina</option>
-												<option value="Armenia">Armenia</option>
-												<option value="Aruba">Aruba</option>
-												<option value="Australia">Australia</option>
-												<option value="Austria">Austria</option>
-												<option value="Azerbaijan">Azerbaijan</option>
-												<option value="Bahamas">Bahamas</option>
-												<option value="Bahrain">Bahrain</option>
-												<option value="Bangladesh">Bangladesh</option>
-												<option value="Barbados">Barbados</option>
-												<option value="Belarus">Belarus</option>
-												<option value="Belgium">Belgium</option>
-												<option value="Belize">Belize</option>
-												<option value="Benin">Benin</option>
-												<option value="Bermuda">Bermuda</option>
-												<option value="Bhutan">Bhutan</option>
-												<option value="Bolivia">Bolivia</option>
-												<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-												<option value="Botswana">Botswana</option>
-												<option value="Bouvet Island">Bouvet Island</option>
-												<option value="Brazil">Brazil</option>
-												<option value="Brunei Darussalam">Brunei Darussalam</option>
-												<option value="Bulgaria">Bulgaria</option>
-												<option value="Burkina Faso">Burkina Faso</option>
-												<option value="Burundi">Burundi</option>
-												<option value="Cambodia">Cambodia</option>
-												<option value="Cameroon">Cameroon</option>
-												<option value="Canada">Canada</option>
-												<option value="Cape Verde">Cape Verde</option>
-												<option value="Cayman Islands">Cayman Islands</option>
-												<option value="Central African Republic">Central African Republic</option>
-												<option value="Chad">Chad</option>
-												<option value="Chile">Chile</option>
-												<option value="China">China</option>
-												<option value="Colombia">Colombia</option>
-												<option value="Comoros">Comoros</option>
-												<option value="Congo">Congo</option>
-												<option value="Congo">Congo</option>
-												<option value="Cook Islands">Cook Islands</option>
-												<option value="Costa Rica">Costa Rica</option>
-												<option value="Cote D'ivoire">Cote D'ivoire</option>
-												<option value="Croatia">Croatia</option>
-												<option value="Cuba">Cuba</option>
-												<option value="Cyprus">Cyprus</option>
-												<option value="Czech Republic">Czech Republic</option>
-												<option value="Denmark">Denmark</option>
-												<option value="Djibouti">Djibouti</option>
-												<option value="Dominica">Dominica</option>
-												<option value="Dominican Republic">Dominican Republic</option>
-												<option value="Ecuador">Ecuador</option>
-												<option value="Egypt">Egypt</option>
-												<option value="El Salvador">El Salvador</option>
-												<option value="Equatorial Guinea">Equatorial Guinea</option>
-												<option value="Eritrea">Eritrea</option>
-												<option value="Estonia">Estonia</option>
-												<option value="Ethiopia">Ethiopia</option>
-												<option value="Faroe Islands">Faroe Islands</option>
-												<option value="Fiji">Fiji</option>
-												<option value="Finland">Finland</option>
-												<option value="France">France</option>
-												<option value="Gabon">Gabon</option>
-												<option value="Gambia">Gambia</option>
-												<option value="Georgia">Georgia</option>
-												<option value="Germany">Germany</option>
-												<option value="Ghana">Ghana</option>
-												<option value="Gibraltar">Gibraltar</option>
-												<option value="Greece">Greece</option>
-												<option value="Greenland">Greenland</option>
-												<option value="Grenada">Grenada</option>
-												<option value="Guadeloupe">Guadeloupe</option>
-												<option value="Guam">Guam</option>
-												<option value="Guatemala">Guatemala</option>
-												<option value="Guernsey">Guernsey</option>
-												<option value="Guinea">Guinea</option>
-												<option value="Guinea-bissau">Guinea-bissau</option>
-												<option value="Guyana">Guyana</option>
-												<option value="Haiti">Haiti</option>
-												<option value="Honduras">Honduras</option>
-												<option value="Hong Kong">Hong Kong</option>
-												<option value="Hungary">Hungary</option>
-												<option value="Iceland">Iceland</option>
-												<option value="India">India</option>
-												<option value="Indonesia">Indonesia</option>
-												<option value="Iran">Iran</option>
-												<option value="Iraq">Iraq</option>
-												<option value="Ireland">Ireland</option>
-												<option value="Isle of Man">Isle of Man</option>
-												<option value="Israel">Israel</option>
-												<option value="Italy">Italy</option>
-												<option value="Jamaica">Jamaica</option>
-												<option value="Japan">Japan</option>
-												<option value="Jersey">Jersey</option>
-												<option value="Jordan">Jordan</option>
-												<option value="Kazakhstan">Kazakhstan</option>
-												<option value="Kenya">Kenya</option>
-												<option value="Kiribati">Kiribati</option>
-												<option value="Korea">Korea</option>
-												<option value="Kuwait">Kuwait</option>
-												<option value="Kyrgyzstan">Kyrgyzstan</option>
-												<option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
-												<option value="Latvia">Latvia</option>
-												<option value="Lebanon">Lebanon</option>
-												<option value="Lesotho">Lesotho</option>
-												<option value="Liberia">Liberia</option>
-												<option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
-												<option value="Liechtenstein">Liechtenstein</option>
-												<option value="Lithuania">Lithuania</option>
-												<option value="Luxembourg">Luxembourg</option>
-												<option value="Macao">Macao</option>
-												<option value="Macedonia">Macedonia</option>
-												<option value="Madagascar">Madagascar</option>
-												<option value="Malawi">Malawi</option>
-												<option value="Malaysia">Malaysia</option>
-												<option value="Maldives">Maldives</option>
-												<option value="Mali">Mali</option>
-												<option value="Malta">Malta</option>
-												<option value="Marshall Islands">Marshall Islands</option>
-												<option value="Martinique">Martinique</option>
-												<option value="Mauritania">Mauritania</option>
-												<option value="Mauritius">Mauritius</option>
-												<option value="Mayotte">Mayotte</option>
-												<option value="Mexico">Mexico</option>
-												<option value="Moldova">Moldova</option>
-												<option value="Monaco">Monaco</option>
-												<option value="Mongolia">Mongolia</option>
-												<option value="Montenegro">Montenegro</option>
-												<option value="Montserrat">Montserrat</option>
-												<option value="Morocco">Morocco</option>
-												<option value="Mozambique">Mozambique</option>
-												<option value="Myanmar">Myanmar</option>
-												<option value="Namibia">Namibia</option>
-												<option value="Nauru">Nauru</option>
-												<option value="Nepal">Nepal</option>
-												<option value="Netherlands">Netherlands</option>
-												<option value="Netherlands Antilles">Netherlands Antilles</option>
-												<option value="New Caledonia">New Caledonia</option>
-												<option value="New Zealand">New Zealand</option>
-												<option value="Nicaragua">Nicaragua</option>
-												<option value="Niger">Niger</option>
-												<option value="Nigeria">Nigeria</option>
-												<option value="Niue">Niue</option>
-												<option value="Norfolk Island">Norfolk Island</option>
-												<option value="Northern Mariana Islands">Northern Mariana Islands</option>
-												<option value="Norway">Norway</option>
-												<option value="Oman">Oman</option>
-												<option value="Pakistan">Pakistan</option>
-												<option value="Palau">Palau</option>
-												<option value="Panama">Panama</option>
-												<option value="Papua New Guinea">Papua New Guinea</option>
-												<option value="Paraguay">Paraguay</option>
-												<option value="Peru">Peru</option>
-												<option value="Philippines">Philippines</option>
-												<option value="Pitcairn">Pitcairn</option>
-												<option value="Poland">Poland</option>
-												<option value="Portugal">Portugal</option>
-												<option value="Puerto Rico">Puerto Rico</option>
-												<option value="Qatar">Qatar</option>
-												<option value="Reunion">Reunion</option>
-												<option value="Romania">Romania</option>
-												<option value="Russian Federation">Russian Federation</option>
-												<option value="Rwanda">Rwanda</option>
-												<option value="Samoa">Samoa</option>
-												<option value="San Marino">San Marino</option>
-												<option value="Sao Tome and Principe">Sao Tome and Principe</option>
-												<option value="Saudi Arabia">Saudi Arabia</option>
-												<option value="Senegal">Senegal</option>
-												<option value="Serbia">Serbia</option>
-												<option value="Seychelles">Seychelles</option>
-												<option value="Sierra Leone">Sierra Leone</option>
-												<option value="Singapore">Singapore</option>
-												<option value="Slovakia">Slovakia</option>
-												<option value="Slovenia">Slovenia</option>
-												<option value="Solomon Islands">Solomon Islands</option>
-												<option value="Somalia">Somalia</option>
-												<option value="South Africa">South Africa</option>
-												<option value="Spain">Spain</option>
-												<option value="Sri Lanka">Sri Lanka</option>
-												<option value="Sudan">Sudan</option>
-												<option value="Suriname">Suriname</option>
-												<option value="Swaziland">Swaziland</option>
-												<option value="Sweden">Sweden</option>
-												<option value="Switzerland">Switzerland</option>
-												<option value="Syrian Arab Republic">Syrian Arab Republic</option>
-												<option value="Taiwan">Taiwan</option>
-												<option value="Tajikistan">Tajikistan</option>
-												<option value="Tanzania">Tanzania</option>
-												<option value="Thailand">Thailand</option>
-												<option value="Timor-leste">Timor-leste</option>
-												<option value="Togo">Togo</option>
-												<option value="Tokelau">Tokelau</option>
-												<option value="Tonga">Tonga</option>
-												<option value="Trinidad and Tobago">Trinidad and Tobago</option>
-												<option value="Tunisia">Tunisia</option>
-												<option value="Turkey">Turkey</option>
-												<option value="Turkmenistan">Turkmenistan</option>
-												<option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
-												<option value="Tuvalu">Tuvalu</option>
-												<option value="Uganda">Uganda</option>
-												<option value="Ukraine">Ukraine</option>
-												<option value="United Arab Emirates">United Arab Emirates</option>
-												<option value="United Kingdom">United Kingdom</option>
-												<option value="United States">United States</option>
-												<option value="Uruguay">Uruguay</option>
-												<option value="Uzbekistan">Uzbekistan</option>
-												<option value="Vanuatu">Vanuatu</option>
-												<option value="Venezuela">Venezuela</option>
-												<option value="Viet Nam">Viet Nam</option>
-												<option value="Western Sahara">Western Sahara</option>
-												<option value="Yemen">Yemen</option>
-												<option value="Zambia">Zambia</option>
-												<option value="Zimbabwe">Zimbabwe</option>
-											</select>
+											<input type="text" class="sign__input" id="get_trailer_url" placeholder="">
 										</div>
 									</div>
-								</div>
-							</div>
 
-							<div class="col-12 col-xl-4">
-								<div class="sign__group">
-									<input type="text" class="sign__input" placeholder="Director">
-								</div>
-							</div>
+									<div class="col-12 col-xl-6">
+										<div class="sign__group">
+											<input type="text" class="sign__input" id="get_film_url" placeholder="">
+										</div>
+									</div>
 
-							<div class="col-12 col-xl-8">
-								<div class="sign__group">
-									<input type="text" class="sign__input" placeholder="Actor">
+									
 								</div>
 							</div>
 
 							<div class="col-12">
 								<div class="sign__group">
-									<label class="sign__label">Item type:</label>
-									<ul class="sign__radio">
-										<li>
-											<input id="type1" type="radio" name="type"" data-bs-target=".multi-collapse" checked="">
-											<label for="type1">Movie</label>
-										</li>
-										<li>
-											<input id="type2" type="radio" name="type" data-bs-target=".multi-collapse">
-											<label for="type2">TV Series</label>
-										</li>
-									</ul>
+									<input type="text" class="sign__input" id="get_actor" placeholder="">
 								</div>
 							</div>
 
-							<!-- movie -->
-							<div class="col-12">
-								<div class="sign__group">
-									<input type="text" class="sign__input" placeholder="Link to the video">
-								</div>
-							</div>
 							<!-- <div class="col-12">
 								<div class="collapse show multi-collapse">
 									<div class="sign__video">
@@ -466,10 +231,9 @@
 									</div>
 								</div>
 							</div> -->
-							<!-- end movie -->
 
 							<div class="col-12">
-								<button type="button" class="sign__btn sign__btn--small"><span>Publish</span></button>
+								<button id="publish_button" type="button" class="sign__btn sign__btn--small"><span>Publish</span></button>
 							</div>
 						</div>
 					</form>
@@ -495,10 +259,10 @@
 	<script src="js_admin/smooth-scrollbar.js"></script>
 	<script src="js_admin/slimselect.min.js"></script>
 	<script src="js_admin/logout_admin.js"></script>
-	<script src="js_admin/alert_interface.js"></script>
 	<script src="js_admin/admin.js"></script>
+	<script src="js_admin/alert_interface.js"></script>
 	<script src="js_admin/edit-item.js"></script>
 </body>
 
-<!-- Mirrored from flixgo.volkovdesign.com/admin-/admin-add-item by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
+<!-- Mirrored from flixgo.volkovdesign.com/admin-add-item.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Apr 2024 16:34:21 GMT -->
 </html>

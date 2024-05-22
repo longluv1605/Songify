@@ -327,17 +327,105 @@ function generateReviews(items) {
     });
 }
 
+function changeUserInfomation(){
+    const change_color = document.getElementById("change_color");
+    let changeUserName = change_color.querySelector("h3");
+    let userId = document.getElementById("changeUserId");
+    let UserName = document.getElementsByClassName("changeUserName")[0];
+    let Email = document.getElementsByClassName("changeEmail")[0];
+    let FirstName = document.getElementsByClassName("changeFirstName")[0];
+    let LastName = document.getElementsByClassName("changeLastName")[0];
+    const id = sessionStorage.getItem("checkUserId");
+    axios.get(`http://localhost:8080/api/profile?userId=${id}`,
+      {
+        headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+      }
+    ).then(response => {
+        let data = response.data.user[0];
+        // console.log(data);
+        changeUserName.textContent = data.first_name + " " + data.last_name;
+        let userStatus = document.createElement("span");
+        if(data.status === "accepted"){
+            change_color.className = "profile__meta profile__meta--green";
+        }else if(data.status === "banned"){
+            change_color.className = "profile__meta profile__meta--red";
+        };
+        userStatus.textContent = '('+data.status.toUpperCase()+')';
+        // console.log(userStatus.textContent);
+        changeUserName.appendChild(userStatus);
+        userId.textContent = "User ID: "+data.id;
+        UserName.textContent = data.username;
+        Email.textContent = data.email;
+        FirstName.textContent = data.first_name;
+        LastName.textContent = data.last_name;
+    });
+    const statusButton = document.getElementById("statusButton");      
+    const ApplyButton = document.getElementById("ApplyButton");
+    ApplyButton.addEventListener("click", function(){
+      const status = changeUserName.querySelector("span");
+      if(status.textContent === "(ACCEPTED)"){
+        status.textContent = "(BANNED)";
+        change_color.className = "profile__meta profile__meta--red";
+      }else if(status.textContent === "(BANNED)"){
+          status.textContent = "(ACCEPTED)";
+          change_color.className = "profile__meta profile__meta--green";
+      }
+      var test = "banned";
+      if (status.textContent === "(ACCEPTED)"){
+          test = "accepted";
+      } else if (status.textContent === "(BANNED)"){
+          test = "banned";
+      };
+      // console.log(test);
+      axios.put(`http://localhost:8080/api/admin/user_manage/change_status/${id}`,
+        {
+          status: test
+        },
+        {
+          headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+        }
+      ).then(response => {
+          showCustomAlert("Change status successfully (.^_^.)"); 
+      }).catch(error => {
+          showCustomAlert("Change status failed (T_T)");
+      });
+    });
+};
+
+function changeUserPlan(){
+  const save_button = document.getElementById("save_button");
+  const id = sessionStorage.getItem("checkUserId");
+  save_button.addEventListener("click", function(){
+    const subscription = document.getElementById("subscription").value;
+    axios.put(`http://localhost:8080/api/admin/user_manage/change_plan/${id}`,
+      {
+        planId: subscription
+      },
+      {
+        headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
+      }
+    ).then(response => {
+        showCustomAlert("Change plan successfully (.^_^.)"); 
+    }).catch(error => {
+        showCustomAlert("Change plan failed (T_T)");
+    });
+  });
+
+};
+
 document.addEventListener("DOMContentLoaded", function(){
-    generateComments(comments);
-    generateReviews(reviews);
-    axios.get('http://localhost:8080/api/admin/profile', 
+    // generateComments(comments);
+    // generateReviews(reviews);
+    axios.get('http://localhost:8080/api/profile', 
         {
             headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
         }
     ).then(response => {
-        const data = response.data.data[0];
+        const data = response.data.user[0];
         changeAdminName(data);
-    }).catch(error => {
+      }).catch(error => {
         showCustomAlert(error.response.data.message);
-    });
+      });
+    changeUserInfomation();
+    changeUserPlan();
 })

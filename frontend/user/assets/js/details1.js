@@ -8,12 +8,16 @@ const getDetail = async (movieid) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(response.data);
+    // console.log(response.data);
     loadSkeleton();
-    updateDetails(response.data.movieData[0]);
+    await updateDetails(response.data.movieData[0]);
     generateComments(response.data.comments);
     getprofile();
-    if (response.data.your_rating[0].length != 0) {
+    if(response.data.isFavorite){
+      let changed = document.querySelector('#check-heart-button img')
+      changed.setAttribute("src", "img/covers/iconsheart-hover.png");
+    }
+    if (response.data.your_rating.length != 0) {
       upload_new_review(response.data.your_rating[0].value + " stars");
     }
   } catch (error) {
@@ -31,7 +35,7 @@ const postComment = async (movieid, context) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("Comment added successfully:", response.data);
+    // console.log("Comment added successfully:", response.data);
   } catch (error) {
     console.error("Error adding comment:", error);
   }
@@ -78,7 +82,7 @@ const UpdateView = async (movieid) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log(response);
+    // console.log(response);
   } catch (error) {
     console.log(error);
   }
@@ -95,7 +99,7 @@ const UpdateWatchHist = async (movieid) => {
     );
     // console.log(response);
   } catch (error) {
-    console.log(error);
+    console.log("<<<<<",error);
   }
 };
 
@@ -106,17 +110,45 @@ const getprofile = async () => {
     const response = await axios.get("http://localhost:8080/api/profile", {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(response.data);
+    // console.log(response.data);
     let needed = response.data.user[0];
     username = needed.first_name + " " + needed.last_name;
     if (username == 0) {
       username = "Undefined";
     }
-    console.log("username:", username);
+    // console.log("username:", username);
   } catch (error) {
     console.log(error);
   }
 };
+
+const add_to_wishlist = async() => {
+  try{
+    const response = await axios.post(`http://localhost:8080/api/movies/favorite/add/${localStorage.getItem("movieid")}`,null,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  )
+  // console.log(response);
+  }
+  catch(error){
+    console.log(">>>>>>>>>>>>>>..",error);
+  }
+}
+
+const delete_wishlist = async() => {
+  try{
+    const response = await axios.delete(`http://localhost:8080/api/movies/favorite/remove/${localStorage.getItem("movieid")}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  )
+  // console.log(response);
+  }
+  catch(error){
+    console.log("????",error);
+  }
+}
 
 function updateDetails(jsonData) {
   const id = document.getElementById("need_changing_details");
@@ -167,23 +199,12 @@ function updateDetails(jsonData) {
   img.id = "check-heart-hover";
   img.style.width = "35px";
   img.style.height = "auto";
-  img.addEventListener("mouseover", function () {
-    img.src = "img/covers/iconsheart-hover.png";
-  });
-  img.addEventListener("mouseout", function () {
-    img.src = "img/covers/iconsheart.png";
-  });
   button.appendChild(img);
-  button.addEventListener("click", function () {
-    if (img.src === "img/covers/iconsheart.png") {
-      img.src = "img/covers/iconsheart-hover.png";
-    } else {
-      img.src = "img/covers/iconsheart.png";
-    }
-  });
+
   button.style.width = "35px";
   button.style.height = "auto";
   button.style.marginLeft = "20px";
+
   title.appendChild(button);
   // Update cover image src
   itemCoverImg.src = jsonData.cover_img_url;
@@ -486,7 +507,7 @@ function selectGenre() {
   // console.log(randomIndex);
   // Sử dụng chỉ số đã chọn để lấy ra thể loại ngẫu nhiên
   let randomGenre = genresArray[randomIndex];
-  console.log("Recommend genre:", randomGenre);
+  // console.log("Recommend genre:", randomGenre);
   return randomGenre;
 }
 
@@ -520,12 +541,27 @@ function loadSkeleton() {
   Actors.textContent = "Actors:";
 }
 
+let wished = false
+
 document.addEventListener("DOMContentLoaded", function () {
   // localStorage.setItem("movieid",25);
   getDetail(localStorage.getItem("movieid")).then(function () {
     const recommended_genre = selectGenre();
     Recommend(recommended_genre);
+    let heart = document.getElementById('check-heart-button');
+    heart.addEventListener('click', function(){
+        changed = document.querySelector('#check-heart-button img')
+        if (changed.src.includes("img/covers/iconsheart-hover.png")) {
+          changed.setAttribute("src", "img/covers/iconsheart.png");
+          delete_wishlist()
+      } else {
+          changed.setAttribute("src", "img/covers/iconsheart-hover.png");
+          add_to_wishlist()
+      }
+    });
   });
+
+  
   //update_u_may_like(itemContents);
   // generateComments(commentsData);
   //generateReviewItems(reviews);
@@ -556,16 +592,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   watchMovie.addEventListener("click", function () {
-    console.log("watching");
+    // console.log("watching");
     // UpdateView(localStorage.getItem("movieid"));
     UpdateWatchHist(localStorage.getItem("movieid"));
   });
 
   recommended_list.forEach(function (element) {
     element.addEventListener("click", function () {
-      console.log(element.id);
+      // console.log(element.id);
       localStorage.setItem("movieid", element.id);
       window.location.href = "http://localhost:3000/details";
     });
   });
+   
 });

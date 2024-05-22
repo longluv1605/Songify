@@ -1,4 +1,11 @@
-# Bài tập lớn - Web nhạc - Songify
+# [Moflix - Nền tảng xem phim online.](https://github.com/longluv1605/Moflix)
+[Repository](https://github.com/longluv1605/Moflix)
+
+## Tài liệu.
+[Bản báo cáo sản phẩm](https://github.com/longluv1605/Moflix/blob/main/B%C3%A1o%20c%C3%A1o.pdf)
+
+## DEMO
+1. Video đemo sản phẩm tại [đây](https://youtu.be/Mqgsmuj0PNk?si=t6pUTKKYlrAq9J65).
 
 ## Thông tin nhóm: Nhóm 99.
 
@@ -31,4 +38,3 @@ Tạo file `.env` theo mẫu `.env.example`
 -   `npm run backend`: Khởi chạy BE.
 -   `npm run frontend`: Khởi chạy FE.
 -   `npm run dev`: Khởi chạy FE và BE.
-    

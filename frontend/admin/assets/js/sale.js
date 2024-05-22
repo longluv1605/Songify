@@ -10,15 +10,15 @@ function changeAdminName(data){
 
 const sale = async() => {
     try{
-        const response = await axios.get(`http://localhost:8080/api/admin/sale`,
+        const response = await axios.get(`http://localhost:8080/api/admin/sale_manage/get`,
         {
             headers: {Authorization: `Bearer ${admin_token}`}
         }
         )
-        console.log(response.data.data);
-        generateSales(response.data.data)
+        // console.log(response.data);
+        generateSales(response.data)
         display_total.textContent = total_sales.toFixed(2) + "$"
-        all_transactions = response.data.data
+        all_transactions = response.data
     }
     catch(error){
         console.log(error);
@@ -144,12 +144,12 @@ endOfMonth.setHours(23, 59, 59, 999);
 const filterSelect = document.getElementById('filter__sort');
 
 document.addEventListener('DOMContentLoaded',function(){
-    axios.get('http://localhost:8080/api/admin/profile', 
+    axios.get('http://localhost:8080/api/profile', 
         {
             headers: {Authorization: `Bearer ${localStorage.getItem('token_admin')}`}
         }
     ).then(response => {
-        const data = response.data.data[0];
+        const data = response.data.user[0];
         changeAdminName(data);
     }).catch(error => {
         showCustomAlert(error.response.data.message);

@@ -1,12 +1,12 @@
 const changePass = async(authCode, newPassword) => {
     try{
-        const response = await axios.post('http://localhost:8080/api/forgot',
+        const response = await axios.post('http://localhost:8080/api/password/forgot/verify_code',
             {
                 authCode: authCode,
                 newPassword: newPassword
             }
         )
-        console.log(response);
+        // console.log(response);
         changed_successfully.style.display = "block"
     }
     catch(error){

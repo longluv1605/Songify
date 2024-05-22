@@ -11,6 +11,24 @@ class MovieAPI implements API {
     }
     private initializeRoutes() {
         this.router.get(
+            this.path + "/favorite",
+            authenticateToken,
+            UserController.getFavoriteMovies
+        );
+        
+        this.router.get(
+            this.path + "/watchlist",
+            authenticateToken,
+            UserController.getWatchlist
+        );
+
+        this.router.get(
+            this.path + "/history",
+            authenticateToken,
+            UserController.getRecentlyViewedMovies
+        );
+
+        this.router.get(
             this.path + "/:movieId",
             authenticateToken,
             UserController.getMovieData
@@ -27,12 +45,6 @@ class MovieAPI implements API {
             UserController.deleteRecentlyViewedMovie
         );
 
-        this.router.get(
-            this.path + "/history",
-            authenticateToken,
-            UserController.getRecentlyViewedMovies
-        );
-
         this.router.post(
             this.path + "/favorite/add/:movieId",
             authenticateToken,
@@ -45,12 +57,6 @@ class MovieAPI implements API {
             UserController.deleteMovieFromFavorite
         );
 
-        this.router.get(
-            this.path + "/favorite",
-            authenticateToken,
-            UserController.getFavoriteMovies
-        );
-
         this.router.post(
             this.path + "/watchlist/:movieId",
             authenticateToken,
@@ -60,11 +66,6 @@ class MovieAPI implements API {
             this.path + "/watchlist/:movieId",
             authenticateToken,
             UserController.deleteMovieFromWatchlist
-        );
-        this.router.get(
-            this.path + "/watchlist",
-            authenticateToken,
-            UserController.getWatchlist
         );
 
         this.router.post(
