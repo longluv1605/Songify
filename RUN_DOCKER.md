@@ -14,4 +14,4 @@
 
 ## Docker-compose
 
-1. `docker-compose up`
+1. `docker-compose up --build`

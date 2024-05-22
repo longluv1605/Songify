@@ -6,12 +6,12 @@ class Database {
 
     constructor() {
         dotenv.config();
-        // console.log(process.env.DB_HOST);
-        // console.log(process.env.DB_USER);
-        // console.log(process.env.DB_PASS);
-        // console.log(process.env.DB_NAME);
-        const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 2021;
-        // console.log(port);
+        console.log(process.env.DB_HOST);
+        console.log(process.env.DB_USER);
+        console.log(process.env.DB_PASS);
+        console.log(process.env.DB_NAME);
+        const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306;
+        console.log(port);
 
         this.pool = mariadb.createPool({
             host: process.env.DB_HOST,

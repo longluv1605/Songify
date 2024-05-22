@@ -1,7 +1,7 @@
 
 
 -- Trigger for user_plan table
-DELIMITER //
+DELIMITER $$
 
 CREATE TRIGGER IF NOT EXISTS set_expire_date
 BEFORE INSERT ON user_plan
@@ -13,12 +13,12 @@ BEGIN
     WHERE id = NEW.plan_id;
 
     SET NEW.exp_date = DATE_ADD(NEW.start_date, INTERVAL plan_duration DAY);
-END//
+END$$
 
 DELIMITER ;
 
 -- Trigger for create user_plan when create user
-DELIMITER //
+DELIMITER $$
 
 CREATE TRIGGER  IF NOT EXISTS create_user_plan
 AFTER INSERT ON user
@@ -28,10 +28,10 @@ BEGIN
         INSERT INTO user_plan (user_id, plan_id)
         VALUES (NEW.id, 1);
     END IF;
-END//
+END$$
 
 -- Trigger for create sale when create user_purchase
-DELIMITER //
+DELIMITER $$
 
 CREATE TRIGGER  IF NOT EXISTS create_sale
 AFTER INSERT ON user_purchase
@@ -56,10 +56,10 @@ BEGIN
 
     INSERT INTO sale (username, plan, purchase_date, purchase_method, amount)
     VALUES (user_name, plan, NEW.purchase_date, NEW.purchase_method, amount);
-END//
+END$$
 
 -- Trigger for update user_plan when insert user_purchase
-DELIMITER //
+DELIMITER $$
 
 CREATE TRIGGER  IF NOT EXISTS update_user_plan
 AFTER INSERT ON user_purchase
@@ -70,4 +70,4 @@ BEGIN
     
     INSERT INTO user_plan (user_id, plan_id)
     VALUES (NEW.user_id, NEW.pricing_plan_id);
-END//
+END$$
