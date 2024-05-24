@@ -237,7 +237,7 @@ class UserController {
             const label = req.query.label;
             const genre = req.query.genre;
 
-            console.log("Filtering movie:", userId, label, genre);
+            // console.log("Filtering movie:", userId, label, genre);
 
             if (!userId) {
                 res.status(400).json({
