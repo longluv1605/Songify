@@ -171,3 +171,12 @@ CREATE TABLE IF NOT EXISTS sale (
     purchase_method VARCHAR(50),
     amount DECIMAL(10, 2)
 );
+
+
+CREATE TABLE IF NOT EXISTS cbrecommendation (
+    user_id INT,
+    movie_id INT,
+    PRIMARY KEY (user_id, movie_id),
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE
+);

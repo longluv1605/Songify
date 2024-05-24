@@ -15,3 +15,7 @@
 ## Docker-compose
 
 1. `docker-compose up --build`
+
+## Delete container
+
+1. `docker-compose down`
