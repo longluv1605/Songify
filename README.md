@@ -41,6 +41,11 @@
    -> Chạy lệnh `npm i`
    -> Chạy lệnh `npm run backend`
 
+## Sử dụng docker-compose
+1. Tải và cài đặt docker desktop
+2. Chỉnh sửa các biến trong environment của từng services trong file `docker-compose.yaml`
+3. Mở dự án, truy cập vào cửa sổ dòng lệnh, nhập `docker-compose up --build`
+
 # III - Sử dụng
 1. Truy cập `http://localhost:3000/` để truy cập vào web xem phim.
 2. Để truy cập vào mục quản trị dành riêng cho admin, truy cập `http://localhost:3000/admin/`
