@@ -146,3 +146,5 @@ def main(data, model=LinearRegression()):
 
 if __name__ == "__main__":
     main(None)
+else:
+    main(None)

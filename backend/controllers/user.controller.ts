@@ -102,7 +102,7 @@ class UserController {
             }
 
             // console.log("Getting home data for user:", userId);
-
+            const forYou = await MovieManager.getRecommender().getContentBasedRecommendation({userId})
             const newMovies =
                 await MovieManager.getRecommender().getNewMovies();
             const recentMovies =
@@ -112,7 +112,7 @@ class UserController {
 
             const genres = await GenreManager.getDatas({});
             const labels = await LabelManager.getDatas({});
-            res.status(200).json({ newMovies, recentMovies, genres, labels });
+            res.status(200).json({ newMovies, recentMovies, genres, labels, forYou});
         } catch (err) {
             res.status(500).json({
                 message: "Error getting home data",

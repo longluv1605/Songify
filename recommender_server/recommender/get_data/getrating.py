@@ -1,15 +1,15 @@
 import mariadb
 import pandas as pd
-import recommender_server.recommender.contentbased.config as config
+# import recommender_server.recommender.contentbased.config as config
 
 def get_data():
     # Cấu hình kết nối
     config = {
-        "host": config.DB_HOST,
-        "user": config.DB_USER,
-        "password": config.DB_PASSWORD,
-        "database": config.DB_NAME,
-        "port": config.DB_PORT,  # Port mặc định của MariaDB là 3306
+        "host": 'localhost',
+        "user": 'root',
+        "password": 'ducminh0985978867',
+        "database": 'moflix',
+        "port": 8000,# Port mặc định của MariaDB là 3306
     }
 
     try:
