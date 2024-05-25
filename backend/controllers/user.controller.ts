@@ -103,6 +103,8 @@ class UserController {
 
             // console.log("Getting home data for user:", userId);
             const forYou = await MovieManager.getRecommender().getContentBasedRecommendation({userId})
+            console.log("abcdef");
+            
             const newMovies =
                 await MovieManager.getRecommender().getNewMovies();
             const recentMovies =

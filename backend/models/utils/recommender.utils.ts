@@ -182,7 +182,7 @@ class Recommender {
                 ml.label, 
                 mv.views
             FROM 
-                (SELECT * FROM (SELECT * FROM movie WHERE status = 'show') AS sm WHERE sm.id IN (SELECT movie_id FROM cbrecommendation WHERE user_id = ? ORDER BY date DESC)) m
+                (SELECT * FROM (SELECT * FROM movie WHERE status = 'show') AS sm WHERE sm.id IN (SELECT movie_id FROM cbrecommendation WHERE user_id = ?)) m
             LEFT JOIN 
                 (SELECT movie_id, GROUP_CONCAT(DISTINCT genre_name ORDER BY genre_name SEPARATOR ', ') AS genres FROM movie_genre GROUP BY movie_id) mg ON m.id = mg.movie_id
             LEFT JOIN 

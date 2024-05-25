@@ -133,11 +133,17 @@ const fetchData = async(url) => {
 
 function UpdateDataNewItemOfThisSeason() {
     const getElementById = "add-now-watching";
+    const id_for_you = "add-item-for-movie";
     const url = `http://localhost:8080/api`;
     fetchData(url).then(dataset => {
+        // console.log(dataset);
         UpdateNewItemOfThisSeason(dataset.newMovies);
         addDataFilm(dataset.recentMovies, getElementById);
-        // console.log(dataset);
+        if (dataset.forYou != null && dataset.forYou != undefined && dataset.forYou != "" && dataset.forYou.length > 0) {
+            addDataFilm(dataset.forYou, id_for_you);
+        } else {
+            selectGenre();
+        }
     });
 };
 
@@ -157,11 +163,11 @@ function UpdateDataFilmGenres(genre, getElementById) {
 // };
 
 function selectGenre(){
-    const catalog = ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'];
+    const catalog = ['Action', 'Adventure', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family', 'Fantasy', 'History', 'Horror', 'Music', 'Mystery', 'Romance', 'Science Fiction', 'TV Movie', 'Thriller', 'War', 'Western'];
     let randomIndex = Math.floor(Math.random() * catalog.length);
     let randomGenre = catalog[randomIndex];
     // console.log(randomGenre);
-    getElementById = "add-item-for-movie";
+    const getElementById = "add-item-for-movie";
     UpdateDataFilmGenres(randomGenre, getElementById);
 }
 
@@ -170,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let getElementById = "add-item-for-anime";
     let genre = 'Animation';
     UpdateDataFilmGenres(genre, getElementById);
-    selectGenre();
+    // selectGenre();
 
     // Thêm sự kiện click cho từng item trong phần New items
     const movieItems = document.querySelectorAll('.splide__slide .item--big');
