@@ -15,13 +15,16 @@ import datahandler
 
 @method_decorator(csrf_exempt, name="dispatch")
 class TrainModelView(View):
+
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         try:
-            if request.method != "GET":
+            if request.method != "POST":
                 return JsonResponse(
                     {"status": "error", "message": "Invalid request method"}, status=405
                 )
             data = json.loads(request.body)
+            # print(data)
             # Call your model training function
             result = ml.main(data)
             result = {"status": "success", "message": "Model training is successful"}
@@ -31,14 +34,14 @@ class TrainModelView(View):
                 {"status": "error", "message": "Invalid JSON format"}, status=400
             )
         except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+            return JsonResponse({"status": "errorrrrrr", "message": str(e)}, status=500)
 
 
 # Path: recommender_server/recommender/contentbased/views.py
 
 
 class AddNewMovieView(View):
-    
+
     @csrf_exempt
     def post(self, request, *args, **kwargs):
         try:

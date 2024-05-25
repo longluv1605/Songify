@@ -15,6 +15,7 @@ def prepare(
     # merge data
     data = pd.merge(feature, label, on="Movie ID", how="inner")
     data = data.drop(["Movie ID", "User ID"], axis=1)
+    # print(data.shape)
     # print(data.head())
 
     xtrain = data.iloc[:, :-1].values
@@ -36,6 +37,7 @@ def single_train(xtrain, ytrain, model):
 def train(feature_path, label_path, model):
     feature = pd.read_csv(feature_path)
     label = pd.read_csv(label_path)
+    print(feature.shape, label.shape)
     W = []
     B = []
     # load data
@@ -43,6 +45,7 @@ def train(feature_path, label_path, model):
     for userId in label["User ID"].unique():
         print(f"userId: {userId}")
         xtrain, ytrain = prepare(feature, label[label["User ID"] == userId])
+        # print(xtrain.shape, ytrain.shape)
         w, b = single_train(xtrain, ytrain, model)
         W.append(w)
         B.append(b)
@@ -83,6 +86,12 @@ def insert_into_db(data):
         for userId, movieIds in data.items():
             # print(f"userId: {userId}")
             # print(f"movieIds: {movieIds}")
+            
+            sql = f"""
+                DELETE FROM cbrecommendation WHERE user_id = {userId}
+            """
+            cursor.execute(sql)
+            
             movieIds = movieIds[np.argsort(movieIds[:, 1])][:, 0][-10:][::-1]
             for movieId in movieIds:
                 sql = f"""
@@ -109,20 +118,23 @@ def insert_into_db(data):
 
 def main(data, model=LinearRegression()):
     if (data):
-        ratingDF = pd.DataFrame(data, columns=["User ID", "Movie ID", "Rating"])
+        print(">>:>:>::::::::",data)
+        ratingDF = pd.DataFrame(data).rename(columns={"user_id": "User ID", "movie_id": "Movie ID", "value": "Rating"})
     
         ratingDF = ratingDF.sort_values(by=["User ID", "Movie ID"])
+        print(ratingDF)
     
-        ratingDF.to_csv("recommender_server/recommender/ratings.csv", index=False)
+        ratingDF.to_csv("ratings.csv", index=False)
     print("Data loaded successfully")
     W, B = train(
-        "recommender_server/recommender/tfidf_matrix.csv",
-        "recommender_server/recommender/ratings.csv",
+        "tfidf_matrix.csv",
+        "ratings.csv",
         model,
     )
-    input = pd.read_csv("recommender_server/recommender/tfidf_matrix.csv").values
-    user = pd.read_csv("recommender_server/recommender/ratings.csv")["User ID"].unique()
+    input = pd.read_csv("tfidf_matrix.csv").values
+    user = pd.read_csv("ratings.csv")["User ID"].unique()
     recommendations = predict(user, input, W, B)
+    print(recommendations)
 
     # print(recommendations[1])
     insert_into_db(recommendations)

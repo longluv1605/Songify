@@ -10,21 +10,26 @@ class RatingManager implements Manager {
             const userId = input.userId;
 
             if (movieId && userId) {
-                sql =` 
+                sql = ` 
                     SELECT *,
                     (SELECT title FROM movie WHERE id = movie_id) AS movie_title,
                     (SELECT ROUND(AVG(value), 1) FROM user_rating WHERE movie_id = ?) AS avg_rating
                     FROM user_rating WHERE movie_id = ? AND user_id = ?
                     ORDER BY TIME DESC;
                 `;
-                const ratings = await Database.query(sql, [movieId, movieId, userId]);
+                const ratings = await Database.query(sql, [
+                    movieId,
+                    movieId,
+                    userId,
+                ]);
                 return ratings;
             } else if (movieId) {
-                sql = "SELECT first_name, last_name, (SELECT value FROM user_rating WHERE user_id = id and movie_id = ?) FROM user WHERE id IN (SELECT user_id FROM user_rating WHERE movie_id = ?)";
+                sql =
+                    "SELECT first_name, last_name, (SELECT value FROM user_rating WHERE user_id = id and movie_id = ?) FROM user WHERE id IN (SELECT user_id FROM user_rating WHERE movie_id = ?)";
                 const ratings = await Database.query(sql, [movieId, movieId]);
                 return ratings;
             } else if (userId) {
-                sql =` 
+                sql = ` 
                     SELECT *,
                     (SELECT title FROM movie WHERE id = movie_id) AS movie_title,
                     (SELECT ROUND(AVG(value), 1) FROM user_rating WHERE movie_id = movie_id) AS avg_rating
@@ -56,7 +61,7 @@ class RatingManager implements Manager {
             const deleteSql = `DELETE FROM user_rating WHERE movie_id = ? AND user_id = ?;`;
             await conn.query(deleteSql, [movieId, userId]);
 
-            console.log("delete rating success")
+            console.log("delete rating success");
 
             const insertRatingSql = `
                 INSERT INTO user_rating (movie_id, user_id, value)
@@ -64,14 +69,23 @@ class RatingManager implements Manager {
             `;
             await conn.query(insertRatingSql, [movieId, userId, rating]);
 
-            console.log("insert rating success")
+            console.log("insert rating success");
 
-            const count = await conn.query("SELECT COUNT(*) as count FROM user_rating WHERE user_id = ?", [userId]);
-            console.log("count------sds", Number(count[0].count))
+            const count = await conn.query(
+                "SELECT COUNT(*) as count FROM user_rating WHERE user_id = ?",
+                [userId]
+            );
+            // console.log("count------sds", Number(count[0].count));
             if (Number(count[0].count) % 5 == 0) {
-                const user_rating = await conn.query("SELECT user_id, movie_id, value FROM user_rating WHERE user_id = ?", [userId]);
-                await axios.post("http://localhost:8000/recommender/contentbased/train/", user_rating)
-                console.log("train success")
+                const user_rating = await conn.query(
+                    "SELECT user_id, movie_id, value FROM user_rating WHERE user_id = ?",
+                    [userId]
+                );
+                await axios.post(
+                    "http://localhost:2000/recommender/contentbased/train/",
+                    { user_rating }
+                );
+                console.log("train success");
             }
 
             await conn.commit();

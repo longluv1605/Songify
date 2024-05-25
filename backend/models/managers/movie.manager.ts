@@ -233,7 +233,7 @@ class MovieManager implements Manager {
                 ]
             ]
 
-            await axios.post("http://localhost:8000/recommender/contentbased/addnewmovie/", data);
+            await axios.post("http://localhost:2000/recommender/contentbased/addnewmovie/", data);
 
             return { message: "Add movie successfully" };
         } catch (err) {
