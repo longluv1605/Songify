@@ -19,5 +19,3 @@
 | Thay đổi lượng view của phim khi nhấn xem | `movie`    | `http://localhost:8080/api/movie?movieId=`       | `PUT`       |                                                                                              |
 | Đăng xuất                                 | `logout`   | `http://localhost:8080/api/logout`               | `GET`       |                                                                                              |
 | Mua gói                                   | `plans`    | `http://localhost:8080/api/plans`                | `POST`      | `JSON{"planId": "?", "paymentMethod": "?"}`                                                  |
-
-# Các api và đường link cùng phương thức http phía ADMIN

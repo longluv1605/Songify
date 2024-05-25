@@ -3,6 +3,7 @@ import Searcher from "../utils/searcher.utils";
 import Filter from "../utils/filter.util";
 import Recommender from "../utils/recommender.utils";
 import { Manager } from "../../interfaces/interfaces";
+import axios from "axios";
 
 class MovieManager implements Manager {
     private seacher: any;
@@ -223,6 +224,16 @@ class MovieManager implements Manager {
 
             // Release connection
             conn.release();
+
+            const genrestring = genres.join(", ");
+
+            const data = [
+                [
+                    movieId, genrestring
+                ]
+            ]
+
+            await axios.post("http://localhost:8000/recommender/contentbased/addnewmovie/", data);
 
             return { message: "Add movie successfully" };
         } catch (err) {

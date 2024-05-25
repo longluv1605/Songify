@@ -4,5 +4,6 @@ from . import views
 app_name = 'contentbased'  # Đặt tên namespace cho ứng dụng
 
 urlpatterns = [
-    path('contentbased/train/', views.TrainModelView.as_view(), name='cbtrain')
+    path('contentbased/train/', views.TrainModelView.as_view(), name='cbtrain'),
+    path('contentbased/addnewmovie/', views.AddNewMovieView.as_view(), name='addnewmovie'),
 ]

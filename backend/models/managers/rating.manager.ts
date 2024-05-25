@@ -1,3 +1,4 @@
+import axios from "axios";
 import Database from "../../database/database";
 import { Manager } from "../../interfaces/interfaces";
 
@@ -49,15 +50,33 @@ class RatingManager implements Manager {
             const userId = input.userId;
             const rating = input.rating;
 
-            await this.deleteData({ movieId: movieId, userId: userId });
+            const conn = await Database.getConnection();
+            conn.beginTransaction();
 
-            // console.log("res", res);
+            const deleteSql = `DELETE FROM user_rating WHERE movie_id = ? AND user_id = ?;`;
+            await conn.query(deleteSql, [movieId, userId]);
+
+            console.log("delete rating success")
 
             const insertRatingSql = `
                 INSERT INTO user_rating (movie_id, user_id, value)
                 VALUES (?, ?, ?);
             `;
-            await Database.query(insertRatingSql, [movieId, userId, rating]);
+            await conn.query(insertRatingSql, [movieId, userId, rating]);
+
+            console.log("insert rating success")
+
+            const count = await conn.query("SELECT COUNT(*) as count FROM user_rating WHERE user_id = ?", [userId]);
+            console.log("count------sds", Number(count[0].count))
+            if (Number(count[0].count) % 5 == 0) {
+                const user_rating = await conn.query("SELECT user_id, movie_id, value FROM user_rating WHERE user_id = ?", [userId]);
+                await axios.post("http://localhost:8000/recommender/contentbased/train/", user_rating)
+                console.log("train success")
+            }
+
+            await conn.commit();
+            conn.release();
+
             return { message: "Add rating successfully" };
         } catch (err) {
             console.log("Error adding rating:", err);
