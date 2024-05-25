@@ -6,3 +6,6 @@ data
 database/pyfake/fakedata/data_crawl.csv
 database/pyfake/fakedata/ratings.csv
 database/pyfake/fakedata/2k5data.csv
+
+config.py
+

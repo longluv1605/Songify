@@ -4,6 +4,14 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.feature_extraction.text import TfidfTransformer
 
+import sys
+import os
+
+sys.path.append(os.path.dirname(__file__))
+from config import dbconfig
+
+
+
 
 # data_path = tfidf_matrix.csv
 def prepare(
@@ -65,17 +73,13 @@ def predict(user, input, W, B):
 
 
 def insert_into_db(data):
-    config = {
-        "host": "localhost",
-        "user": "root",
-        "password": "ducminh0985978867",
-        "database": "moflix",
-        "port": 8000,  # Port mặc định của MariaDB là 3306
-    }
-
+    # Cấu hình kết nối
+    conn = None
     try:
+        conf = dbconfig
+        print(conf)
         # Tạo kết nối
-        conn = mariadb.connect(**config)
+        conn = mariadb.connect(**conf)
         print("Kết nối thành công đến MariaDB")
 
         # Tạo con trỏ để thực hiện truy vấn

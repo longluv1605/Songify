@@ -52,6 +52,8 @@ services:
             DB_USER: root
             DB_PASSWORD: 123
             DB_NAME: moflix
+            ML_SERVER_URL: "/recommender/contentbased"
+            ML_SERVER_PORT: 8000
         ports:
             - "8080:8080"
         depends_on:
