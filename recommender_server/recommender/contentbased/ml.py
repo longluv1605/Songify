@@ -68,9 +68,9 @@ def insert_into_db(data):
     config = {
         "host": "localhost",
         "user": "root",
-        "password": "longluv1605",
+        "password": "ducminh0985978867",
         "database": "moflix",
-        "port": 2021,  # Port mặc định của MariaDB là 3306
+        "port": 8000,  # Port mặc định của MariaDB là 3306
     }
 
     try:
@@ -120,7 +120,7 @@ def main(data, model=LinearRegression()):
     if (data):
         # print(">>:>:>::::::::",data)
         ratingDF = pd.DataFrame(data).rename(columns={"user_id": "User ID", "movie_id": "Movie ID", "value": "Rating"})
-    
+        
         ratingDF = ratingDF.sort_values(by=["User ID", "Movie ID"])
         print(ratingDF)
     
