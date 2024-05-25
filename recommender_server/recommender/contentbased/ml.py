@@ -68,9 +68,9 @@ def insert_into_db(data):
     config = {
         "host": "localhost",
         "user": "root",
-        "password": "longluv1605",
+        "password": "ducminh0985978867",
         "database": "moflix",
-        "port": 2021,  # Port mặc định của MariaDB là 3306
+        "port": 8000,  # Port mặc định của MariaDB là 3306
     }
 
     try:
@@ -118,9 +118,9 @@ def insert_into_db(data):
 
 def main(data, model=LinearRegression()):
     if (data):
-        print(">>:>:>::::::::",data)
+        # print(">>:>:>::::::::",data)
         ratingDF = pd.DataFrame(data).rename(columns={"user_id": "User ID", "movie_id": "Movie ID", "value": "Rating"})
-    
+        
         ratingDF = ratingDF.sort_values(by=["User ID", "Movie ID"])
         print(ratingDF)
     
@@ -134,7 +134,7 @@ def main(data, model=LinearRegression()):
     input = pd.read_csv("tfidf_matrix.csv").values
     user = pd.read_csv("ratings.csv")["User ID"].unique()
     recommendations = predict(user, input, W, B)
-    print(recommendations)
+    # print(recommendations)
 
     # print(recommendations[1])
     insert_into_db(recommendations)

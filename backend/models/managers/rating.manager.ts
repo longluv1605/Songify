@@ -83,7 +83,7 @@ class RatingManager implements Manager {
                 );
                 await axios.post(
                     "http://localhost:2000/recommender/contentbased/train/",
-                    { user_rating }
+                     user_rating 
                 );
                 console.log("train success");
             }

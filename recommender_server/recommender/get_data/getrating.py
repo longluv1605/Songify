@@ -6,9 +6,9 @@ def get_data():
     config = {
         "host": "localhost",
         "user": "root",
-        "password": "longluv1605",
+        "password": "ducminh0985978867",
         "database": "moflix",
-        "port": 2021,  # Port mặc định của MariaDB là 3306
+        "port": 8000,  # Port mặc định của MariaDB là 3306
     }
 
     try:
