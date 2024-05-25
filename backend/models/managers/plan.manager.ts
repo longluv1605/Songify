@@ -30,7 +30,7 @@ class PlanManager implements Manager {
             const plans = await Database.query(sql);
             return plans;
         } catch (err) {
-            console.log("Error getting plans:", err);
+            // console.log("Error getting plans:", err);
             throw {
                 message: "Error getting plans",
                 error: err,
@@ -67,7 +67,7 @@ class PlanManager implements Manager {
             ]);
             return { message: "Add plan successfully" };
         } catch (err) {
-            console.log("Error adding plan:", err);
+            // console.log("Error adding plan:", err);
             throw {
                 message: "Error adding plan",
                 error: err,
@@ -107,7 +107,7 @@ class PlanManager implements Manager {
             ]);
             return { message: "Update plan successfully" };
         } catch (err) {
-            console.log("Error updating plan:", err);
+            // console.log("Error updating plan:", err);
             throw {
                 message: "Error updating plan",
                 error: err,
@@ -130,7 +130,7 @@ class PlanManager implements Manager {
             await Database.query(deletePlanSql, [planId]);
             return { message: "Delete plan successfully" };
         } catch (err) {
-            console.log("Error deleting plan:", err);
+            // console.log("Error deleting plan:", err);
             throw {
                 message: "Error deleting plan",
                 error: err,

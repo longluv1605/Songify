@@ -31,7 +31,7 @@ class Searcher {
             const movies = await Database.query(sql);
             return movies;
         } catch (err) {
-            console.log("Error searching by title:", err);
+            // console.log("Error searching by title:", err);
             throw {
                 message: "Error searching by title",
                 error: err,

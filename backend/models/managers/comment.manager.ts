@@ -124,7 +124,7 @@ class CommentManager implements Manager {
                 const comments = await Database.query(sql, [movieId, userId]);
             return comments;
         } catch (err) {
-            console.log("Error getting comments:", err);
+            // console.log("Error getting comments:", err);
             throw err;
         }
     };
@@ -142,7 +142,7 @@ class CommentManager implements Manager {
             await Database.query(insertCommentSql, [movieId, userId, detail]);
             return { message: "Add comment successfully" };
         } catch (err) {
-            console.log("Error adding comment:", err);
+            // console.log("Error adding comment:", err);
             throw {
                 message: "Error adding comment",
                 error: err,
@@ -171,7 +171,7 @@ class CommentManager implements Manager {
             await Database.query(updateCommentSql, [detail, commentId]);
             return { message: "Update comment successfully" };
         } catch (err) {
-            console.log("Error updating comment:", err);
+            // console.log("Error updating comment:", err);
             throw {
                 message: "Error updating comment",
                 error: err,
@@ -189,7 +189,7 @@ class CommentManager implements Manager {
             await Database.query(deleteCommentSql, [commentId]);
             return { message: "Delete comment successfully" };
         } catch (err) {
-            console.log("Error deleting comment:", err);
+            // console.log("Error deleting comment:", err);
             throw {
                 message: "Error deleting comment",
                 error: err,

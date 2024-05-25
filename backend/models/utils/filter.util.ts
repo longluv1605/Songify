@@ -35,7 +35,7 @@ class Filter {
             const movies = await Database.query(sql);
             return movies;
         } catch (err) {
-            console.log("Error filtering by genre:", err);
+            // console.log("Error filtering by genre:", err);
             throw {
                 message: "Error filtering by genre",
                 error: err,
@@ -76,7 +76,7 @@ class Filter {
             const movies = await Database.query(sql, [label]);
             return movies;
         } catch (err) {
-            console.log("Error filtering by label:", err);
+            // console.log("Error filtering by label:", err);
             throw {
                 message: "Error filtering by label",
                 error: err,
@@ -118,7 +118,7 @@ class Filter {
             const movies = await Database.query(sql, [label]);
             return movies;
         } catch (err) {
-            console.log("Error filtering by genre and label:", err);
+            // console.log("Error filtering by genre and label:", err);
             throw {
                 message: "Error filtering by genre and label",
                 error: err,

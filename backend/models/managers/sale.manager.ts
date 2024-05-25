@@ -23,7 +23,7 @@ class SaleManager implements Manager {
             const sales = await Database.query(sql);
             return sales;
         } catch (err) {
-            console.log("Error getting sales:", err);
+            // console.log("Error getting sales:", err);
             throw err;
         }
     };
@@ -46,7 +46,7 @@ class SaleManager implements Manager {
             ]);
             return { message: "Add sale successfully" };
         } catch (err) {
-            console.log("Error adding sale:", err);
+            // console.log("Error adding sale:", err);
             throw {
                 message: "Error adding sale",
                 error: err,

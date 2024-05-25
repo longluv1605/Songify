@@ -8,7 +8,7 @@ class PurchaseMethodManager implements Manager {
             const purchaseMethods = await Database.query(sql);
             return purchaseMethods;
         } catch (err) {
-            console.log("Error getting Purchase methods:", err);
+            // console.log("Error getting Purchase methods:", err);
             throw err;
         }
     };
@@ -31,7 +31,7 @@ class PurchaseMethodManager implements Manager {
             await Database.query(insertPurchaseMethodSql, [name]);
             return { message: "Add purchase method successfully" };
         } catch (err) {
-            console.log("Error adding purchase method:", err);
+            // console.log("Error adding purchase method:", err);
             throw {
                 message: "Error adding purchase method",
                 error: err,
@@ -60,7 +60,7 @@ class PurchaseMethodManager implements Manager {
             await Database.query(updatePurchaseMethodSql, [name, description]);
             return { message: "Update purchase method successfully" };
         } catch (err) {
-            console.log("Error updating purchase method:", err);
+            // console.log("Error updating purchase method:", err);
             throw {
                 message: "Error updating purchase method",
                 error: err,
@@ -87,7 +87,7 @@ class PurchaseMethodManager implements Manager {
             await Database.query(deletePurchaseMethodSql, [name]);
             return { message: "Delete purchase method successfully" };
         } catch (err) {
-            console.log("Error deleting purchase method:", err);
+            // console.log("Error deleting purchase method:", err);
             throw {
                 message: "Error deleting purchase method",
                 error: err,

@@ -45,7 +45,7 @@ class UserManager implements Manager {
             // console.log("user", user);
             return user;
         } catch (err) {
-            console.log("Error getting User by id:", err);
+            // console.log("Error getting User by id:", err);
             throw {
                 message: "Error getting User by id",
                 error: err,
@@ -79,7 +79,7 @@ class UserManager implements Manager {
 
             return { message: "Add User successfully" };
         } catch (err) {
-            console.log("Error adding User:", err);
+            // console.log("Error adding User:", err);
             throw {
                 message: "Error adding User",
                 error: err,
@@ -112,7 +112,7 @@ class UserManager implements Manager {
             ]);
             return { message: "Update User successfully" };
         } catch (err) {
-            console.log("Error updating User:", err);
+            // console.log("Error updating User:", err);
             throw {
                 message: "Error updating User",
                 error: err,
@@ -136,7 +136,7 @@ class UserManager implements Manager {
             await Database.query(deleteUserSql, [userId]);
             return { message: "Delete User successfully" };
         } catch (err) {
-            console.log("Error deleting User:", err);
+            // console.log("Error deleting User:", err);
             throw {
                 message: "Error deleting User",
                 error: err,
@@ -164,7 +164,7 @@ class UserManager implements Manager {
 
             return { message: "Change User plan successfully" };
         } catch (err) {
-            console.log("Error changing User plan:", err);
+            // console.log("Error changing User plan:", err);
             throw {
                 message: "Error changing User plan",
                 error: err,
@@ -206,7 +206,7 @@ class UserManager implements Manager {
             await Database.query(changeStatusSql, [status, userId]);
             return { message: "Change status successfully" };
         } catch (err) {
-            console.log("Error changing status:", err);
+            // console.log("Error changing status:", err);
             throw {
                 message: "Error changing status",
                 error: err,
@@ -245,7 +245,7 @@ class UserManager implements Manager {
             await Database.query(changePasswordSql, [newPassword, userId]);
             return { message: "Change password successfully" };
         } catch (err) {
-            console.log("Error changing password:", err);
+            // console.log("Error changing password:", err);
             throw {
                 message: "Error changing password",
                 error: err,
@@ -278,7 +278,7 @@ class UserManager implements Manager {
             await Database.query(insertHistorySql, [userId, movieId]);
             return { message: "Add movie to history successfully" };
         } catch (err) {
-            console.log("Error adding movie to history:", err);
+            // console.log("Error adding movie to history:", err);
             throw {
                 message: "Error adding movie to history",
                 error: err,
@@ -303,7 +303,7 @@ class UserManager implements Manager {
             await Database.query(deleteHistorySql, [userId, movieId]);
             return { message: "Delete movie from history successfully" };
         } catch (err) {
-            console.log("Error deleting movie from history:", err);
+            // console.log("Error deleting movie from history:", err);
             throw {
                 message: "Error deleting movie from history",
                 error: err,
@@ -336,7 +336,7 @@ class UserManager implements Manager {
             await Database.query(insertFavoriteSql, [userId, movieId]);
             return { message: "Add movie to favorite successfully" };
         } catch (err) {
-            console.log("Error adding movie to favorite:", err);
+            // console.log("Error adding movie to favorite:", err);
             throw {
                 message: "Error adding movie to favorite",
                 error: err,
@@ -360,7 +360,7 @@ class UserManager implements Manager {
             await Database.query(deleteFavoriteSql, [userId, movieId]);
             return { message: "Delete movie from favorite successfully" };
         } catch (err) {
-            console.log("Error deleting movie from favorite:", err);
+            // console.log("Error deleting movie from favorite:", err);
             throw {
                 message: "Error deleting movie from favorite",
                 error: err,
@@ -393,7 +393,7 @@ class UserManager implements Manager {
             await Database.query(insertWatchlistSql, [userId, movieId]);
             return { message: "Add movie to watchlist successfully" };
         } catch (err) {
-            console.log("Error adding movie to watchlist:", err);
+            // console.log("Error adding movie to watchlist:", err);
             throw {
                 message: "Error adding movie to watchlist",
                 error: err,
@@ -417,7 +417,7 @@ class UserManager implements Manager {
             await Database.query(deleteWatchlistSql, [userId, movieId]);
             return { message: "Delete movie from watchlist successfully" };
         } catch (err) {
-            console.log("Error deleting movie from watchlist:", err);
+            // console.log("Error deleting movie from watchlist:", err);
             throw {
                 message: "Error deleting movie from watchlist",
                 error: err,
@@ -443,7 +443,7 @@ class UserManager implements Manager {
 
             return { message: "Buy plan successfully" };
         } catch (err) {
-            console.log("Error buying plan:", err);
+            // console.log("Error buying plan:", err);
             throw {
                 message: "Error buying plan",
                 error: err,

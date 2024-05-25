@@ -1,6 +1,11 @@
 import axios from "axios";
 import Database from "../../database/database";
 import { Manager } from "../../interfaces/interfaces";
+import dotenv from "dotenv";
+dotenv.config();
+
+const ml_server_url = process.env.ML_SERVER_URL;
+const ml_server_port = process.env.ML_SERVER_PORT;
 
 class RatingManager implements Manager {
     public getDatas = async (input: { [key: string]: any }) => {
@@ -82,8 +87,8 @@ class RatingManager implements Manager {
                     [userId]
                 );
                 await axios.post(
-                    "http://localhost:2000/recommender/contentbased/train/",
-                    { user_rating }
+                    `http://localhost:${ml_server_port}${ml_server_url}/train/`,
+                    user_rating
                 );
                 console.log("train success");
             }

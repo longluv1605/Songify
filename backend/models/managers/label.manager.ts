@@ -8,7 +8,7 @@ class LabelManager implements Manager {
             const labels = await Database.query(sql);
             return labels;
         } catch (err) {
-            console.log("Error getting labels:", err);
+            // console.log("Error getting labels:", err);
             throw err;
         }
     }
@@ -33,7 +33,7 @@ class LabelManager implements Manager {
             await Database.query(insertLabelSql, [labelName, description]);
             return { message: "Add label successfully" };
         } catch (err) {
-            console.log("Error adding label:", err);
+            // console.log("Error adding label:", err);
             throw {
                 message: "Error adding label",
                 error: err,
@@ -63,7 +63,7 @@ class LabelManager implements Manager {
             await Database.query(updateLabelSql, [newLabelName, newDescription, labelName]);
             return { message: "Update label successfully" };
         } catch (err) {
-            console.log("Error updating label:", err);
+            // console.log("Error updating label:", err);
             throw {
                 message: "Error updating label",
                 error: err,
@@ -89,7 +89,7 @@ class LabelManager implements Manager {
             await Database.query(deleteLabelSql, [labelName]);
             return { message: "Delete label successfully" };
         } catch (err) {
-            console.log("Error deleting label:", err);
+            // console.log("Error deleting label:", err);
             throw {
                 message: "Error deleting label",
                 error: err,

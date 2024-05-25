@@ -4,6 +4,11 @@ import Filter from "../utils/filter.util";
 import Recommender from "../utils/recommender.utils";
 import { Manager } from "../../interfaces/interfaces";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+
+const ml_server_url = process.env.ML_SERVER_URL;
+const ml_server_port = process.env.ML_SERVER_PORT;
 
 class MovieManager implements Manager {
     private seacher: any;
@@ -154,7 +159,7 @@ class MovieManager implements Manager {
             const movies = await Database.query(sql);
             return movies;
         } catch (err) {
-            console.log("Error getting movies:", err);
+            // console.log("Error getting movies:", err);
             throw {
                 message: "Error getting movies",
                 error: err,
@@ -233,11 +238,11 @@ class MovieManager implements Manager {
                 ]
             ]
 
-            await axios.post("http://localhost:2000/recommender/contentbased/addnewmovie/", data);
+            await axios.post(`http://localhost:${ml_server_port}${ml_server_url}/addnewmovie/`, data);
 
             return { message: "Add movie successfully" };
         } catch (err) {
-            console.log("Error adding movie:", err);
+            // console.log("Error adding movie:", err);
             throw {
                 message: "Error adding movie",
                 error: err,
@@ -314,7 +319,7 @@ class MovieManager implements Manager {
 
             return { message: "Update movie successfully" };
         } catch (err) {
-            console.log("Error updating movie:", err);
+            // console.log("Error updating movie:", err);
             throw {
                 message: "Error updating movie",
                 error: err,
@@ -341,7 +346,7 @@ class MovieManager implements Manager {
             await Database.query(deleteMovieSql, [movieId]);
             return { message: "Delete movie successfully" };
         } catch (err) {
-            console.log("Error deleting movie:", err);
+            // console.log("Error deleting movie:", err);
             throw {
                 message: "Error deleting movie",
                 error: err,
@@ -377,7 +382,7 @@ class MovieManager implements Manager {
             await Database.query(changeStatusSql, [status, movieId]);
             return { message: "Change movie status successfully" };
         } catch (err) {
-            console.log("Error changing movie status:", err);
+            // console.log("Error changing movie status:", err);
             throw {
                 message: "Error changing movie status",
                 error: err,

@@ -8,7 +8,7 @@ class GenreManager implements Manager {
             const genres = await Database.query(sql);
             return genres;
         } catch (err) {
-            console.log("Error getting genres:", err);
+            // console.log("Error getting genres:", err);
             throw err;
         }
     }
@@ -32,7 +32,7 @@ class GenreManager implements Manager {
             await Database.query(insertGenreSql, [genreName]);
             return { message: "Add genre successfully" };
         } catch (err) {
-            console.log("Error adding genre:", err);
+            // console.log("Error adding genre:", err);
             throw {
                 message: "Error adding genre",
                 error: err,
@@ -61,7 +61,7 @@ class GenreManager implements Manager {
             await Database.query(updateGenreSql, [newGenreName, genreName]);
             return { message: "Update genre successfully" };
         } catch (err) {
-            console.log("Error updating genre:", err);
+            // console.log("Error updating genre:", err);
             throw {
                 message: "Error updating genre",
                 error: err,
@@ -87,7 +87,7 @@ class GenreManager implements Manager {
             await Database.query(deleteGenreSql, [genreName]);
             return { message: "Delete genre successfully" };
         } catch (err) {
-            console.log("Error deleting genre:", err);
+            // console.log("Error deleting genre:", err);
             throw {
                 message: "Error deleting genre",
                 error: err,

@@ -37,13 +37,13 @@ def single_train(xtrain, ytrain, model):
 def train(feature_path, label_path, model):
     feature = pd.read_csv(feature_path)
     label = pd.read_csv(label_path)
-    print(feature.shape, label.shape)
+    # print(feature.shape, label.shape)
     W = []
     B = []
     # load data
     i = 0
     for userId in label["User ID"].unique():
-        print(f"userId: {userId}")
+        # print(f"userId: {userId}")
         xtrain, ytrain = prepare(feature, label[label["User ID"] == userId])
         # print(xtrain.shape, ytrain.shape)
         w, b = single_train(xtrain, ytrain, model)
@@ -118,7 +118,7 @@ def insert_into_db(data):
 
 def main(data, model=LinearRegression()):
     if (data):
-        print(">>:>:>::::::::",data)
+        # print(">>:>:>::::::::",data)
         ratingDF = pd.DataFrame(data).rename(columns={"user_id": "User ID", "movie_id": "Movie ID", "value": "Rating"})
     
         ratingDF = ratingDF.sort_values(by=["User ID", "Movie ID"])
@@ -134,7 +134,7 @@ def main(data, model=LinearRegression()):
     input = pd.read_csv("tfidf_matrix.csv").values
     user = pd.read_csv("ratings.csv")["User ID"].unique()
     recommendations = predict(user, input, W, B)
-    print(recommendations)
+    # print(recommendations)
 
     # print(recommendations[1])
     insert_into_db(recommendations)
