@@ -51,7 +51,7 @@ def train(feature_path, label_path, model):
     # load data
     i = 0
     for userId in label["User ID"].unique():
-        # print(f"userId: {userId}")
+        print(f"train userId: {userId}")
         xtrain, ytrain = prepare(feature, label[label["User ID"] == userId])
         # print(xtrain.shape, ytrain.shape)
         w, b = single_train(xtrain, ytrain, model)
@@ -76,6 +76,8 @@ def insert_into_db(data):
     # Cấu hình kết nối
     conn = None
     try:
+        # with open("cbrec.sql", 'w') as f:
+        sql = "INSERT INTO cbrecommendation (user_id, movie_id) VALUES"
         conf = dbconfig
         print(conf)
         # Tạo kết nối
@@ -91,24 +93,25 @@ def insert_into_db(data):
             # print(f"userId: {userId}")
             # print(f"movieIds: {movieIds}")
             
-            sql = f"""
+            dels = f"""
                 DELETE FROM cbrecommendation WHERE user_id = {userId}
             """
-            cursor.execute(sql)
+            # cursor.execute(dels)
             
             movieIds = movieIds[np.argsort(movieIds[:, 1])][:, 0][-10:][::-1]
             for movieId in movieIds:
-                sql = f"""
-                    INSERT INTO cbrecommendation (user_id, movie_id)
-                    VALUES ({userId}, {int(movieId)})
-                """
-                print(sql)
-                cursor.execute(sql)
-                # print(f"Đã thêm dữ liệu {userId}, {int(movieId)} vào bảng cbrecommendation")
-                conn.commit()
+                sql += f"\n({userId}, {int(movieId)}),"
+                # print(sql)
             # k += 1
             # if k == 1:
             #     break
+        sql = sql[:-1] + ";"
+        # print(sql[-10:])
+        cursor.execute(sql)
+        # print(f"Đã thêm dữ liệu {userId}, {int(movieId)} vào bảng cbrecommendation")
+        conn.commit()
+        # f.write(sql)
+        # f.close()
 
     except mariadb.Error as e:
         print(f"Error connecting to MariaDB Platform: {e}")
@@ -135,7 +138,9 @@ def main(data, model=LinearRegression()):
         "ratings.csv",
         model,
     )
+    
     input = pd.read_csv("tfidf_matrix.csv").values
+    
     user = pd.read_csv("ratings.csv")["User ID"].unique()
     recommendations = predict(user, input, W, B)
     # print(recommendations)
