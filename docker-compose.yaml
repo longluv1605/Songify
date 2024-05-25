@@ -26,7 +26,7 @@ services:
 
     recommender:
         build:
-            context: ./recommender_server
+            context: ./recommender_server/recommender
             dockerfile: Dockerfile
         container_name: recommender
         environment:
@@ -38,8 +38,7 @@ services:
         ports:
             - "8000:8000"
         depends_on:
-            database:
-                condition: service_healthy
+            - database
 
     backend:
         build:
@@ -50,15 +49,14 @@ services:
             DB_HOST: "database"
             DB_PORT: 3306
             DB_USER: root
-            DB_PASSWORD: 123
+            DB_PASS: 123
             DB_NAME: moflix
             ML_SERVER_URL: "/recommender/contentbased"
             ML_SERVER_PORT: 8000
         ports:
             - "8080:8080"
         depends_on:
-            database:
-                condition: service_healthy
+            - database
         # Bạn có thể thêm wait-for-it hoặc dockerize để đảm bảo MariaDB đã sẵn sàng trước khi backend khởi động
 
     frontend:
