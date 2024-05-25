@@ -27,14 +27,20 @@
 
 # II - Config môi trường
 
-Tạo file `.env` theo mẫu `.env.example`
+1. Tạo file `.env` theo mẫu `.env.example`
+2. Chỉnh sửa file config.py trong các app của recommender
 
 # II - Chạy server
 
-1. Mở terminal
-2. Chạy lệnh: `npm i`
-3. Chạy lệnh:
+1. Mở cửa sổ dòng lệnh tại thư mục của project recommender trong recommender_server
+   -> Chạy lệnh `python manage.py runserver 127.0.0.0:2000`
+2. Mở cửa sổ dòng lệnh tại thư mục frontend
+   -> Chạy lệnh `npm i`
+   -> Chạy lệnh `npm run frontend`
+3. Mở cửa sổ dòng lệnh tại thư mục frontend
+   -> Chạy lệnh `npm i`
+   -> Chạy lệnh `npm run backend`
 
--   `npm run backend`: Khởi chạy BE.
--   `npm run frontend`: Khởi chạy FE.
--   `npm run dev`: Khởi chạy FE và BE.
+# III - Sử dụng
+1. Truy cập `http://localhost:3000/` để truy cập vào web xem phim.
+2. Để truy cập vào mục quản trị dành riêng cho admin, truy cập `http://localhost:3000/admin/`
